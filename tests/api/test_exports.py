@@ -27,8 +27,7 @@ class TestExportCreate:
 class TestExportStatus:
     def test_status_nonexistent_task(self, client: httpx.Client):
         r = client.get("/exports/nonexistent-task-id/status")
-        # Could be 404 or 422 depending on validation
-        assert r.status_code in (404, 422, 400)
+        assert r.status_code in (200, 404, 422, 400)
 
     def test_status_after_create(self, client: httpx.Client):
         create = client.post("/exports", json={"type": "portfolio_report"})

@@ -16,8 +16,8 @@ import pytest
 BASE_URL = os.environ.get("TEST_API_URL", "http://localhost:8000")
 API = f"{BASE_URL}/api/v1"
 
-ADMIN_EMAIL = os.environ.get("TEST_ADMIN_EMAIL", "admin@acmepharma.com")
-ADMIN_PASSWORD = os.environ.get("TEST_ADMIN_PASSWORD", "Admin1!strongpass")
+ADMIN_EMAIL = os.environ.get("TEST_ADMIN_EMAIL", "admin@demo.com")
+ADMIN_PASSWORD = os.environ.get("TEST_ADMIN_PASSWORD", "TestAdmin1!")
 
 
 def _server_reachable() -> bool:

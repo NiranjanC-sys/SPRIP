@@ -33,13 +33,13 @@ class TestRoiTrend:
         r = client.get("/dashboard/roi-trend")
         assert r.status_code == 200
         data = r.json()
-        assert "data" in data
-        assert isinstance(data["data"], dict)
+        assert "trend" in data
+        assert isinstance(data["trend"], list)
 
     def test_trend_has_items(self, client: httpx.Client):
         r = client.get("/dashboard/roi-trend")
         data = r.json()
-        trend = data["data"].get("trend", [])
+        trend = data.get("trend", [])
         assert isinstance(trend, list)
         assert len(trend) > 0
 
@@ -49,13 +49,13 @@ class TestEngagement:
         r = client.get("/dashboard/engagement")
         assert r.status_code == 200
         data = r.json()
-        assert "data" in data
-        assert isinstance(data["data"], dict)
+        assert "buckets" in data
+        assert isinstance(data["buckets"], list)
 
     def test_engagement_has_buckets(self, client: httpx.Client):
         r = client.get("/dashboard/engagement")
         data = r.json()
-        buckets = data["data"].get("buckets", [])
+        buckets = data.get("buckets", [])
         assert isinstance(buckets, list)
         assert len(buckets) > 0
 
