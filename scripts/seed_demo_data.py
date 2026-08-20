@@ -146,15 +146,16 @@ async def main():
                 # Random venue data
                 venue_city = random.choice(CITIES)
                 venue_name = random.choice(VENUES)
+                planned_attendance = random.randint(50, 500)
                 event_idx += 1
                 await conn.execute(text("""
                     INSERT INTO core.events (id, tenant_id, brand_id, code, name, event_date, format, status, topic_code,
-                        venue_city, venue_name,
+                        venue_city, venue_name, planned_attendance,
                         workflow_status, measurement_eligible, row_version, created_at, updated_at)
                     VALUES (:id, :tid, :bid, :code, :name, :dt, :fmt, :sts, :topic,
-                        :vcity, :vname,
+                        :vcity, :vname, :pa,
                         'DRAFT', true, 1, now(), now())
-                """), {"id": eid, "tid": tenant_id, "bid": assigned_brand_id, "code": code, "name": name, "dt": date.fromisoformat(r.get("date", "2026-01-01")), "fmt": fmt, "sts": sts, "topic": topic or None, "vcity": venue_city, "vname": venue_name})
+                """), {"id": eid, "tid": tenant_id, "bid": assigned_brand_id, "code": code, "name": name, "dt": date.fromisoformat(r.get("date", "2026-01-01")), "fmt": fmt, "sts": sts, "topic": topic or None, "vcity": venue_city, "vname": venue_name, "pa": planned_attendance})
         print(f"  {len(event_map)} events")
 
         # --- Event Costs ---

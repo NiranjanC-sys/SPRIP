@@ -63,7 +63,7 @@ async def main() -> None:
         print(f"  {len(brands)} brands")
 
         rows = await conn.execute(
-            text("SELECT id, brand_id, event_date FROM core.events")
+            text("SELECT id, brand_id, event_date, campaign_id FROM core.events")
         )
         events = [dict(r._mapping) for r in rows]
         print(f"  {len(events)} events")
@@ -239,6 +239,7 @@ async def main() -> None:
         # EVENT grain
         roi_batch = []
         brand_agg = {}  # brand_id -> {inc_nrx, revenue, cost, count, impact_ids, evidence_grades}
+        campaign_agg = {}  # campaign_id -> {inc_nrx, revenue, cost, count, grades, brand_id}
 
         for evt in events:
             event_id = evt["id"]
@@ -266,6 +267,20 @@ async def main() -> None:
             brand_agg[brand_id]["count"] += 1
             brand_agg[brand_id]["grades"].append(impact["evidence_grade"])
 
+            # Accumulate for campaign aggregate
+            c_id = evt.get("campaign_id")
+            if c_id is not None:
+                if c_id not in campaign_agg:
+                    campaign_agg[c_id] = {
+                        "inc_nrx": 0.0, "revenue": 0.0, "cost": 0.0,
+                        "count": 0, "grades": [], "brand_id": brand_id,
+                    }
+                campaign_agg[c_id]["inc_nrx"] += inc_nrx
+                campaign_agg[c_id]["revenue"] += inc_revenue
+                campaign_agg[c_id]["cost"] += total_cost
+                campaign_agg[c_id]["count"] += 1
+                campaign_agg[c_id]["grades"].append(impact["evidence_grade"])
+
             roi_batch.append({
                 "id": uuid.uuid4(),
                 "tid": tenant_id,
@@ -273,6 +288,7 @@ async def main() -> None:
                 "level": "EVENT",
                 "event_id": event_id,
                 "brand_id": brand_id,
+                "campaign_id": evt.get("campaign_id"),
                 "event_impact_id": impact["id"],
                 "finance_vid": finance_version_id,
                 "contrib": REVENUE_PER_NRX,
@@ -290,14 +306,14 @@ async def main() -> None:
                 await conn.execute(text("""
                     INSERT INTO analytics.roi_results
                         (id, tenant_id, run_id, level, event_id, brand_id,
-                         event_impact_id, finance_version_id, scenario,
+                         campaign_id, event_impact_id, finance_version_id, scenario,
                          contribution_per_nrx, incremental_nrx,
                          gross_contribution, total_cost, net_roi, benefit_cost_ratio,
                          evidence_status, evidence_grade, publication_state,
                          currency, row_version, created_at, updated_at)
                     VALUES
                         (:id, :tid, :run_id, :level, :event_id, :brand_id,
-                         :event_impact_id, :finance_vid, 'BASE',
+                         :campaign_id, :event_impact_id, :finance_vid, 'BASE',
                          :contrib, :inc_nrx,
                          :gross, :total_cost, :net_roi, :bcr,
                          'ESTIMATED', :evidence_grade, 'PUBLISHED',
@@ -374,6 +390,55 @@ async def main() -> None:
             })
             brand_roi_count += 1
         print(f"  {brand_roi_count} BRAND-grain roi_results")
+
+        # CAMPAIGN grain
+        campaign_roi_count = 0
+        for c_id, agg in campaign_agg.items():
+            run_id = brand_run_map.get(agg["brand_id"])
+            if run_id is None:
+                continue
+            bcr = round(agg["revenue"] / agg["cost"], 4) if agg["cost"] > 0 else None
+            from collections import Counter
+            grade_counts = Counter(agg["grades"])
+            dominant = grade_counts.most_common(1)[0][0] if grade_counts else "DIRECTIONAL"
+
+            await conn.execute(text("""
+                INSERT INTO analytics.roi_results
+                    (id, tenant_id, run_id, level, campaign_id, brand_id,
+                     finance_version_id, scenario,
+                     contribution_per_nrx, incremental_nrx,
+                     gross_contribution, total_cost, net_roi, benefit_cost_ratio,
+                     evidence_status, evidence_grade, publication_state,
+                     events_measured, evidence_mix,
+                     currency, row_version, created_at, updated_at)
+                VALUES
+                    (:id, :tid, :run_id, 'CAMPAIGN', :campaign_id, :brand_id,
+                     :finance_vid, 'BASE',
+                     :contrib, :inc_nrx,
+                     :gross, :total_cost, :net_roi, :bcr,
+                     'ESTIMATED', :evidence_grade, 'PUBLISHED',
+                     :events_measured, CAST(:emix AS jsonb),
+                     'INR', 1, :now, :now)
+            """), {
+                "id": uuid.uuid4(),
+                "tid": tenant_id,
+                "run_id": run_id,
+                "campaign_id": c_id,
+                "brand_id": agg["brand_id"],
+                "finance_vid": finance_version_id,
+                "contrib": REVENUE_PER_NRX,
+                "inc_nrx": round(agg["inc_nrx"], 2),
+                "gross": round(agg["revenue"], 2),
+                "total_cost": round(agg["cost"], 2),
+                "net_roi": round(agg["revenue"] - agg["cost"], 2),
+                "bcr": bcr,
+                "evidence_grade": dominant,
+                "events_measured": agg["count"],
+                "emix": json.dumps(dict(grade_counts)),
+                "now": now,
+            })
+            campaign_roi_count += 1
+        print(f"  {campaign_roi_count} CAMPAIGN-grain roi_results")
 
         # ── 7. Create portfolio_aggregates (monthly per brand) ─────────
         print("Creating portfolio_aggregates...")

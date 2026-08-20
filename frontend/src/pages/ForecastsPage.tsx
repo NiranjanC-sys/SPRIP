@@ -55,8 +55,8 @@ const columns = [
 ];
 
 export function ForecastsPage() {
-  const { data, status, error } = useApi(() => api.forecasts(), []);
-  const brandsResult = useApi(() => api.brands(), []);
+  const { data, status, error } = useApi(() => api.forecasts(), [], "forecasts-list");
+  const brandsResult = useApi(() => api.brands(), [], "brands-list");
   const [allItems, setAllItems] = useState<ForecastItem[]>([]);
   const [nextCursor, setNextCursor] = useState<string | undefined>();
   const [total, setTotal] = useState(0);

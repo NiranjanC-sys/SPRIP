@@ -6,7 +6,7 @@ import uuid
 from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, Query
-from sqlalchemy import select
+from sqlalchemy import select, text
 
 from speaker_roi_api.deps import PageParams, ReadOnlySession, TenantSession, deny_vendor, require
 from speaker_roi_api.schemas.analyses import (
@@ -299,6 +299,54 @@ async def patch_scenario(
         actor_id=_actor_id(),
     )
     return _scenario_out(row)
+
+
+# ---------------------------------------------------------------------------
+# ML Model Metrics
+# ---------------------------------------------------------------------------
+
+
+@router.get(
+    "/models/metrics",
+    summary="List ML model training metrics",
+    dependencies=[Depends(require(Permission.MODEL_READ))],
+)
+async def list_model_metrics(db: ReadOnlySession) -> dict:
+    result = await db.execute(text("""
+        SELECT mv.id, mv.model_kind, mv.version_number, mv.label,
+               mv.trained_at, mv.lifecycle_state, mv.training_rows,
+               mm.split, mm.metric_name, mm.metric_value, mm.n_observations
+        FROM ml.model_versions mv
+        LEFT JOIN ml.model_metrics mm ON mm.model_version_id = mv.id
+        WHERE mv.tenant_id = current_setting('app.tenant_id')::uuid
+        ORDER BY mv.trained_at DESC, mv.model_kind, mm.split, mm.metric_name
+    """))
+    rows = result.all()
+
+    # Group by model version
+    versions: dict[str, dict] = {}
+    for row in rows:
+        vid = str(row.id)
+        if vid not in versions:
+            versions[vid] = {
+                "id": vid,
+                "model_kind": row.model_kind,
+                "version_number": row.version_number,
+                "label": row.label,
+                "trained_at": row.trained_at.isoformat() if row.trained_at else None,
+                "lifecycle_state": row.lifecycle_state,
+                "training_rows": row.training_rows,
+                "metrics": [],
+            }
+        if row.metric_name is not None:
+            versions[vid]["metrics"].append({
+                "split": row.split,
+                "metric_name": row.metric_name,
+                "metric_value": float(row.metric_value) if row.metric_value is not None else None,
+                "n_observations": row.n_observations,
+            })
+
+    return {"items": list(versions.values())}
 
 
 __all__ = ["router"]

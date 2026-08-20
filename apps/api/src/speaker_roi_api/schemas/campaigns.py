@@ -64,11 +64,17 @@ class CampaignEventItem(Schema):
     event_date: date = Field(serialization_alias="eventDate")
     status: str
     format: str
+    impact_grade: str | None = Field(default=None, serialization_alias="impactGrade")
+    incremental_nrx: float | None = Field(default=None, serialization_alias="incrementalNrx")
 
 
 class CampaignDetailOut(CampaignOut):
     events: list[CampaignEventItem] = Field(default_factory=list)
     total_spend: float | None = Field(default=None, serialization_alias="totalSpend")
+    total_incremental_nrx: float | None = Field(default=None, serialization_alias="totalIncrementalNrx")
+    total_net_roi: float | None = Field(default=None, serialization_alias="totalNetRoi")
+    avg_bcr: float | None = Field(default=None, serialization_alias="avgBcr")
+    evidence_summary: str | None = Field(default=None, serialization_alias="evidenceSummary")
 
 
 __all__ = [

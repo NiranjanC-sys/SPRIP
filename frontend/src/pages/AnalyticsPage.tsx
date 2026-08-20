@@ -22,7 +22,7 @@ const columns = [
 ];
 
 export function AnalyticsPage() {
-  const { data, status, error } = useApi(() => api.analyses(), []);
+  const { data, status, error } = useApi(() => api.analyses(), [], "analyses-list");
 
   return (
     <div>

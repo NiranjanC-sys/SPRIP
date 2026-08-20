@@ -115,6 +115,30 @@ class EventImpactSummary(Schema):
     confidence_level: float | None = Field(
         default=None, serialization_alias="confidenceLevel"
     )
+    att: float | None = None
+    ci_low: float | None = Field(default=None, serialization_alias="ciLow")
+    ci_high: float | None = Field(default=None, serialization_alias="ciHigh")
+    n_treated: int | None = Field(default=None, serialization_alias="nTreated")
+    n_control: int | None = Field(default=None, serialization_alias="nControl")
+    evidence_status: str | None = Field(default=None, serialization_alias="evidenceStatus")
+
+
+class EventRoiSummary(Schema):
+    incremental_nrx: float | None = Field(default=None, serialization_alias="incrementalNrx")
+    gross_contribution: float | None = Field(default=None, serialization_alias="grossContribution")
+    total_cost: float | None = Field(default=None, serialization_alias="totalCost")
+    net_roi: float | None = Field(default=None, serialization_alias="netRoi")
+    benefit_cost_ratio: float | None = Field(default=None, serialization_alias="benefitCostRatio")
+    evidence_grade: str | None = Field(default=None, serialization_alias="evidenceGrade")
+
+
+class EventForecastSummary(Schema):
+    point_estimate: float | None = Field(default=None, serialization_alias="pointEstimate")
+    pi_low: float | None = Field(default=None, serialization_alias="piLow")
+    pi_high: float | None = Field(default=None, serialization_alias="piHigh")
+    expected_attendance: float | None = Field(default=None, serialization_alias="expectedAttendance")
+    expected_incremental_nrx: float | None = Field(default=None, serialization_alias="expectedIncrementalNrx")
+    expected_net_roi: float | None = Field(default=None, serialization_alias="expectedNetRoi")
 
 
 class EventDetailOut(EventOut):
@@ -126,15 +150,19 @@ class EventDetailOut(EventOut):
         default_factory=list, serialization_alias="costBreakdown"
     )
     impact: EventImpactSummary | None = None
+    roi: EventRoiSummary | None = None
+    forecast: EventForecastSummary | None = None
 
 
 __all__ = [
     "EventCostItem",
     "EventCreate",
     "EventDetailOut",
+    "EventForecastSummary",
     "EventImpactSummary",
     "EventOut",
     "EventPatch",
+    "EventRoiSummary",
     "EventSpeakerIn",
     "EventSpeakerOut",
 ]

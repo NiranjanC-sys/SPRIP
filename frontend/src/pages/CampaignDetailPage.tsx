@@ -78,6 +78,16 @@ export function CampaignDetailPage() {
       header: "Attendance",
       render: (r: Record<string, unknown>) => String(r.plannedAttendance ?? "-"),
     },
+    {
+      key: "impactGrade",
+      header: "Impact",
+      render: (r: Record<string, unknown>) => r.impactGrade ? <StatusBadge status={String(r.impactGrade)} /> : "-",
+    },
+    {
+      key: "incrementalNrx",
+      header: "Incr. NRx",
+      render: (r: Record<string, unknown>) => r.incrementalNrx != null ? Number(r.incrementalNrx).toFixed(1) : "-",
+    },
   ];
 
   return (
@@ -122,9 +132,11 @@ export function CampaignDetailPage() {
           icon={CalendarDays}
         />
         <MetricCard
-          label="Status"
-          value={String(campaign.status ?? "N/A")}
+          label="Avg BCR"
+          value={campaign.avgBcr != null ? `${Number(campaign.avgBcr).toFixed(2)}x` : "N/A"}
           icon={TrendingUp}
+          trend={campaign.avgBcr > 1 ? "Positive" : undefined}
+          trendUp={campaign.avgBcr > 1}
         />
       </div>
 
@@ -169,6 +181,39 @@ export function CampaignDetailPage() {
           )}
         </div>
       </div>
+
+      {/* Campaign ROI Summary */}
+      {(campaign.totalIncrementalNrx != null || campaign.avgBcr != null) && (
+        <div className="rounded-xl border p-5 mb-6" style={{ backgroundColor: "var(--color-bg-card)", borderColor: "var(--color-border-default)" }}>
+          <h3 className="text-sm font-medium mb-3" style={{ color: "var(--color-text-secondary)" }}>Campaign ROI Summary</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {campaign.plannedBudget != null && (
+              <div>
+                <div className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>Total Spend</div>
+                <div className="text-lg font-bold">{formatCurrency(Number(campaign.plannedBudget))}</div>
+              </div>
+            )}
+            {campaign.totalIncrementalNrx != null && (
+              <div>
+                <div className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>Total Incremental NRx</div>
+                <div className="text-lg font-bold">{Number(campaign.totalIncrementalNrx).toFixed(1)}</div>
+              </div>
+            )}
+            {campaign.avgBcr != null && (
+              <div>
+                <div className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>Avg BCR</div>
+                <div className="text-lg font-bold">{Number(campaign.avgBcr).toFixed(2)}x</div>
+              </div>
+            )}
+            {campaign.evidenceSummary != null && (
+              <div>
+                <div className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>Evidence Summary</div>
+                <div className="text-lg font-bold">{campaign.evidenceSummary}</div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Events table */}
       <div

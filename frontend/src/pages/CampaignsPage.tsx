@@ -65,8 +65,8 @@ const labelStyle: React.CSSProperties = {
 };
 
 export function CampaignsPage() {
-  const { data, status, error, refetch } = useApi(() => api.campaigns(), []);
-  const brandsResult = useApi(() => api.brands(), []);
+  const { data, status, error, refetch } = useApi(() => api.campaigns(), [], "campaigns-list");
+  const brandsResult = useApi(() => api.brands(), [], "brands-list");
   const { showToast } = useToast();
   const [showCreate, setShowCreate] = useState(false);
   const [submitting, setSubmitting] = useState(false);

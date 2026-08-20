@@ -5,7 +5,6 @@ import {
   Users,
   Megaphone,
   CalendarDays,
-  BarChart3,
   TrendingUp,
   Upload,
   Sun,
@@ -18,26 +17,40 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
-import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { useState, useMemo } from "react";
 
-const navItems = [
+interface NavItem {
+  to: string;
+  icon: typeof LayoutDashboard;
+  label: string;
+  adminOnly?: boolean;
+}
+
+const allNavItems: NavItem[] = [
   { to: "/", icon: LayoutDashboard, label: "Dashboard" },
   { to: "/brands", icon: Tag, label: "Brands" },
   { to: "/hcps", icon: Users, label: "HCPs" },
   { to: "/campaigns", icon: Megaphone, label: "Campaigns" },
   { to: "/events", icon: CalendarDays, label: "Events" },
   { to: "/import", icon: Upload, label: "Import" },
-  { to: "/analytics/dashboard", icon: TrendingUp, label: "ROI Analytics" },
-  { to: "/analytics", icon: BarChart3, label: "Analytics" },
-  { to: "/roi", icon: PieChart, label: "ROI Results" },
-  { to: "/forecasts", icon: LineChart, label: "Forecasts" },
+  { to: "/analytics/dashboard", icon: TrendingUp, label: "ROI Analytics", adminOnly: true },
+  { to: "/roi", icon: PieChart, label: "ROI Results", adminOnly: true },
+  { to: "/forecasts", icon: LineChart, label: "Forecasts", adminOnly: true },
   { to: "/exports", icon: Download, label: "Exports" },
   { to: "/data-steward", icon: ShieldCheck, label: "Data Steward" },
 ];
 
 export function Sidebar() {
   const { theme, cycle } = useTheme();
+  const { user } = useAuth();
   const [collapsed, setCollapsed] = useState(false);
+
+  const isAdmin = user?.roles?.includes("PHARMA_ADMIN") ?? false;
+  const navItems = useMemo(
+    () => allNavItems.filter((item) => !item.adminOnly || isAdmin),
+    [isAdmin]
+  );
 
   const themeIcon =
     theme === "dark" ? Moon : theme === "light" ? Sun : Monitor;

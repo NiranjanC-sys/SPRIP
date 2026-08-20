@@ -75,13 +75,6 @@ npm run dev
 celery -A speaker_roi_worker.app worker -l info -Q analytics,ingestion,exports
 ```
 
-## 8. Open the App
-
-| Service   | URL                         |
-|-----------|-----------------------------|
-| Frontend  | http://localhost:5173       |
-| API       | http://localhost:8000       |
-| MinIO UI  | http://localhost:9100       |
 
 **Login:** `admin@demo.com` / `admin@123`
 

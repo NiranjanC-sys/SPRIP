@@ -9,9 +9,9 @@ import { AreaChart, Area, ResponsiveContainer } from "recharts";
 
 export function DashboardPage() {
   const { user } = useAuth();
-  const dashStats = useApi(() => api.dashboardStats(), []);
-  const events = useApi(() => api.events(), []);
-  const brands = useApi(() => api.brands(), []);
+  const dashStats = useApi(() => api.dashboardStats(), [], "dashboard-stats");
+  const events = useApi(() => api.events(), [], "events-list");
+  const brands = useApi(() => api.brands(), [], "brands-list");
 
   const brandCount = dashStats.data?.totalBrands ?? 0;
   const hcpCount = dashStats.data?.totalHcps ?? 0;

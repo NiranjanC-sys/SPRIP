@@ -28,7 +28,7 @@ const columns = [
 ];
 
 export function HCPsPage() {
-  const { data, status, error } = useApi(() => api.hcps(), []);
+  const { data, status, error } = useApi(() => api.hcps(), [], "hcps-list");
   const [allItems, setAllItems] = useState<HCP[]>([]);
   const [nextCursor, setNextCursor] = useState<string | undefined>();
   const [total, setTotal] = useState(0);

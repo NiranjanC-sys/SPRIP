@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useCallback, useEffect } from "rea
 import type { ReactNode } from "react";
 import type { MeResponse, LoginResponse } from "@/types/api";
 import { api, ApiClientError } from "@/lib/api";
+import { clearApiCache } from "@/hooks/useApi";
 
 interface AuthState {
   user: MeResponse | null;
@@ -83,6 +84,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch {
       // ignore
     }
+    clearApiCache();
     setState({
       user: null,
       loginResponse: null,

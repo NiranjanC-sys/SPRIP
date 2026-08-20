@@ -8,7 +8,6 @@ import { BrandsPage } from "@/pages/BrandsPage";
 import { HCPsPage } from "@/pages/HCPsPage";
 import { CampaignsPage } from "@/pages/CampaignsPage";
 import { EventsPage } from "@/pages/EventsPage";
-import { AnalyticsPage } from "@/pages/AnalyticsPage";
 import { AnalyticsDashboardPage } from "@/pages/AnalyticsDashboardPage";
 import { HCPDetailPage } from "@/pages/HCPDetailPage";
 import { EventDetailPage } from "@/pages/EventDetailPage";
@@ -70,6 +69,13 @@ function ProtectedLayout() {
   );
 }
 
+function AdminRoute({ children }: { children: React.ReactNode }) {
+  const { user } = useAuth();
+  const isAdmin = user?.roles?.includes("PHARMA_ADMIN") ?? false;
+  if (!isAdmin) return <Navigate to="/" replace />;
+  return <>{children}</>;
+}
+
 function LoginRoute() {
   const { user, loading, needsMfa } = useAuth();
   if (loading) return null;
@@ -92,13 +98,12 @@ export default function App() {
             <Route path="events" element={<EventsPage />} />
             <Route path="import" element={<ImportPage />} />
             <Route path="data-steward" element={<DataStewardPage />} />
-            <Route path="analytics" element={<AnalyticsPage />} />
-            <Route path="analytics/dashboard" element={<AnalyticsDashboardPage />} />
+            <Route path="analytics/dashboard" element={<AdminRoute><AnalyticsDashboardPage /></AdminRoute>} />
             <Route path="hcps/:id" element={<HCPDetailPage />} />
             <Route path="events/:id" element={<EventDetailPage />} />
             <Route path="campaigns/:id" element={<CampaignDetailPage />} />
-            <Route path="roi" element={<RoiResultsPage />} />
-            <Route path="forecasts" element={<ForecastsPage />} />
+            <Route path="roi" element={<AdminRoute><RoiResultsPage /></AdminRoute>} />
+            <Route path="forecasts" element={<AdminRoute><ForecastsPage /></AdminRoute>} />
             <Route path="exports" element={<ExportsPage />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />

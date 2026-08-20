@@ -35,7 +35,7 @@ const columns = [
 ];
 
 export function BrandsPage() {
-  const { data, status, error, refetch } = useApi(() => api.brands(), []);
+  const { data, status, error, refetch } = useApi(() => api.brands(), [], "brands-list");
   const [showForm, setShowForm] = useState(false);
   const [search, setSearch] = useState("");
   const [allItems, setAllItems] = useState<Brand[]>([]);

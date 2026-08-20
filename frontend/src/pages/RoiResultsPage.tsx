@@ -98,7 +98,7 @@ export function RoiResultsPage() {
     () => api.roiResults(undefined, brandFilter !== "All" ? brandFilter : undefined, levelFilter !== "All" ? levelFilter : undefined),
     [brandFilter, levelFilter]
   );
-  const brandsResult = useApi(() => api.brands(), []);
+  const brandsResult = useApi(() => api.brands(), [], "brands-list");
 
   const initialLoaded = data !== null;
   if (initialLoaded && allItems.length === 0 && (data?.items.length ?? 0) > 0) {

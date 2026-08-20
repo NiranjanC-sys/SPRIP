@@ -19,9 +19,11 @@ from speaker_roi_api.schemas.events import (
     EventCostItem,
     EventCreate,
     EventDetailOut,
+    EventForecastSummary,
     EventImpactSummary,
     EventOut,
     EventPatch,
+    EventRoiSummary,
     EventSpeakerIn,
     EventSpeakerOut,
 )
@@ -263,7 +265,8 @@ async def get_event(db: ReadOnlySession, event_id: uuid.UUID) -> EventDetailOut:
         impact_row = (
             await db.execute(
                 text(
-                    "SELECT incremental_nrx, p_value, evidence_grade, confidence_level "
+                    "SELECT incremental_nrx, p_value, evidence_grade, confidence_level, "
+                    "att, ci_low, ci_high, n_treated, n_control, evidence_status "
                     "FROM analytics.event_impacts "
                     "WHERE event_id = :eid "
                     "ORDER BY created_at DESC LIMIT 1"
@@ -277,6 +280,66 @@ async def get_event(db: ReadOnlySession, event_id: uuid.UUID) -> EventDetailOut:
                 p_value=float(impact_row[1]) if impact_row[1] is not None else None,
                 grade=str(impact_row[2]) if impact_row[2] is not None else None,
                 confidence_level=float(impact_row[3]) if impact_row[3] is not None else None,
+                att=float(impact_row[4]) if impact_row[4] is not None else None,
+                ci_low=float(impact_row[5]) if impact_row[5] is not None else None,
+                ci_high=float(impact_row[6]) if impact_row[6] is not None else None,
+                n_treated=int(impact_row[7]) if impact_row[7] is not None else None,
+                n_control=int(impact_row[8]) if impact_row[8] is not None else None,
+                evidence_status=str(impact_row[9]) if impact_row[9] is not None else None,
+            )
+    except Exception:
+        pass
+
+    # ROI from analytics.roi_results
+    roi_obj: EventRoiSummary | None = None
+    try:
+        roi_row = (
+            await db.execute(
+                text(
+                    "SELECT incremental_nrx, gross_contribution, total_cost, net_roi, "
+                    "benefit_cost_ratio, evidence_grade "
+                    "FROM analytics.roi_results "
+                    "WHERE event_id = :eid AND level = 'EVENT' "
+                    "ORDER BY created_at DESC LIMIT 1"
+                ),
+                {"eid": event_id},
+            )
+        ).first()
+        if roi_row is not None:
+            roi_obj = EventRoiSummary(
+                incremental_nrx=float(roi_row[0]) if roi_row[0] is not None else None,
+                gross_contribution=float(roi_row[1]) if roi_row[1] is not None else None,
+                total_cost=float(roi_row[2]) if roi_row[2] is not None else None,
+                net_roi=float(roi_row[3]) if roi_row[3] is not None else None,
+                benefit_cost_ratio=float(roi_row[4]) if roi_row[4] is not None else None,
+                evidence_grade=str(roi_row[5]) if roi_row[5] is not None else None,
+            )
+    except Exception:
+        pass
+
+    # Forecast from analytics.forecasts (brand-level)
+    forecast_obj: EventForecastSummary | None = None
+    try:
+        forecast_row = (
+            await db.execute(
+                text(
+                    "SELECT point_estimate, pi_low, pi_high, expected_attendance, "
+                    "expected_incremental_nrx, expected_net_roi "
+                    "FROM analytics.forecasts "
+                    "WHERE brand_id = :bid "
+                    "ORDER BY created_at DESC LIMIT 1"
+                ),
+                {"bid": row.brand_id},
+            )
+        ).first()
+        if forecast_row is not None:
+            forecast_obj = EventForecastSummary(
+                point_estimate=float(forecast_row[0]) if forecast_row[0] is not None else None,
+                pi_low=float(forecast_row[1]) if forecast_row[1] is not None else None,
+                pi_high=float(forecast_row[2]) if forecast_row[2] is not None else None,
+                expected_attendance=float(forecast_row[3]) if forecast_row[3] is not None else None,
+                expected_incremental_nrx=float(forecast_row[4]) if forecast_row[4] is not None else None,
+                expected_net_roi=float(forecast_row[5]) if forecast_row[5] is not None else None,
             )
     except Exception:
         pass
@@ -287,6 +350,8 @@ async def get_event(db: ReadOnlySession, event_id: uuid.UUID) -> EventDetailOut:
         total_cost=total_cost_val,
         cost_breakdown=cost_breakdown,
         impact=impact,
+        roi=roi_obj,
+        forecast=forecast_obj,
     )
 
 

@@ -388,6 +388,12 @@ def record_to_database(m1_results: dict, m2_results: dict, m3_results: dict):
                 artifact_checksum = _sha256_file(artifact_path)
                 artifact_bytes = artifact_path.stat().st_size
 
+            next_ver = conn.execute(text("""
+                SELECT COALESCE(MAX(version_number), 0) + 1
+                FROM ml.model_versions
+                WHERE tenant_id = :tid AND model_spec_id = :spec_id
+            """), {"tid": tenant_id, "spec_id": spec_id}).scalar()
+
             conn.execute(text("""
                 INSERT INTO ml.model_versions
                     (id, tenant_id, model_spec_id, model_kind, version_number, label,
@@ -396,14 +402,14 @@ def record_to_database(m1_results: dict, m2_results: dict, m3_results: dict):
                      trained_at, trained_on_synthetic,
                      created_by, updated_by, created_at, updated_at, row_version)
                 VALUES
-                    (:id, :tid, :spec_id, :kind, 1, :label,
+                    (:id, :tid, :spec_id, :kind, :ver_num, :label,
                      :lifecycle, :akey, :achk, :abytes,
                      :hyper, :tr_rows, :val_rows,
                      :now, true,
                      :uid, :uid, :now, :now, 1)
             """), {
                 "id": ver_id, "tid": tenant_id, "spec_id": spec_id, "kind": model_kind,
-                "lifecycle": lifecycle_state, "label": f"initial-train-{now.strftime('%Y%m%d')}",
+                "ver_num": next_ver, "lifecycle": lifecycle_state, "label": f"train-v{next_ver}-{now.strftime('%Y%m%d')}",
                 "akey": artifact_key, "achk": artifact_checksum, "abytes": artifact_bytes,
                 "hyper": json.dumps(hyperparameters) if hyperparameters else None,
                 "tr_rows": training_rows, "val_rows": validation_rows,

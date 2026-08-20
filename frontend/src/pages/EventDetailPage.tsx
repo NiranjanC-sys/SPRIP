@@ -4,6 +4,7 @@ import { MetricCard } from "@/components/MetricCard";
 import { DataTable } from "@/components/DataTable";
 import { StatusBadge } from "@/components/StatusBadge";
 import { useApi } from "@/hooks/useApi";
+import { useAuth } from "@/context/AuthContext";
 import { api } from "@/lib/api";
 import { ArrowLeft, Loader2, AlertCircle, DollarSign, Users, TrendingUp, BarChart3 } from "lucide-react";
 import {
@@ -28,6 +29,8 @@ function formatCurrency(n: number): string {
 
 export function EventDetailPage() {
   const { id } = useParams<{ id: string }>();
+  const { user } = useAuth();
+  const isAdmin = user?.roles?.includes("PHARMA_ADMIN") ?? false;
   const { data, status, error } = useApi(() => api.eventDetail(id!), [id]);
   const costs = useApi(() => api.eventCosts(id!), [id]);
 
@@ -69,20 +72,11 @@ export function EventDetailPage() {
 
   const event = data;
   const costItems: Record<string, unknown>[] = costs.data?.items ?? event.costs ?? [];
-  const attendeeList: Record<string, unknown>[] = event.attendees_list ?? event.attendeesList ?? [];
-  const hasAttendeeData = attendeeList.length > 0;
-
   // Build cost breakdown chart data
   const costChartData = costItems.map((c) => ({
     category: String(c.category ?? c.name ?? c.type ?? "Other"),
     amount: Number(c.amount ?? c.cost ?? 0),
   }));
-
-  const attendeeColumns = [
-    { key: "name", header: "Name", render: (r: Record<string, unknown>) => String(r.name ?? r.hcpName ?? r.id) },
-    { key: "specialty", header: "Specialty", render: (r: Record<string, unknown>) => String(r.specialty ?? "-") },
-    { key: "role", header: "Role", render: (r: Record<string, unknown>) => String(r.role ?? "-") },
-  ];
 
   const tooltipStyle = {
     contentStyle: {
@@ -190,45 +184,164 @@ export function EventDetailPage() {
         )}
       </div>
 
-      {/* Impact card */}
-      {(event.incrementalRx != null || event.grade != null) && (
-        <div
-          className="rounded-xl border p-5 mb-6"
-          style={{
-            backgroundColor: "var(--color-bg-card)",
-            borderColor: "var(--color-border-default)",
-          }}
-        >
-          <h3
-            className="text-sm font-medium mb-3"
-            style={{ color: "var(--color-text-secondary)" }}
-          >
-            Impact Analysis
-          </h3>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {event.incrementalRx != null && (
-              <div>
-                <div className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>Incremental Rx</div>
-                <div className="text-lg font-bold">{Number(event.incrementalRx).toFixed(1)}</div>
+      {/* Impact Analysis & ROI Charts — admin only */}
+      {isAdmin && (event.impact || event.roi) && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          {/* Impact Analysis Chart */}
+          {event.impact && (() => {
+            const att = Number(event.impact.att);
+            const ciLow = Number(event.impact.ciLow);
+            const ciHigh = Number(event.impact.ciHigh);
+            const incrNrx = Number(event.impact.incrementalValue);
+            const pValue = Number(event.impact.pValue);
+            const impactBarData = [
+              { name: "ATT", value: att, fill: colors[0] },
+              { name: "CI Low", value: ciLow, fill: colors[1] },
+              { name: "CI High", value: ciHigh, fill: colors[2] },
+            ];
+            const groupData = [
+              { name: "Treated", value: Number(event.impact.nTreated), fill: colors[0] },
+              { name: "Control", value: Number(event.impact.nControl), fill: colors[1] },
+            ];
+            return (
+              <div className="rounded-xl border p-5" style={{ backgroundColor: "var(--color-bg-card)", borderColor: "var(--color-border-default)" }}>
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="text-sm font-medium" style={{ color: "var(--color-text-secondary)" }}>Impact Analysis</h3>
+                  <span className="text-xs px-2 py-0.5 rounded-full" style={{ backgroundColor: pValue < 0.05 ? "var(--color-chart-3)" : "var(--color-chart-4)", color: "#fff" }}>
+                    {event.impact.grade}
+                  </span>
+                </div>
+                <p className="text-xs mb-3" style={{ color: "var(--color-text-tertiary)" }}>
+                  ATT: {att.toFixed(2)} | Incr. NRx: {incrNrx.toFixed(1)} | p={pValue.toFixed(4)}
+                </p>
+                <ResponsiveContainer width="100%" height={180}>
+                  <BarChart data={impactBarData} layout="vertical" margin={{ top: 5, right: 20, left: 50, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border-default)" />
+                    <XAxis type="number" tick={{ fontSize: 11, fill: "var(--color-text-tertiary)" }} stroke="var(--color-border-default)" />
+                    <YAxis dataKey="name" type="category" tick={{ fontSize: 11, fill: "var(--color-text-tertiary)" }} stroke="var(--color-border-default)" width={55} />
+                    <Tooltip {...tooltipStyle} formatter={(value: number) => value.toFixed(2)} />
+                    <Bar dataKey="value" radius={[0, 4, 4, 0]}>
+                      {impactBarData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <div className="mt-3">
+                  <div className="text-xs font-medium mb-2" style={{ color: "var(--color-text-tertiary)" }}>Treatment vs Control Groups</div>
+                  <ResponsiveContainer width="100%" height={100}>
+                    <BarChart data={groupData} margin={{ top: 5, right: 20, left: 50, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border-default)" />
+                      <XAxis type="number" tick={{ fontSize: 11, fill: "var(--color-text-tertiary)" }} stroke="var(--color-border-default)" />
+                      <YAxis dataKey="name" type="category" tick={{ fontSize: 11, fill: "var(--color-text-tertiary)" }} stroke="var(--color-border-default)" width={55} />
+                      <Tooltip {...tooltipStyle} />
+                      <Bar dataKey="value" radius={[0, 4, 4, 0]}>
+                        {groupData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
               </div>
-            )}
-            {event.grade != null && (
-              <div>
-                <div className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>Grade</div>
-                <div className="text-lg font-bold">{String(event.grade)}</div>
+            );
+          })()}
+
+          {/* ROI Analysis Chart */}
+          {event.roi && (() => {
+            const totalCost = Number(event.roi.totalCost);
+            const grossContrib = Number(event.roi.grossContribution);
+            const netRoi = Number(event.roi.netRoi);
+            const bcr = Number(event.roi.benefitCostRatio);
+            const roiBarData = [
+              { name: "Total Cost", value: totalCost, fill: colors[4] },
+              { name: "Gross Contribution", value: grossContrib, fill: colors[2] },
+              { name: "Net ROI", value: netRoi, fill: netRoi >= 0 ? colors[2] : colors[4] },
+            ];
+            return (
+              <div className="rounded-xl border p-5" style={{ backgroundColor: "var(--color-bg-card)", borderColor: "var(--color-border-default)" }}>
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="text-sm font-medium" style={{ color: "var(--color-text-secondary)" }}>ROI Analysis</h3>
+                  <span className="text-xs px-2 py-0.5 rounded-full" style={{ backgroundColor: "var(--color-chart-1)", color: "#fff" }}>
+                    BCR: {bcr.toFixed(2)}x
+                  </span>
+                </div>
+                <p className="text-xs mb-3" style={{ color: "var(--color-text-tertiary)" }}>
+                  Evidence: {event.roi.evidenceGrade}
+                </p>
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart data={roiBarData} margin={{ top: 5, right: 20, left: 20, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border-default)" />
+                    <XAxis dataKey="name" tick={{ fontSize: 10, fill: "var(--color-text-tertiary)" }} stroke="var(--color-border-default)" />
+                    <YAxis tick={{ fontSize: 11, fill: "var(--color-text-tertiary)" }} stroke="var(--color-border-default)" tickFormatter={(v) => formatCurrency(v)} />
+                    <Tooltip {...tooltipStyle} formatter={(value: number) => formatCurrency(value)} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {roiBarData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
               </div>
-            )}
-            {event.confidence != null && (
-              <div>
-                <div className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>Confidence</div>
-                <div className="text-lg font-bold">{String(event.confidence)}</div>
-              </div>
-            )}
-          </div>
+            );
+          })()}
         </div>
       )}
 
-      {/* Attendees */}
+      {/* Brand Forecast Chart — admin only */}
+      {isAdmin && event.forecast && (() => {
+        const pointEst = Number(event.forecast.pointEstimate);
+        const piLow = Number(event.forecast.piLow);
+        const piHigh = Number(event.forecast.piHigh);
+        const expAttend = Number(event.forecast.expectedAttendance);
+        const expNrx = Number(event.forecast.expectedIncrementalNrx);
+        const expRoi = Number(event.forecast.expectedNetRoi);
+        const forecastBarData = [
+          { name: "PI Low", value: piLow },
+          { name: "Predicted NRx", value: pointEst },
+          { name: "PI High", value: piHigh },
+        ];
+        const expectationsData = [
+          { name: "Attendance", value: expAttend, fill: colors[0] },
+          { name: "Incr. NRx", value: expNrx, fill: colors[2] },
+        ];
+        return (
+          <div className="rounded-xl border p-5 mb-6" style={{ backgroundColor: "var(--color-bg-card)", borderColor: "var(--color-border-default)" }}>
+            <div className="flex items-center justify-between mb-1">
+              <h3 className="text-sm font-medium" style={{ color: "var(--color-text-secondary)" }}>Brand Forecast</h3>
+              <span className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>Expected Net ROI: {formatCurrency(expRoi)}</span>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-3">
+              <div>
+                <div className="text-xs font-medium mb-2" style={{ color: "var(--color-text-tertiary)" }}>Prediction Interval</div>
+                <ResponsiveContainer width="100%" height={180}>
+                  <BarChart data={forecastBarData} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border-default)" />
+                    <XAxis dataKey="name" tick={{ fontSize: 10, fill: "var(--color-text-tertiary)" }} stroke="var(--color-border-default)" />
+                    <YAxis tick={{ fontSize: 11, fill: "var(--color-text-tertiary)" }} stroke="var(--color-border-default)" />
+                    <Tooltip {...tooltipStyle} formatter={(value: number) => value.toFixed(2)} />
+                    <Bar dataKey="value" fill={colors[0]} radius={[4, 4, 0, 0]}>
+                      <Cell fill={colors[1]} />
+                      <Cell fill={colors[0]} />
+                      <Cell fill={colors[3]} />
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <div>
+                <div className="text-xs font-medium mb-2" style={{ color: "var(--color-text-tertiary)" }}>Expected Outcomes</div>
+                <ResponsiveContainer width="100%" height={180}>
+                  <BarChart data={expectationsData} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border-default)" />
+                    <XAxis dataKey="name" tick={{ fontSize: 10, fill: "var(--color-text-tertiary)" }} stroke="var(--color-border-default)" />
+                    <YAxis tick={{ fontSize: 11, fill: "var(--color-text-tertiary)" }} stroke="var(--color-border-default)" />
+                    <Tooltip {...tooltipStyle} formatter={(value: number) => value.toFixed(1)} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {expectationsData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* Speakers */}
       <div
         className="rounded-xl border p-5"
         style={{
@@ -240,12 +353,17 @@ export function EventDetailPage() {
           className="text-sm font-medium mb-4"
           style={{ color: "var(--color-text-secondary)" }}
         >
-          Attendees
+          Speakers
         </h3>
-        {hasAttendeeData ? (
+        {(event.speakers as Record<string, unknown>[] | undefined)?.length ? (
           <DataTable
-            columns={attendeeColumns}
-            data={attendeeList}
+            columns={[
+              { key: "hcpId", header: "HCP ID", render: (r: Record<string, unknown>) => String(r.hcpId ?? r.id ?? "-") },
+              { key: "tier", header: "Tier", render: (r: Record<string, unknown>) => r.tier ? <StatusBadge status={String(r.tier)} /> : "-" },
+              { key: "speakingRole", header: "Role", render: (r: Record<string, unknown>) => String(r.speakingRole ?? "-") },
+              { key: "honorariumAmount", header: "Honorarium", render: (r: Record<string, unknown>) => r.honorariumAmount != null ? `${formatCurrency(Number(r.honorariumAmount))} ${r.currency ?? ""}`.trim() : "-" },
+            ]}
+            data={event.speakers as Record<string, unknown>[]}
             status="success"
             error={null}
             keyFn={(r) => String(r.id ?? r.hcpId ?? Math.random())}
@@ -255,7 +373,7 @@ export function EventDetailPage() {
             className="text-sm text-center py-8"
             style={{ color: "var(--color-text-tertiary)" }}
           >
-            Attendance data loading
+            No speaker data available
           </div>
         )}
       </div>

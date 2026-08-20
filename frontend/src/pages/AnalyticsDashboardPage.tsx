@@ -89,13 +89,13 @@ export function AnalyticsDashboardPage() {
   const colors = useChartColors();
   const [brandFilter, setBrandFilter] = useState<string>("All");
 
-  const stats = useApi(() => api.dashboardStats(), []);
-  const brandsResult = useApi(() => api.brands(), []);
-  const impacts = useApi(() => api.impacts(), []);
-  const roiResults = useApi(() => api.roiResults(), []);
+  const stats = useApi(() => api.dashboardStats(), [], "dashboard-stats");
+  const brandsResult = useApi(() => api.brands(), [], "brands-list");
+  const impacts = useApi(() => api.impacts(), [], "impacts-list");
+  const roiResults = useApi(() => api.roiResults(), [], "roi-results-all");
 
-  const roiTrend = useApi(() => api.dashboardRoiTrend(), []);
-  const engagement = useApi(() => api.dashboardEngagement(), []);
+  const roiTrend = useApi(() => api.dashboardRoiTrend(), [], "roi-trend");
+  const engagement = useApi(() => api.dashboardEngagement(), [], "engagement");
 
   const brands = brandsResult.data?.items ?? [];
 
