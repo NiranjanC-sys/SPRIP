@@ -149,3 +149,79 @@ export interface FinanceVersion {
   createdAt?: string;
   [key: string]: unknown;
 }
+
+export interface DashboardStats {
+  totalBrands: number;
+  totalHcps: number;
+  totalCampaigns: number;
+  totalEvents: number;
+  totalSpend: number;
+  avgRoi: number;
+  totalAttendees: number;
+  engagementRate: number;
+  topBrand?: { name: string; roi: number };
+}
+
+export interface RoiTrendItem {
+  month: string;
+  brand: string;
+  spend: number;
+  trx: number;
+}
+
+export interface RoiTrendResponse {
+  trend: RoiTrendItem[];
+}
+
+export interface CampaignCreateRequest {
+  code: string;
+  name: string;
+  brandId: string;
+  startDate: string;
+  plannedBudget?: number;
+  currency?: string;
+  objective?: string;
+}
+
+export interface EngagementResponse {
+  buckets: { bucket: string; count: number }[];
+  bySpecialty: { specialty: string; avgEvents: number }[];
+  byRegion: { region: string; avgEvents: number }[];
+}
+
+export interface RoiResult {
+  id: string;
+  runId: string;
+  level: string;
+  eventId?: string;
+  brandId?: string;
+  incrementalNrx?: number;
+  grossContribution?: number;
+  totalCost?: number;
+  netRoi?: number;
+  benefitCostRatio?: number;
+  evidenceGrade?: string;
+  currency?: string;
+  [key: string]: unknown;
+}
+
+export interface ForecastItem {
+  id: string;
+  brandId?: string;
+  periodStart?: string;
+  periodEnd?: string;
+  predictedNrx?: number;
+  predictedRevenue?: number;
+  confidenceLow?: number;
+  confidenceHigh?: number;
+  modelVersion?: string;
+  createdAt?: string;
+  [key: string]: unknown;
+}
+
+export interface ExportStatus {
+  taskId: string;
+  status: string;
+  downloadUrl?: string;
+  expiresAt?: string;
+}

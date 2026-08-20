@@ -20,15 +20,21 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from speaker_roi_api.routers import (
+    admin,
     analyses,
     audit_router,
     auth,
     campaigns,
+    dashboard,
     events,
+    exports,
     finance,
+    forecasts,
     hcps,
     ingestion,
     master_data,
+    optimizer,
+    roi,
     tenants,
     users,
 )
@@ -47,13 +53,19 @@ def all_routers() -> Sequence[APIRouter]:
         master_data.router,
         hcps.router,
         campaigns.router,
+        dashboard.router,
         events.router,
         finance.router,
         analyses.router,
+        roi.router,
+        forecasts.router,
+        exports.router,
+        optimizer.router,
         ingestion.router,
         audit_router.router,
         tenants.router,
         users.router,
+        admin.router,
     )
 
 

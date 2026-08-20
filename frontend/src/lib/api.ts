@@ -13,6 +13,12 @@ import type {
   Analysis,
   FinanceVersion,
   PaginatedResponse,
+  DashboardStats,
+  RoiTrendResponse,
+  EngagementResponse,
+  RoiResult,
+  ForecastItem,
+  ExportStatus,
 } from "@/types/api";
 
 class ApiClientError extends Error {
@@ -117,6 +123,40 @@ export const api = {
     ),
   financeVersions: () =>
     request<PaginatedResponse<FinanceVersion>>("/api/v1/finance/versions"),
+  dashboardStats: () => request<DashboardStats>("/api/v1/dashboard/stats"),
+  dashboardRoiTrend: () => request<RoiTrendResponse>("/api/v1/dashboard/roi-trend"),
+  dashboardEngagement: () => request<EngagementResponse>("/api/v1/dashboard/engagement"),
+  hcpDetail: (id: string) => request<any>(`/api/v1/hcps/${id}`),
+  eventDetail: (id: string) => request<any>(`/api/v1/events/${id}`),
+  campaignDetail: (id: string) => request<any>(`/api/v1/campaigns/${id}`),
+  eventCosts: (eventId: string) => request<PaginatedResponse<any>>(`/api/v1/events/${eventId}/costs`),
+  impacts: (cursor?: string) => request<PaginatedResponse<any>>(`/api/v1/analyses/impacts${cursor ? `?cursor=${cursor}` : ""}`),
+  roiResults: (cursor?: string) =>
+    request<PaginatedResponse<RoiResult>>(
+      `/api/v1/roi/results${cursor ? `?cursor=${cursor}` : ""}`
+    ),
+  roiSummary: () => request<any>("/api/v1/roi/summary"),
+  forecasts: (cursor?: string) =>
+    request<PaginatedResponse<ForecastItem>>(
+      `/api/v1/forecasts${cursor ? `?cursor=${cursor}` : ""}`
+    ),
+  createForecast: (body: { brandId: string; horizonMonths?: number }) =>
+    request<any>("/api/v1/forecasts", {
+      method: "POST",
+      body: JSON.stringify(body),
+    }),
+  createExport: (body: { exportType: string; filters?: Record<string, unknown> }) =>
+    request<ExportStatus>("/api/v1/exports", {
+      method: "POST",
+      body: JSON.stringify(body),
+    }),
+  exportStatus: (taskId: string) =>
+    request<ExportStatus>(`/api/v1/exports/${taskId}/status`),
+  createCampaign: (body: Record<string, unknown>) =>
+    request<Campaign>("/api/v1/campaigns", {
+      method: "POST",
+      body: JSON.stringify(body),
+    }),
 };
 
 export { ApiClientError };

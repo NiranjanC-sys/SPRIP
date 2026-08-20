@@ -1,9 +1,11 @@
+import { useMemo } from "react";
 import { Tag, Users, Megaphone, CalendarDays, TrendingUp, DollarSign } from "lucide-react";
 import { MetricCard } from "@/components/MetricCard";
 import { PageHeader } from "@/components/PageHeader";
 import { useApi } from "@/hooks/useApi";
 import { api } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
+import { AreaChart, Area, ResponsiveContainer } from "recharts";
 
 export function DashboardPage() {
   const { user } = useAuth();
@@ -11,11 +13,29 @@ export function DashboardPage() {
   const hcps = useApi(() => api.hcps(), []);
   const campaigns = useApi(() => api.campaigns(), []);
   const events = useApi(() => api.events(), []);
+  const dashStats = useApi(() => api.dashboardStats().catch(() => null), []);
 
-  const brandCount = brands.data?.items.length ?? 0;
-  const hcpCount = hcps.data?.items.length ?? 0;
-  const campaignCount = campaigns.data?.items.length ?? 0;
-  const eventCount = events.data?.items.length ?? 0;
+  const brandCount = dashStats.data?.totalBrands ?? brands.data?.items.length ?? 0;
+  const hcpCount = dashStats.data?.totalHcps ?? hcps.data?.items.length ?? 0;
+  const campaignCount = dashStats.data?.totalCampaigns ?? campaigns.data?.items.length ?? 0;
+  const eventCount = dashStats.data?.totalEvents ?? events.data?.items.length ?? 0;
+
+  // Build a simple sparkline from event dates (count per month)
+  const sparklineData = useMemo(() => {
+    const items = events.data?.items ?? [];
+    if (items.length === 0) return [];
+    const byMonth = new Map<string, number>();
+    items.forEach((e) => {
+      if (e.date) {
+        const d = new Date(e.date);
+        const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+        byMonth.set(key, (byMonth.get(key) ?? 0) + 1);
+      }
+    });
+    return Array.from(byMonth.entries())
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([month, count]) => ({ month, count }));
+  }, [events.data]);
 
   return (
     <div>
@@ -28,7 +48,7 @@ export function DashboardPage() {
         }
       />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mb-4">
         <MetricCard label="Brands" value={brandCount} icon={Tag} />
         <MetricCard label="HCPs" value={hcpCount} icon={Users} />
         <MetricCard
@@ -62,6 +82,35 @@ export function DashboardPage() {
           icon={TrendingUp}
         />
       </div>
+
+      {/* Sparkline */}
+      {sparklineData.length > 1 && (
+        <div
+          className="rounded-xl border p-4 mb-6"
+          style={{
+            backgroundColor: "var(--color-bg-card)",
+            borderColor: "var(--color-border-default)",
+          }}
+        >
+          <div
+            className="text-xs font-medium mb-2"
+            style={{ color: "var(--color-text-tertiary)" }}
+          >
+            Events over time
+          </div>
+          <ResponsiveContainer width="100%" height={80}>
+            <AreaChart data={sparklineData}>
+              <Area
+                type="monotone"
+                dataKey="count"
+                stroke="var(--color-accent)"
+                fill="var(--color-accent-soft)"
+                strokeWidth={2}
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <RecentSection title="Recent Brands">

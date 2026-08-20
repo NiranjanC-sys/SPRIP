@@ -6,10 +6,15 @@ import {
   Megaphone,
   CalendarDays,
   BarChart3,
+  TrendingUp,
+  Upload,
   Sun,
   Moon,
   Monitor,
   ChevronLeft,
+  PieChart,
+  LineChart,
+  Download,
 } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
 import { useState } from "react";
@@ -20,7 +25,12 @@ const navItems = [
   { to: "/hcps", icon: Users, label: "HCPs" },
   { to: "/campaigns", icon: Megaphone, label: "Campaigns" },
   { to: "/events", icon: CalendarDays, label: "Events" },
+  { to: "/import", icon: Upload, label: "Import" },
+  { to: "/analytics/dashboard", icon: TrendingUp, label: "ROI Analytics" },
   { to: "/analytics", icon: BarChart3, label: "Analytics" },
+  { to: "/roi", icon: PieChart, label: "ROI Results" },
+  { to: "/forecasts", icon: LineChart, label: "Forecasts" },
+  { to: "/exports", icon: Download, label: "Exports" },
 ];
 
 export function Sidebar() {

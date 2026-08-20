@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/context/AuthContext";
+import { ToastProvider } from "@/context/ToastContext";
 import { Sidebar } from "@/components/Sidebar";
 import { LoginPage } from "@/pages/LoginPage";
 import { DashboardPage } from "@/pages/DashboardPage";
@@ -8,6 +9,14 @@ import { HCPsPage } from "@/pages/HCPsPage";
 import { CampaignsPage } from "@/pages/CampaignsPage";
 import { EventsPage } from "@/pages/EventsPage";
 import { AnalyticsPage } from "@/pages/AnalyticsPage";
+import { AnalyticsDashboardPage } from "@/pages/AnalyticsDashboardPage";
+import { HCPDetailPage } from "@/pages/HCPDetailPage";
+import { EventDetailPage } from "@/pages/EventDetailPage";
+import { CampaignDetailPage } from "@/pages/CampaignDetailPage";
+import { ImportPage } from "@/pages/ImportPage";
+import { RoiResultsPage } from "@/pages/RoiResultsPage";
+import { ForecastsPage } from "@/pages/ForecastsPage";
+import { ExportsPage } from "@/pages/ExportsPage";
 import { Loader2, LogOut } from "lucide-react";
 
 function ProtectedLayout() {
@@ -71,6 +80,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
+        <ToastProvider>
         <Routes>
           <Route path="/login" element={<LoginRoute />} />
           <Route element={<ProtectedLayout />}>
@@ -79,10 +89,19 @@ export default function App() {
             <Route path="hcps" element={<HCPsPage />} />
             <Route path="campaigns" element={<CampaignsPage />} />
             <Route path="events" element={<EventsPage />} />
+            <Route path="import" element={<ImportPage />} />
             <Route path="analytics" element={<AnalyticsPage />} />
+            <Route path="analytics/dashboard" element={<AnalyticsDashboardPage />} />
+            <Route path="hcps/:id" element={<HCPDetailPage />} />
+            <Route path="events/:id" element={<EventDetailPage />} />
+            <Route path="campaigns/:id" element={<CampaignDetailPage />} />
+            <Route path="roi" element={<RoiResultsPage />} />
+            <Route path="forecasts" element={<ForecastsPage />} />
+            <Route path="exports" element={<ExportsPage />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        </ToastProvider>
       </AuthProvider>
     </BrowserRouter>
   );
