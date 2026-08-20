@@ -1,0 +1,887 @@
+<title>SPRIP ML Pipeline</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root {
+  --c-bg: #F6F7F9;
+  --c-surface: #FFFFFF;
+  --c-surface-alt: #EDF0F4;
+  --c-border: #D4DAE3;
+  --c-border-light: #E8ECF1;
+  --c-text: #1A1D23;
+  --c-text-secondary: #505A6B;
+  --c-text-muted: #8390A2;
+  --c-primary: #2B4C7E;
+  --c-primary-light: #3D7EC7;
+  --c-accent: #3D7EC7;
+  --c-accent-bg: #EBF3FC;
+  --c-success: #3A8F6B;
+  --c-success-bg: #E8F5EF;
+  --c-warn: #C4873B;
+  --c-warn-bg: #FDF3E7;
+  --c-code-bg: #F0F2F5;
+  --c-metric-border: #D4DAE3;
+  --c-table-stripe: #F8F9FB;
+  --c-rule: #D4DAE3;
+  --c-tag-bg: #EDF0F4;
+  --c-tag-text: #505A6B;
+  --c-diagram-bg: #1B2333;
+  --c-diagram-text: #C5CDD8;
+  --c-diagram-accent: #5B9BD5;
+  --c-diagram-muted: #6B7A8D;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --c-bg: #0E1117;
+    --c-surface: #161B22;
+    --c-surface-alt: #1C2230;
+    --c-border: #2D3548;
+    --c-border-light: #232B3A;
+    --c-text: #C5CDD8;
+    --c-text-secondary: #8B95A6;
+    --c-text-muted: #5E6A7A;
+    --c-primary: #5B9BD5;
+    --c-primary-light: #6DADE8;
+    --c-accent: #5B9BD5;
+    --c-accent-bg: #1A2A3E;
+    --c-success: #4DAA80;
+    --c-success-bg: #152A22;
+    --c-warn: #D9A050;
+    --c-warn-bg: #2A2115;
+    --c-code-bg: #1C2230;
+    --c-metric-border: #2D3548;
+    --c-table-stripe: #1A2030;
+    --c-rule: #2D3548;
+    --c-tag-bg: #1C2230;
+    --c-tag-text: #8B95A6;
+    --c-diagram-bg: #0A0F18;
+    --c-diagram-text: #8B95A6;
+    --c-diagram-accent: #5B9BD5;
+    --c-diagram-muted: #3D4A5C;
+  }
+}
+:root[data-theme="dark"] {
+  --c-bg: #0E1117;
+  --c-surface: #161B22;
+  --c-surface-alt: #1C2230;
+  --c-border: #2D3548;
+  --c-border-light: #232B3A;
+  --c-text: #C5CDD8;
+  --c-text-secondary: #8B95A6;
+  --c-text-muted: #5E6A7A;
+  --c-primary: #5B9BD5;
+  --c-primary-light: #6DADE8;
+  --c-accent: #5B9BD5;
+  --c-accent-bg: #1A2A3E;
+  --c-success: #4DAA80;
+  --c-success-bg: #152A22;
+  --c-warn: #D9A050;
+  --c-warn-bg: #2A2115;
+  --c-code-bg: #1C2230;
+  --c-metric-border: #2D3548;
+  --c-table-stripe: #1A2030;
+  --c-rule: #2D3548;
+  --c-tag-bg: #1C2230;
+  --c-tag-text: #8B95A6;
+  --c-diagram-bg: #0A0F18;
+  --c-diagram-text: #8B95A6;
+  --c-diagram-accent: #5B9BD5;
+  --c-diagram-muted: #3D4A5C;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: 'Source Sans 3', 'Source Sans Pro', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+/* Header */
+.page-header {
+  margin-bottom: 48px;
+}
+.page-header .eyebrow {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+  margin-bottom: 12px;
+}
+.page-header h1 {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--c-text);
+  text-wrap: balance;
+  margin-bottom: 16px;
+}
+.page-header .subtitle {
+  font-size: 17px;
+  color: var(--c-text-secondary);
+  line-height: 1.55;
+  max-width: 640px;
+}
+
+/* Section */
+section {
+  margin-bottom: 48px;
+}
+section > h2 {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--c-text);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--c-rule);
+  text-wrap: balance;
+}
+section > h3 {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--c-text);
+  margin-top: 28px;
+  margin-bottom: 12px;
+}
+p {
+  margin-bottom: 14px;
+  color: var(--c-text-secondary);
+}
+p strong {
+  color: var(--c-text);
+  font-weight: 600;
+}
+
+/* Model overview cards */
+.model-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+@media (max-width: 640px) {
+  .model-cards { grid-template-columns: 1fr; }
+}
+.model-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border-light);
+  border-radius: 6px;
+  padding: 20px;
+}
+.model-card .model-tag {
+  display: inline-block;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+.model-card.m1 .model-tag { background: var(--c-accent-bg); color: var(--c-accent); }
+.model-card.m2 .model-tag { background: var(--c-success-bg); color: var(--c-success); }
+.model-card.m3 .model-tag { background: var(--c-warn-bg); color: var(--c-warn); }
+.model-card .model-name {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--c-text);
+  margin-bottom: 6px;
+}
+.model-card .model-algo {
+  font-size: 13px;
+  color: var(--c-text-muted);
+  margin-bottom: 10px;
+}
+.model-card .model-desc {
+  font-size: 14px;
+  color: var(--c-text-secondary);
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+
+/* Metric strips */
+.metric-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 16px 0;
+}
+.metric-pill {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  background: var(--c-surface);
+  border: 1px solid var(--c-metric-border);
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 14px;
+}
+.metric-pill .metric-label {
+  color: var(--c-text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.metric-pill .metric-value {
+  font-weight: 600;
+  color: var(--c-text);
+  font-variant-numeric: tabular-nums;
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+
+/* Tables */
+.table-wrap {
+  overflow-x: auto;
+  margin: 16px 0;
+  border: 1px solid var(--c-border-light);
+  border-radius: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+thead th {
+  background: var(--c-surface-alt);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--c-text-muted);
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--c-border);
+  white-space: nowrap;
+}
+tbody td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--c-border-light);
+  color: var(--c-text-secondary);
+  vertical-align: top;
+}
+tbody tr:nth-child(even) { background: var(--c-table-stripe); }
+tbody tr:last-child td { border-bottom: none; }
+td code, th code {
+  font-family: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
+  font-size: 13px;
+  background: var(--c-code-bg);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: var(--c-text);
+}
+
+/* Code blocks */
+pre {
+  background: var(--c-diagram-bg);
+  color: var(--c-diagram-text);
+  font-family: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 20px;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+pre .accent { color: var(--c-diagram-accent); }
+pre .muted { color: var(--c-diagram-muted); }
+pre .comment { color: var(--c-diagram-muted); font-style: italic; }
+
+/* Inline code */
+code {
+  font-family: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
+  font-size: 14px;
+}
+p code, li code {
+  background: var(--c-code-bg);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 13px;
+  color: var(--c-text);
+}
+
+/* Lifecycle diagram */
+.lifecycle {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+.lifecycle-node {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.lifecycle-node.draft { background: var(--c-tag-bg); color: var(--c-tag-text); }
+.lifecycle-node.active { background: var(--c-success-bg); color: var(--c-success); }
+.lifecycle-node.archived { background: var(--c-surface-alt); color: var(--c-text-muted); }
+.lifecycle-arrow {
+  width: 32px;
+  height: 2px;
+  background: var(--c-border);
+  position: relative;
+  flex-shrink: 0;
+}
+.lifecycle-arrow::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -4px;
+  border: 5px solid transparent;
+  border-left-color: var(--c-border);
+}
+
+/* Note boxes */
+.note {
+  background: var(--c-accent-bg);
+  border-left: 3px solid var(--c-accent);
+  padding: 14px 18px;
+  border-radius: 0 4px 4px 0;
+  margin: 16px 0;
+  font-size: 14px;
+  color: var(--c-text-secondary);
+  line-height: 1.55;
+}
+
+/* Lists */
+ul, ol {
+  padding-left: 20px;
+  margin-bottom: 14px;
+}
+li {
+  margin-bottom: 4px;
+  color: var(--c-text-secondary);
+  font-size: 15px;
+}
+
+/* Summary block */
+.summary-block {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border-light);
+  border-radius: 6px;
+  padding: 24px;
+  margin: 24px 0;
+}
+.summary-block h3 {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--c-text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  margin-top: 0;
+}
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+.summary-item .summary-value {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--c-text);
+  font-variant-numeric: tabular-nums;
+}
+.summary-item .summary-label {
+  font-size: 13px;
+  color: var(--c-text-muted);
+  margin-top: 2px;
+}
+
+/* Assumption list */
+.assumptions {
+  list-style: none;
+  padding-left: 0;
+}
+.assumptions li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+}
+.assumptions li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--c-accent);
+  font-weight: 600;
+}
+
+/* Footer */
+.page-footer {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--c-rule);
+  font-size: 13px;
+  color: var(--c-text-muted);
+}
+
+@media (max-width: 480px) {
+  .page { padding: 32px 16px 60px; }
+  .page-header h1 { font-size: 26px; }
+  .metric-strip { gap: 8px; }
+  .metric-pill { padding: 5px 10px; }
+  .summary-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+
+<div class="page">
+
+<header class="page-header">
+  <div class="eyebrow">Machine Learning Documentation</div>
+  <h1>ML Pipeline</h1>
+  <p class="subtitle">Three models that answer the core business question: which HCPs should we invite to speaker programs, and what ROI should we expect?</p>
+</header>
+
+<!-- Model Overview Cards -->
+<section>
+  <h2>Models</h2>
+  <div class="model-cards">
+    <div class="model-card m1">
+      <span class="model-tag">M1</span>
+      <div class="model-name">Propensity</div>
+      <div class="model-algo">Logistic Regression</div>
+      <p class="model-desc">Predict likelihood an HCP will respond to a speaker program. Output: P(respond | features) &isin; [0, 1]</p>
+    </div>
+    <div class="model-card m2">
+      <span class="model-tag">M2</span>
+      <div class="model-name">Causal DiD</div>
+      <div class="model-algo">Difference-in-Differences</div>
+      <p class="model-desc">Estimate causal treatment effect of speaker events on prescribing behaviour. Output: ATT</p>
+    </div>
+    <div class="model-card m3">
+      <span class="model-tag">M3</span>
+      <div class="model-name">Forecast</div>
+      <div class="model-algo">LightGBM Regressor</div>
+      <p class="model-desc">Predict next-month Rx volume per product for forward-looking ROI projections.</p>
+    </div>
+  </div>
+  <p>All models train on synthetic data for demo. The same pipeline structure applies to production data without code changes.</p>
+</section>
+
+<!-- Architecture -->
+<section>
+  <h2>Architecture</h2>
+<pre><span class="muted">DATA_EXTRACT/syn dt/data/</span>
+<span class="accent">├── gold/</span>
+│   ├── hcp_event_features.csv    <span class="comment">← M1 input (engineered features)</span>
+│   └── matched_pairs.csv         <span class="comment">← M2 input (propensity-matched pairs)</span>
+<span class="accent">└── silver/conformed/</span>
+    ├── hcp_rx_monthly.csv        <span class="comment">← M2, M3 input (longitudinal Rx)</span>
+    ├── events.csv                <span class="comment">← M2 input (event dates for cutoff)</span>
+    └── event_attendance.csv      <span class="comment">← Scoring input</span>
+
+<span class="muted">scripts/</span>
+├── train_models.py               <span class="comment">← Full training pipeline</span>
+└── score_hcps.py                 <span class="comment">← Batch scoring with trained M1</span>
+
+<span class="muted">artifacts/models/</span>
+├── propensity_model.joblib        <span class="comment">← M1 artifact</span>
+├── forecast_model.joblib          <span class="comment">← M3 artifact</span>
+├── m1_propensity_metrics.json     <span class="comment">← M1 evaluation</span>
+├── m2_causal_metrics.json         <span class="comment">← M2 causal estimates</span>
+├── m3_forecast_metrics.json       <span class="comment">← M3 regression metrics</span>
+└── training_summary.json          <span class="comment">← Run metadata</span></pre>
+</section>
+
+<!-- M1 Propensity -->
+<section>
+  <h2>M1 &mdash; Propensity Model</h2>
+  <p><strong>Objective:</strong> Binary classification &mdash; predict whether an HCP belongs to the treatment group (likely to engage with speaker programs) vs. control candidates.</p>
+  <p><strong>Algorithm:</strong> <code>sklearn.linear_model.LogisticRegression</code></p>
+
+  <h3>Hyperparameters</h3>
+  <div class="metric-strip">
+    <div class="metric-pill"><span class="metric-label">solver</span> <span class="metric-value">lbfgs</span></div>
+    <div class="metric-pill"><span class="metric-label">C</span> <span class="metric-value">1.0</span></div>
+    <div class="metric-pill"><span class="metric-label">max_iter</span> <span class="metric-value">1000</span></div>
+    <div class="metric-pill"><span class="metric-label">random_state</span> <span class="metric-value">42</span></div>
+  </div>
+
+  <h3>Features (17 total)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Feature</th><th>Type</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>avg_nrx_3m</code></td><td>Numeric</td><td>Average NRx over last 3 months</td></tr>
+        <tr><td><code>avg_nrx_6m</code></td><td>Numeric</td><td>Average NRx over last 6 months</td></tr>
+        <tr><td><code>avg_trx_3m</code></td><td>Numeric</td><td>Average TRx over last 3 months</td></tr>
+        <tr><td><code>avg_trx_6m</code></td><td>Numeric</td><td>Average TRx over last 6 months</td></tr>
+        <tr><td><code>nrx_trend</code></td><td>Numeric</td><td>NRx momentum (3m mean &minus; previous 3m)</td></tr>
+        <tr><td><code>competitor_trx_avg</code></td><td>Numeric</td><td>Mean competitor TRx</td></tr>
+        <tr><td><code>rep_calls_3m</code></td><td>Numeric</td><td>Sales rep calls in last 3 months</td></tr>
+        <tr><td><code>emails_3m</code></td><td>Numeric</td><td>Marketing emails in last 3 months</td></tr>
+        <tr><td><code>samples_3m</code></td><td>Numeric</td><td>Samples delivered in last 3 months</td></tr>
+        <tr><td><code>prior_event_count</code></td><td>Numeric</td><td>Historical event attendance count</td></tr>
+        <tr><td><code>specialty_topic_match</code></td><td>Numeric</td><td>Specialty-topic alignment score</td></tr>
+        <tr><td><code>access_index</code></td><td>Numeric</td><td>HCP accessibility index</td></tr>
+        <tr><td><code>seasonality_index</code></td><td>Numeric</td><td>Seasonal prescribing adjustment</td></tr>
+        <tr><td><code>competitor_index</code></td><td>Numeric</td><td>Competitive landscape index</td></tr>
+        <tr><td><code>segment_enc</code></td><td>Encoded</td><td>HCP market segment (LabelEncoded)</td></tr>
+        <tr><td><code>specialty_enc</code></td><td>Encoded</td><td>Medical specialty (LabelEncoded)</td></tr>
+        <tr><td><code>region_enc</code></td><td>Encoded</td><td>Geographic region (LabelEncoded)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Validation</h3>
+  <p>5-fold Stratified K-Fold cross-validation.</p>
+
+  <h3>Metrics</h3>
+  <div class="summary-block">
+    <h3>Training Run &mdash; 2026-08-20</h3>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="summary-value">0.5482</div>
+        <div class="summary-label">AUC-ROC</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-value">0.5500</div>
+        <div class="summary-label">Accuracy</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-value">0.4500</div>
+        <div class="summary-label">Precision</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-value">0.5625</div>
+        <div class="summary-label">Recall</div>
+      </div>
+    </div>
+    <div class="metric-strip" style="margin-top:14px; margin-bottom:0;">
+      <div class="metric-pill"><span class="metric-label">Train</span> <span class="metric-value">160</span></div>
+      <div class="metric-pill"><span class="metric-label">Test</span> <span class="metric-value">40</span></div>
+      <div class="metric-pill"><span class="metric-label">Positive rate</span> <span class="metric-value">40.0%</span></div>
+    </div>
+  </div>
+
+  <div class="note">
+    The near-random AUC (~0.55) is expected: synthetic features lack the genuine signal present in real prescribing patterns. With production data, industry benchmarks place HCP propensity AUC-ROC at 0.70&ndash;0.85.
+  </div>
+
+  <h3>Artifact</h3>
+  <div class="metric-strip">
+    <div class="metric-pill"><span class="metric-label">Path</span> <span class="metric-value" style="font-size:13px;">propensity_model.joblib</span></div>
+    <div class="metric-pill"><span class="metric-label">SHA-256</span> <span class="metric-value" style="font-size:11px;">08ec7ce3...acbe01</span></div>
+  </div>
+  <p>Contents: <code>{model, label_encoders, feature_cols}</code></p>
+</section>
+
+<!-- M2 Causal DiD -->
+<section>
+  <h2>M2 &mdash; Causal DiD Estimator</h2>
+  <p><strong>Objective:</strong> Estimate the causal effect of speaker program participation on HCP prescribing using a Difference-in-Differences design.</p>
+  <p><strong>Method:</strong> Classic two-period DiD with propensity-score matched controls.</p>
+
+  <h3>Design</h3>
+  <ol>
+    <li><strong>Matching</strong> &mdash; Treated HCPs are propensity-score matched to controls from <code>gold/matched_pairs.csv</code></li>
+    <li><strong>Cutoff</strong> &mdash; Median event date splits the timeline into pre/post periods</li>
+    <li><strong>Outcome</strong> &mdash; Average NRx per HCP in each period</li>
+    <li><strong>Estimand</strong> &mdash; ATT = (Treated<sub>post</sub> &minus; Treated<sub>pre</sub>) &minus; (Control<sub>post</sub> &minus; Control<sub>pre</sub>)</li>
+  </ol>
+
+  <h3>Statistical Results</h3>
+  <div class="summary-block">
+    <h3>Training Run &mdash; 2026-08-20</h3>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="summary-value">1.7825</div>
+        <div class="summary-label">ATT (Avg Treatment Effect)</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-value">0.1406</div>
+        <div class="summary-label">Standard Error</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-value">&lt; 0.001</div>
+        <div class="summary-label">p-value</div>
+      </div>
+    </div>
+    <div class="metric-strip" style="margin-top:14px; margin-bottom:0;">
+      <div class="metric-pill"><span class="metric-label">95% CI</span> <span class="metric-value">[1.5070, 2.0581]</span></div>
+      <div class="metric-pill"><span class="metric-label">Treated (n)</span> <span class="metric-value">80</span></div>
+      <div class="metric-pill"><span class="metric-label">Control (n)</span> <span class="metric-value">120</span></div>
+      <div class="metric-pill"><span class="metric-label">Events</span> <span class="metric-value">60</span></div>
+    </div>
+  </div>
+
+  <div class="note">
+    Speaker program attendees increased their average NRx by <strong>1.78 scripts/month</strong> more than matched controls. The tight CI and p &lt; 0.001 indicate strong statistical significance on this synthetic dataset.
+  </div>
+
+  <h3>Key Assumptions</h3>
+  <ul class="assumptions">
+    <li><strong>Parallel trends</strong> &mdash; Pre-treatment prescribing trends are similar between treated and control groups</li>
+    <li><strong>No spillover</strong> &mdash; Control HCPs are not indirectly affected by the speaker program</li>
+    <li><strong>Common support</strong> &mdash; Matched pairs share similar observable characteristics</li>
+  </ul>
+
+  <p>No persisted artifact &mdash; M2 is a statistical estimator. Results are stored in <code>ml.model_versions</code> and <code>ml.model_metrics</code> with <code>lifecycle_state = 'DRAFT'</code>.</p>
+</section>
+
+<!-- M3 Forecast -->
+<section>
+  <h2>M3 &mdash; Forecast Model</h2>
+  <p><strong>Objective:</strong> Time-series regression &mdash; predict next-month NRx volume per product for forward-looking ROI projections.</p>
+  <p><strong>Algorithm:</strong> LightGBM Regressor (falls back to sklearn <code>GradientBoostingRegressor</code> if unavailable)</p>
+
+  <h3>Hyperparameters</h3>
+  <div class="metric-strip">
+    <div class="metric-pill"><span class="metric-label">n_estimators</span> <span class="metric-value">200</span></div>
+    <div class="metric-pill"><span class="metric-label">learning_rate</span> <span class="metric-value">0.05</span></div>
+    <div class="metric-pill"><span class="metric-label">max_depth</span> <span class="metric-value">6</span></div>
+    <div class="metric-pill"><span class="metric-label">num_leaves</span> <span class="metric-value">31</span></div>
+    <div class="metric-pill"><span class="metric-label">random_state</span> <span class="metric-value">42</span></div>
+  </div>
+
+  <h3>Features (10 total)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Feature</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>nrx_lag1</code></td><td>NRx volume 1 month ago</td></tr>
+        <tr><td><code>nrx_lag2</code></td><td>NRx volume 2 months ago</td></tr>
+        <tr><td><code>nrx_lag3</code></td><td>NRx volume 3 months ago</td></tr>
+        <tr><td><code>nrx_roll3</code></td><td>3-month rolling average NRx</td></tr>
+        <tr><td><code>nrx_roll6</code></td><td>6-month rolling average NRx</td></tr>
+        <tr><td><code>trx_lag1</code></td><td>TRx volume 1 month ago</td></tr>
+        <tr><td><code>competitor_lag1</code></td><td>Competitor TRx 1 month ago</td></tr>
+        <tr><td><code>trend</code></td><td>Linear time trend index</td></tr>
+        <tr><td><code>month_num</code></td><td>Calendar month (1&ndash;12, seasonality)</td></tr>
+        <tr><td><code>product_enc</code></td><td>Product identifier (LabelEncoded)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Metrics</h3>
+  <div class="summary-block">
+    <h3>Training Run &mdash; 2026-08-20</h3>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="summary-value">31.95</div>
+        <div class="summary-label">MAE (Mean Absolute Error)</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-value">0.0816</div>
+        <div class="summary-label">R&sup2; (Coefficient of Determination)</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-value">48</div>
+        <div class="summary-label">Training samples</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-value">12</div>
+        <div class="summary-label">Test samples</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    The low R&sup2; (0.08) reflects the small synthetic dataset (48 train rows across 4 products &times; ~15 months). Time-series forecasting needs substantial history. With 12+ months of production data per product, R&sup2; values of 0.60&ndash;0.80 are achievable.
+  </div>
+
+  <h3>Artifact</h3>
+  <div class="metric-strip">
+    <div class="metric-pill"><span class="metric-label">Path</span> <span class="metric-value" style="font-size:13px;">forecast_model.joblib</span></div>
+    <div class="metric-pill"><span class="metric-label">SHA-256</span> <span class="metric-value" style="font-size:11px;">af8538b1...b7c</span></div>
+  </div>
+  <p>Contents: <code>{model, label_encoder_product, feature_cols}</code></p>
+</section>
+
+<!-- Training Pipeline -->
+<section>
+  <h2>Running the Pipeline</h2>
+
+  <h3>Training</h3>
+<pre><span class="comment"># From project root</span>
+.venv/Scripts/python scripts/train_models.py</pre>
+  <ol>
+    <li>Reads gold/silver-layer CSVs from <code>DATA_EXTRACT/</code></li>
+    <li>Trains M1, M2, M3 sequentially</li>
+    <li>Serialises artifacts to <code>artifacts/models/</code></li>
+    <li>Writes metrics JSON alongside artifacts</li>
+    <li>Records <code>ml.model_specs</code>, <code>ml.model_versions</code>, <code>ml.model_metrics</code> in PostgreSQL</li>
+  </ol>
+
+  <h3>HCP Scoring</h3>
+<pre><span class="comment"># From project root</span>
+.venv/Scripts/python scripts/score_hcps.py</pre>
+  <ol>
+    <li>Loads trained propensity model from <code>artifacts/models/propensity_model.joblib</code></li>
+    <li>Fetches all HCPs from <code>core.hcps</code> (falls back to CSV)</li>
+    <li>Builds feature vectors from silver-layer CSVs</li>
+    <li>Generates propensity scores and rankings</li>
+    <li>Writes to <code>analytics.propensity_scores</code> table (falls back to JSON)</li>
+  </ol>
+
+  <h3>Training Data</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Dataset</th><th>Records</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td>HCP event features</td><td>200 HCPs</td><td><code>gold/hcp_event_features.csv</code></td></tr>
+        <tr><td>Matched pairs</td><td>80 treated + 120 control</td><td><code>gold/matched_pairs.csv</code></td></tr>
+        <tr><td>Rx monthly</td><td>2,600 rows</td><td><code>silver/conformed/hcp_rx_monthly.csv</code></td></tr>
+        <tr><td>Event attendance</td><td>896 rows</td><td><code>silver/conformed/event_attendance.csv</code></td></tr>
+        <tr><td>Events</td><td>60 events</td><td><code>silver/conformed/events.csv</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Database Schema -->
+<section>
+  <h2>Database Schema</h2>
+  <p>Training results persist in the <code>ml</code> schema across three tables:</p>
+
+  <h3>ml.model_specs</h3>
+  <p>Defines each model type. One row per algorithm variant.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Column</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>id</code></td><td>UUID primary key</td></tr>
+        <tr><td><code>tenant_id</code></td><td>Tenant isolation</td></tr>
+        <tr><td><code>code</code></td><td>Unique identifier (e.g., <code>propensity-v1</code>)</td></tr>
+        <tr><td><code>model_kind</code></td><td><code>PROPENSITY</code> or <code>FUTURE_IMPACT</code></td></tr>
+        <tr><td><code>algorithm</code></td><td><code>LogisticRegression</code>, <code>DiD</code>, <code>LightGBM</code></td></tr>
+        <tr><td><code>is_active</code></td><td>Whether this spec is in active use</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>ml.model_versions</h3>
+  <p>Each training run produces a version row.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Column</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>model_spec_id</code></td><td>FK to model_specs</td></tr>
+        <tr><td><code>version_number</code></td><td>Sequential version within spec</td></tr>
+        <tr><td><code>lifecycle_state</code></td><td><code>DRAFT</code> &rarr; <code>ACTIVE</code> &rarr; <code>ARCHIVED</code></td></tr>
+        <tr><td><code>artifact_key</code></td><td>Path to serialised model file</td></tr>
+        <tr><td><code>artifact_checksum</code></td><td>SHA-256 of the artifact</td></tr>
+        <tr><td><code>hyperparameters</code></td><td>JSONB of training config</td></tr>
+        <tr><td><code>training_rows</code></td><td>Number of training samples</td></tr>
+        <tr><td><code>trained_on_synthetic</code></td><td>Boolean flag</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>ml.model_metrics</h3>
+  <p>Individual metric observations per model version.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Column</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>model_version_id</code></td><td>FK to model_versions</td></tr>
+        <tr><td><code>split</code></td><td><code>train</code>, <code>validation</code>, <code>holdout</code></td></tr>
+        <tr><td><code>metric_name</code></td><td><code>auc_roc</code>, <code>accuracy</code>, <code>att</code>, <code>rmse</code>, etc.</td></tr>
+        <tr><td><code>metric_value</code></td><td>Float value</td></tr>
+        <tr><td><code>segment</code></td><td><code>ALL</code> or a subpopulation key</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Model Lifecycle -->
+<section>
+  <h2>Model Lifecycle</h2>
+  <div class="lifecycle">
+    <div class="lifecycle-node draft">DRAFT</div>
+    <div class="lifecycle-arrow"></div>
+    <div class="lifecycle-node active">ACTIVE</div>
+    <div class="lifecycle-arrow"></div>
+    <div class="lifecycle-node archived">ARCHIVED</div>
+  </div>
+  <ul>
+    <li><strong>DRAFT</strong> &mdash; Model version created, metrics recorded, not yet serving predictions</li>
+    <li><strong>ACTIVE</strong> &mdash; Promoted after validation; used by scoring pipeline and API</li>
+    <li><strong>ARCHIVED</strong> &mdash; Superseded by a newer version; retained for audit trail</li>
+  </ul>
+  <p>Only one version per <code>model_spec</code> can be <code>ACTIVE</code> at a time. M2 stays in <code>DRAFT</code> because it produces statistical estimates rather than deployable predictions.</p>
+</section>
+
+<!-- API Integration -->
+<section>
+  <h2>API Integration</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Endpoint</th><th>Model</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>GET /api/v1/roi/results</code></td><td>M2</td><td>ROI results with causal ATT estimates</td></tr>
+        <tr><td><code>GET /api/v1/forecasts</code></td><td>M3</td><td>Rx volume forecasts with confidence bands</td></tr>
+        <tr><td><code>GET /api/v1/dashboard/stats</code></td><td>M1+M2</td><td>Aggregate propensity and ROI metrics</td></tr>
+        <tr><td><code>POST /api/v1/optimizer/simulate</code></td><td>M1+M3</td><td>Budget allocation simulation</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Production Considerations -->
+<section>
+  <h2>Production Considerations</h2>
+
+  <h3>Data Quality</h3>
+  <ul>
+    <li>Input CSVs must pass schema validation before training</li>
+    <li>Missing features are zero-filled (documented per model above)</li>
+    <li>Unknown categories at scoring time default to encoded value 0</li>
+  </ul>
+
+  <h3>Reproducibility</h3>
+  <ul>
+    <li>All models use <code>random_state=42</code></li>
+    <li>Training metadata captured in <code>training_summary.json</code></li>
+    <li>Artifact checksums enable integrity verification</li>
+  </ul>
+
+  <h3>Monitoring</h3>
+  <ul>
+    <li>Metrics stored in PostgreSQL and exposed via API endpoints</li>
+    <li>Analytics Dashboard displays ROI trends from M2 causal estimates</li>
+    <li>Forecast accuracy tracked by comparing M3 predictions against actual NRx</li>
+  </ul>
+
+  <h3>Retraining</h3>
+  <ul>
+    <li>Recommended cadence: monthly, after new Rx data ingestion</li>
+    <li>Pipeline is idempotent &mdash; rerunning creates new <code>model_versions</code> rows</li>
+    <li>Celery task <code>analytics.refresh_propensity_scores</code> triggers scoring after retraining</li>
+  </ul>
+
+  <h3>Security</h3>
+  <ul>
+    <li>Training scripts connect via <code>app_rw</code> role with tenant-scoped RLS</li>
+    <li>Production deployments use MinIO/S3 with signed URLs</li>
+    <li>No patient-level data, PII, or ABHI identifiers in training features</li>
+    <li>Propensity scores are tenant-isolated via RLS policies</li>
+  </ul>
+</section>
+
+<footer class="page-footer">
+  SPRIP ML Pipeline &mdash; Training run 2026-08-20T02:39:41Z &mdash; Seed 42 &mdash; Synthetic data
+</footer>
+
+</div>
