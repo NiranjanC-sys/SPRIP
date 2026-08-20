@@ -14,6 +14,7 @@ import { HCPDetailPage } from "@/pages/HCPDetailPage";
 import { EventDetailPage } from "@/pages/EventDetailPage";
 import { CampaignDetailPage } from "@/pages/CampaignDetailPage";
 import { ImportPage } from "@/pages/ImportPage";
+import { DataStewardPage } from "@/pages/DataStewardPage";
 import { RoiResultsPage } from "@/pages/RoiResultsPage";
 import { ForecastsPage } from "@/pages/ForecastsPage";
 import { ExportsPage } from "@/pages/ExportsPage";
@@ -90,6 +91,7 @@ export default function App() {
             <Route path="campaigns" element={<CampaignsPage />} />
             <Route path="events" element={<EventsPage />} />
             <Route path="import" element={<ImportPage />} />
+            <Route path="data-steward" element={<DataStewardPage />} />
             <Route path="analytics" element={<AnalyticsPage />} />
             <Route path="analytics/dashboard" element={<AnalyticsDashboardPage />} />
             <Route path="hcps/:id" element={<HCPDetailPage />} />

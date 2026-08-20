@@ -87,16 +87,20 @@ function formatCurrency(n: number): string {
 
 export function AnalyticsDashboardPage() {
   const colors = useChartColors();
+  const [brandFilter, setBrandFilter] = useState<string>("All");
 
   // Fetch data from dedicated endpoints, fall back to basic list endpoints
   const stats = useApi(() => api.dashboardStats(), []);
   const roiTrend = useApi(() => api.dashboardRoiTrend(), []);
   const engagement = useApi(() => api.dashboardEngagement(), []);
   const impacts = useApi(() => api.impacts(), []);
+  const brandsResult = useApi(() => api.brands(), []);
 
   // Fallback data from basic endpoints
   const events = useApi(() => api.events(), []);
   const campaigns = useApi(() => api.campaigns(), []);
+
+  const brands = brandsResult.data?.items ?? [];
 
   // Compute fallback metrics if stats endpoint fails
   const totalSpend = stats.data?.totalSpend
@@ -112,8 +116,11 @@ export function AnalyticsDashboardPage() {
   // Build spend-by-brand data from campaigns
   const spendByBrand = useMemo(() => {
     const items = campaigns.data?.items ?? [];
+    const filtered = brandFilter !== "All"
+      ? items.filter((c) => c.brandId === brandFilter)
+      : items;
     const map = new Map<string, number>();
-    items.forEach((c) => {
+    filtered.forEach((c) => {
       const brand = String(c.brandId ?? "Unknown");
       map.set(brand, (map.get(brand) ?? 0) + (Number(c.budget) || 0));
     });
@@ -121,7 +128,7 @@ export function AnalyticsDashboardPage() {
       .map(([brand, spend]) => ({ brand, spend }))
       .sort((a, b) => b.spend - a.spend)
       .slice(0, 8);
-  }, [campaigns.data]);
+  }, [campaigns.data, brandFilter]);
 
   // Engagement distribution — backend returns {buckets: [{bucket, count}]}
   const engagementDistribution = (engagement.data?.buckets ?? []).map(b => ({
@@ -148,26 +155,34 @@ export function AnalyticsDashboardPage() {
   const { trendData, brandNames } = useMemo(() => {
     const items = roiTrend.data?.trend ?? [];
     if (!items.length) return { trendData: [] as Record<string, unknown>[], brandNames: [] as string[] };
-    const brands = [...new Set(items.map(i => i.brand))];
-    const months = [...new Set(items.map(i => i.month))].sort();
+    const filteredItems = brandFilter !== "All"
+      ? items.filter(i => i.brand === brandFilter || brands.find(b => b.id === brandFilter && b.name === i.brand))
+      : items;
+    const bNames = [...new Set(filteredItems.map(i => i.brand))];
+    const months = [...new Set(filteredItems.map(i => i.month))].sort();
     const data = months.map(month => {
       const point: Record<string, unknown> = { month };
-      items.filter(i => i.month === month).forEach(i => {
+      filteredItems.filter(i => i.month === month).forEach(i => {
         point[i.brand] = i.trx > 0 && i.spend > 0 ? +(i.trx / i.spend).toFixed(2) : 0;
       });
       return point;
     });
-    return { trendData: data, brandNames: brands };
-  }, [roiTrend.data]);
+    return { trendData: data, brandNames: bNames };
+  }, [roiTrend.data, brandFilter, brands]);
 
   // Top events by ROI from impacts
   const topEvents = useMemo(() => {
     const items = impacts.data?.items ?? events.data?.items ?? [];
-    return [...items]
-      .filter((e) => e.roi != null || e.incrementalRx != null)
+    let filtered = [...items].filter((e) => e.roi != null || e.incrementalRx != null);
+    if (brandFilter !== "All") {
+      filtered = filtered.filter(
+        (e) => String(e.brandId ?? "") === brandFilter || String(e.brand ?? "") === brandFilter
+      );
+    }
+    return filtered
       .sort((a, b) => (Number(b.roi) || 0) - (Number(a.roi) || 0))
       .slice(0, 10);
-  }, [impacts.data, events.data]);
+  }, [impacts.data, events.data, brandFilter]);
 
   const topEventsColumns = [
     { key: "name", header: "Event", render: (r: Record<string, unknown>) => String(r.name ?? r.eventName ?? r.id) },
@@ -187,12 +202,38 @@ export function AnalyticsDashboardPage() {
     },
   };
 
+  const selectStyle: React.CSSProperties = {
+    padding: "8px 12px",
+    borderRadius: 8,
+    border: "1px solid var(--color-border-default)",
+    backgroundColor: "var(--color-bg-input)",
+    color: "var(--color-text-primary)",
+    fontSize: 14,
+    outline: "none",
+  };
+
   return (
     <div>
       <PageHeader
         title="ROI Analytics"
         description="Speaker program performance and return on investment"
       />
+
+      {/* Brand filter */}
+      <div style={{ display: "flex", gap: 12, marginBottom: 16, flexWrap: "wrap" }}>
+        <select
+          value={brandFilter}
+          onChange={(e) => setBrandFilter(e.target.value)}
+          style={selectStyle}
+        >
+          <option value="All">All Brands</option>
+          {brands.map((b) => (
+            <option key={b.id} value={b.id}>
+              {b.name}
+            </option>
+          ))}
+        </select>
+      </div>
 
       {/* Top metrics */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">

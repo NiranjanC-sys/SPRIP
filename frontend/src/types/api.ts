@@ -225,3 +225,25 @@ export interface ExportStatus {
   downloadUrl?: string;
   expiresAt?: string;
 }
+
+export interface UploadSession {
+  id: string;
+  datasetType: string;
+  fileName: string;
+  fileSizeBytes: number | null;
+  status: string;
+  rowCount: number | null;
+  errorCount: number | null;
+  createdAt: string;
+  createdBy: string | null;
+}
+
+export interface ValidationIssue {
+  id: string;
+  sessionId: string;
+  rowNumber: number;
+  fieldName: string;
+  ruleCode: string;
+  severity: string;
+  message: string;
+}

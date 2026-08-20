@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { PageHeader } from "@/components/PageHeader";
 import { DataTable } from "@/components/DataTable";
 import { useApi } from "@/hooks/useApi";
@@ -64,6 +64,7 @@ export function ForecastsPage() {
   const [generating, setGenerating] = useState(false);
   const [genBrandId, setGenBrandId] = useState("");
   const [genError, setGenError] = useState("");
+  const [brandFilter, setBrandFilter] = useState<string>("All");
 
   const initialLoaded = data !== null;
   if (initialLoaded && allItems.length === 0 && (data?.items.length ?? 0) > 0) {
@@ -107,8 +108,13 @@ export function ForecastsPage() {
     }
   };
 
-  // Build chart data from items
-  const chartData = items
+  const filtered = useMemo(() => {
+    if (brandFilter === "All") return items;
+    return items.filter((f) => f.brandId === brandFilter);
+  }, [items, brandFilter]);
+
+  // Build chart data from filtered items
+  const chartData = filtered
     .filter((f) => f.periodStart)
     .sort((a, b) => (a.periodStart ?? "").localeCompare(b.periodStart ?? ""))
     .map((f) => ({
@@ -187,6 +193,22 @@ export function ForecastsPage() {
         )}
       </div>
 
+      {/* Brand filter */}
+      <div style={{ display: "flex", gap: 12, marginBottom: 16, flexWrap: "wrap" }}>
+        <select
+          value={brandFilter}
+          onChange={(e) => setBrandFilter(e.target.value)}
+          style={selectStyle}
+        >
+          <option value="All">All Brands</option>
+          {brands.map((b) => (
+            <option key={b.id} value={b.id}>
+              {b.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
       {/* Chart */}
       {chartData.length > 0 && (
         <div
@@ -255,7 +277,7 @@ export function ForecastsPage() {
 
       <DataTable
         columns={columns}
-        data={status === "success" ? items : null}
+        data={status === "success" ? filtered : null}
         status={status}
         error={error}
         keyFn={(r) => r.id}
@@ -273,9 +295,9 @@ export function ForecastsPage() {
           }}
         >
           <span>
-            Showing {items.length} of {total || items.length}
+            Showing {filtered.length} of {total || items.length}
           </span>
-          {nextCursor && (
+          {nextCursor && brandFilter === "All" && (
             <button
               onClick={loadMore}
               disabled={loadingMore}

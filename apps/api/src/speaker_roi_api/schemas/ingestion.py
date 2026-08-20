@@ -63,9 +63,16 @@ class AuditEventOut(Schema):
     ip_address: str | None = Field(default=None, serialization_alias="ipAddress")
 
 
+class UploadFileResponse(Schema):
+    session_id: uuid.UUID = Field(serialization_alias="sessionId")
+    task_id: str = Field(serialization_alias="taskId")
+    status: str
+
+
 __all__ = [
     "AuditEventOut",
     "DataVersionOut",
+    "UploadFileResponse",
     "UploadSessionCreate",
     "UploadSessionOut",
     "ValidationIssueOut",

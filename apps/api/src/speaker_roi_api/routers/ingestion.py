@@ -2,16 +2,20 @@
 
 from __future__ import annotations
 
+import io
 import uuid
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, Query
+import boto3
+from celery import Celery
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile
 from sqlalchemy import select
 
 from speaker_roi_api.deps import PageParams, ReadOnlySession, TenantSession, require
 from speaker_roi_api.schemas.common import Acknowledged, Page
 from speaker_roi_api.schemas.ingestion import (
     DataVersionOut,
+    UploadFileResponse,
     UploadSessionCreate,
     UploadSessionOut,
     ValidationIssueOut,
@@ -21,6 +25,35 @@ from speaker_roi_api.services import audit, crud
 from speaker_roi_core.context import current_principal
 from speaker_roi_core.enums import AuditAction
 from speaker_roi_core.models.ingestion import DataVersion, UploadIssue, UploadSession
+
+# ---------------------------------------------------------------------------
+# MinIO (S3-compatible) client
+# ---------------------------------------------------------------------------
+_MINIO_ENDPOINT = "http://127.0.0.1:9100"
+_MINIO_BUCKET = "speaker-roi-uploads"
+
+_s3 = boto3.client(
+    "s3",
+    endpoint_url=_MINIO_ENDPOINT,
+    aws_access_key_id="minioadmin",
+    aws_secret_access_key="minioadmin",
+    region_name="us-east-1",
+)
+
+# ---------------------------------------------------------------------------
+# Celery client (broker-only, no worker import required)
+# ---------------------------------------------------------------------------
+_celery = Celery(broker="redis://127.0.0.1:63799/0")
+
+# ---------------------------------------------------------------------------
+# Upload safety constants
+# ---------------------------------------------------------------------------
+_MAX_UPLOAD_BYTES = 50 * 1024 * 1024  # 50 MB
+_BLOCKED_EXTENSIONS = {
+    ".exe", ".bat", ".cmd", ".com", ".msi", ".scr", ".pif", ".vbs",
+    ".js", ".wsf", ".ps1", ".sh", ".dll", ".so", ".dylib",
+}
+_FORMULA_PREFIXES = ("=", "+", "-", "@", "\t", "\r")
 
 router = APIRouter(tags=["Ingestion"])
 
@@ -102,6 +135,93 @@ async def list_sessions(
 async def get_session(db: ReadOnlySession, session_id: uuid.UUID) -> UploadSessionOut:
     row = await crud.get_or_404(db, UploadSession, session_id, resource="upload_session")
     return _session_out(row)
+
+
+@router.post(
+    "/uploads/files",
+    response_model=UploadFileResponse,
+    status_code=202,
+    summary="Upload a CSV file for processing",
+    dependencies=[Depends(require(Permission.UPLOAD_WRITE))],
+)
+async def upload_file(
+    db: TenantSession,
+    file: UploadFile = File(...),
+    dataset_type: str = Form("rx_monthly"),
+) -> UploadFileResponse:
+    # --- extension check ---------------------------------------------------
+    filename = file.filename or "upload.csv"
+    ext = "." + filename.rsplit(".", 1)[-1].lower() if "." in filename else ""
+    if ext in _BLOCKED_EXTENSIONS:
+        raise HTTPException(status_code=400, detail="Executable file types are not allowed.")
+    if ext != ".csv":
+        raise HTTPException(status_code=400, detail="Only CSV files are accepted.")
+
+    # --- size check --------------------------------------------------------
+    contents = await file.read()
+    if len(contents) > _MAX_UPLOAD_BYTES:
+        raise HTTPException(
+            status_code=400,
+            detail=f"File exceeds the {_MAX_UPLOAD_BYTES // (1024 * 1024)} MB limit.",
+        )
+
+    # --- CSV formula injection check ---------------------------------------
+    try:
+        text = contents.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        raise HTTPException(status_code=400, detail="File is not valid UTF-8 text.")
+
+    for line_no, line in enumerate(text.splitlines()[:5000], start=1):
+        for cell in line.split(","):
+            stripped = cell.strip().strip('"').strip("'")
+            if stripped and stripped[0] in _FORMULA_PREFIXES:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Potential formula injection detected at row {line_no}. "
+                    f"Cells must not start with {stripped[0]!r}.",
+                )
+
+    # --- upload to MinIO ---------------------------------------------------
+    principal = current_principal()
+    tenant_id = str(principal.tenant_id) if principal else "unknown"
+    session_id = uuid.uuid4()
+    object_key = f"{tenant_id}/{session_id}/{filename}"
+
+    _s3.upload_fileobj(
+        io.BytesIO(contents),
+        _MINIO_BUCKET,
+        object_key,
+        ExtraArgs={"ContentType": "text/csv"},
+    )
+
+    # --- create DB session record ------------------------------------------
+    actor_id = _actor_id()
+    row = await crud.create(
+        db,
+        UploadSession,
+        {
+            "id": session_id,
+            "dataset_type": dataset_type,
+            "file_name": filename,
+            "contract_version": "1.0",
+        },
+        resource="upload_session",
+        audit_fields=("dataset_type", "status"),
+        label=dataset_type,
+        actor_id=actor_id,
+    )
+
+    # --- dispatch Celery task ----------------------------------------------
+    result = _celery.send_task(
+        "ingestion.process_rx_upload",
+        args=[tenant_id, str(session_id), object_key, str(actor_id) if actor_id else None],
+    )
+
+    return UploadFileResponse(
+        session_id=row.id,
+        task_id=result.id,
+        status="processing",
+    )
 
 
 @router.post(

@@ -19,6 +19,8 @@ import type {
   RoiResult,
   ForecastItem,
   ExportStatus,
+  UploadSession,
+  ValidationIssue,
 } from "@/types/api";
 
 class ApiClientError extends Error {
@@ -113,10 +115,13 @@ export const api = {
     request<PaginatedResponse<Campaign>>(
       `/api/v1/campaigns${cursor ? `?cursor=${cursor}` : ""}`
     ),
-  events: (cursor?: string) =>
-    request<PaginatedResponse<Event>>(
-      `/api/v1/events${cursor ? `?cursor=${cursor}` : ""}`
-    ),
+  events: (cursor?: string, brandId?: string) => {
+    const params = new URLSearchParams();
+    if (cursor) params.set("cursor", cursor);
+    if (brandId) params.set("brandId", brandId);
+    const qs = params.toString();
+    return request<PaginatedResponse<Event>>(`/api/v1/events${qs ? `?${qs}` : ""}`);
+  },
   analyses: (cursor?: string) =>
     request<PaginatedResponse<Analysis>>(
       `/api/v1/analyses${cursor ? `?cursor=${cursor}` : ""}`
@@ -145,6 +150,19 @@ export const api = {
       method: "POST",
       body: JSON.stringify(body),
     }),
+  uploadFile: (file: File, datasetType: string = "rx_monthly") => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("dataset_type", datasetType);
+    return fetch("/api/v1/uploads/files", {
+      method: "POST",
+      credentials: "include",
+      body: formData,
+    }).then((res) => {
+      if (!res.ok) throw new Error(`Upload failed: ${res.statusText}`);
+      return res.json() as Promise<{ sessionId: string; taskId: string; status: string }>;
+    });
+  },
   createExport: (body: { exportType: string; filters?: Record<string, unknown> }) =>
     request<ExportStatus>("/api/v1/exports", {
       method: "POST",
@@ -152,6 +170,16 @@ export const api = {
     }),
   exportStatus: (taskId: string) =>
     request<ExportStatus>(`/api/v1/exports/${taskId}/status`),
+  uploadSessions: (cursor?: string) =>
+    request<PaginatedResponse<UploadSession>>(
+      `/api/v1/uploads/sessions${cursor ? `?cursor=${cursor}` : ""}`
+    ),
+  uploadSessionDetail: (id: string) =>
+    request<UploadSession>(`/api/v1/uploads/sessions/${id}`),
+  uploadSessionIssues: (sessionId: string, cursor?: string) =>
+    request<PaginatedResponse<ValidationIssue>>(
+      `/api/v1/uploads/sessions/${sessionId}/issues${cursor ? `?cursor=${cursor}` : ""}`
+    ),
   createCampaign: (body: Record<string, unknown>) =>
     request<Campaign>("/api/v1/campaigns", {
       method: "POST",

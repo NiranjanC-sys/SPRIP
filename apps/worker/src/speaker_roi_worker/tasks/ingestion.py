@@ -193,6 +193,8 @@ def process_rx_upload(
         total_rows = len(all_rows)
         self.update_state(state="PROGRESS", meta={"rows_processed": 0, "total_rows": total_rows})
 
+        brand_ids_seen: set[str] = set()
+
         async with session_scope(tenant_id=tid) as db:
             from sqlalchemy import text
 
@@ -273,6 +275,9 @@ def process_rx_upload(
                     continue
                 existing.add(dedup_key)
 
+                # Track distinct brand_ids for analytics recomputation
+                brand_ids_seen.add(str(brand_uuid))
+
                 batch.append({
                     "tid": tid,
                     "hcp_id": hcp_uuid,
@@ -321,6 +326,38 @@ def process_rx_upload(
         if len(errors) > 100:
             errors = errors[:100] + [f"... and {len(errors) - 100} more errors"]
 
+        # Auto-trigger analytics recomputation after successful insert
+        analytics_triggered = False
+        if rows_inserted > 0 and brand_ids_seen:
+            from speaker_roi_worker.tasks.analytics import (
+                compute_roi,
+                refresh_portfolio_aggregates,
+            )
+
+            today = date.today()
+            one_year_ago = today.replace(year=today.year - 1)
+
+            for bid in brand_ids_seen:
+                compute_roi.delay(
+                    tenant_id=tenant_id,
+                    brand_id=bid,
+                    period_start=one_year_ago.isoformat(),
+                    period_end=today.isoformat(),
+                    requested_by=uploaded_by,
+                )
+
+            refresh_portfolio_aggregates.delay(
+                tenant_id=tenant_id,
+                requested_by=uploaded_by,
+            )
+
+            analytics_triggered = True
+            log.info(
+                "task.process_rx.analytics_triggered",
+                tenant_id=tenant_id,
+                brand_count=len(brand_ids_seen),
+            )
+
         result = {
             "tenant_id": tenant_id,
             "upload_id": upload_id,
@@ -328,6 +365,8 @@ def process_rx_upload(
             "rows_inserted": rows_inserted,
             "rows_skipped": rows_skipped,
             "errors": errors,
+            "analytics_triggered": analytics_triggered,
+            "brands_recomputed": len(brand_ids_seen) if analytics_triggered else 0,
         }
         log.info(
             "task.process_rx.completed",

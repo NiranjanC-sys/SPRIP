@@ -15,6 +15,7 @@ import {
   PieChart,
   LineChart,
   Download,
+  ShieldCheck,
 } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
 import { useState } from "react";
@@ -31,6 +32,7 @@ const navItems = [
   { to: "/roi", icon: PieChart, label: "ROI Results" },
   { to: "/forecasts", icon: LineChart, label: "Forecasts" },
   { to: "/exports", icon: Download, label: "Exports" },
+  { to: "/data-steward", icon: ShieldCheck, label: "Data Steward" },
 ];
 
 export function Sidebar() {
@@ -54,13 +56,29 @@ export function Sidebar() {
         style={{ borderColor: "var(--color-border-default)" }}
       >
         <div
-          className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold shrink-0"
+          className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
           style={{
             backgroundColor: "var(--color-accent)",
-            color: "var(--color-text-inverse)",
           }}
         >
-          S
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* Chart bars */}
+            <rect x="2" y="12" width="3" height="6" rx="0.5" fill="var(--color-text-inverse)" opacity="0.7" />
+            <rect x="6.5" y="8" width="3" height="10" rx="0.5" fill="var(--color-text-inverse)" opacity="0.85" />
+            <rect x="11" y="5" width="3" height="13" rx="0.5" fill="var(--color-text-inverse)" />
+            {/* Pulse/trend line */}
+            <polyline
+              points="1,10 5,9 8,6 12,3 16,5 19,2"
+              stroke="var(--color-text-inverse)"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="none"
+            />
+            {/* Medical cross */}
+            <rect x="15" y="10" width="4" height="1.5" rx="0.3" fill="var(--color-text-inverse)" />
+            <rect x="16.25" y="8.75" width="1.5" height="4" rx="0.3" fill="var(--color-text-inverse)" />
+          </svg>
         </div>
         {!collapsed && (
           <span className="font-semibold text-sm whitespace-nowrap">

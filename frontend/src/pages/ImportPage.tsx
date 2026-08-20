@@ -1,7 +1,16 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { PageHeader } from "@/components/PageHeader";
-import { Upload, FileText, X } from "lucide-react";
+import { StatusBadge } from "@/components/StatusBadge";
+import { Upload, FileText, X, RefreshCw } from "lucide-react";
 import { useToast } from "@/context/ToastContext";
+import { api } from "@/lib/api";
+import type { UploadSession } from "@/types/api";
+
+const DATASET_OPTIONS = [
+  { value: "rx_monthly", label: "Rx Monthly" },
+  { value: "attendance", label: "Attendance" },
+  { value: "event_costs", label: "Event Costs" },
+];
 
 export function ImportPage() {
   const { showToast } = useToast();
@@ -10,6 +19,30 @@ export function ImportPage() {
   const [preview, setPreview] = useState<string[][] | null>(null);
   const [dragOver, setDragOver] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [datasetType, setDatasetType] = useState("rx_monthly");
+  const [uploadResult, setUploadResult] = useState<{
+    sessionId: string;
+    taskId: string;
+    status: string;
+  } | null>(null);
+  const [sessions, setSessions] = useState<UploadSession[]>([]);
+  const [loadingSessions, setLoadingSessions] = useState(false);
+
+  const loadSessions = useCallback(async () => {
+    setLoadingSessions(true);
+    try {
+      const data = await api.uploadSessions();
+      setSessions(data.items ?? []);
+    } catch {
+      // ignore
+    } finally {
+      setLoadingSessions(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadSessions();
+  }, [loadSessions]);
 
   const parseCSV = useCallback((text: string): string[][] => {
     const lines = text.split("\n").filter((l) => l.trim() !== "");
@@ -23,6 +56,7 @@ export function ImportPage() {
         return;
       }
       setFile(f);
+      setUploadResult(null);
       const reader = new FileReader();
       reader.onload = (e) => {
         const text = e.target?.result as string;
@@ -47,17 +81,13 @@ export function ImportPage() {
     if (!file) return;
     setUploading(true);
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-      const res = await fetch("/api/v1/uploads/sessions", {
-        method: "POST",
-        credentials: "include",
-        body: formData,
-      });
-      if (!res.ok) throw new Error(`Upload failed: ${res.statusText}`);
+      const result = await api.uploadFile(file, datasetType);
+      setUploadResult(result);
       showToast("File uploaded successfully");
       setFile(null);
       setPreview(null);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      loadSessions();
     } catch (err) {
       showToast(
         err instanceof Error ? err.message : "Upload failed",
@@ -71,6 +101,7 @@ export function ImportPage() {
   const clearFile = () => {
     setFile(null);
     setPreview(null);
+    setUploadResult(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
@@ -84,12 +115,61 @@ export function ImportPage() {
     fontSize: 14,
   };
 
+  const thStyle: React.CSSProperties = {
+    padding: "8px 12px",
+    borderBottom: "1px solid var(--color-border-default)",
+    backgroundColor: "var(--color-bg-secondary)",
+    color: "var(--color-text-secondary)",
+    fontWeight: 600,
+    textAlign: "left" as const,
+    whiteSpace: "nowrap" as const,
+    fontSize: 13,
+  };
+
+  const tdStyle: React.CSSProperties = {
+    padding: "8px 12px",
+    borderBottom: "1px solid var(--color-border-default)",
+    color: "var(--color-text-primary)",
+    whiteSpace: "nowrap" as const,
+    fontSize: 13,
+  };
+
   return (
     <div>
       <PageHeader
         title="Data Import"
         description="Upload CSV files to import data"
       />
+
+      {/* Dataset type selector */}
+      <div style={{ marginBottom: 16 }}>
+        <label
+          style={{
+            display: "block",
+            fontSize: 13,
+            fontWeight: 500,
+            marginBottom: 6,
+            color: "var(--color-text-secondary)",
+          }}
+        >
+          Dataset Type
+        </label>
+        <select
+          value={datasetType}
+          onChange={(e) => setDatasetType(e.target.value)}
+          style={{
+            ...inputStyle,
+            width: 240,
+            cursor: "pointer",
+          }}
+        >
+          {DATASET_OPTIONS.map((opt) => (
+            <option key={opt.value} value={opt.value}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
+      </div>
 
       {/* Drop zone */}
       <div
@@ -135,7 +215,7 @@ export function ImportPage() {
             marginTop: 4,
           }}
         >
-          Only .csv files are accepted
+          Only .csv files are accepted (max 50 MB)
         </p>
         <input
           ref={fileInputRef}
@@ -290,6 +370,113 @@ export function ImportPage() {
           </button>
         </div>
       )}
+
+      {/* Upload result */}
+      {uploadResult && (
+        <div
+          style={{
+            marginTop: 16,
+            padding: "12px 16px",
+            borderRadius: 8,
+            border: "1px solid var(--color-success)",
+            backgroundColor: "var(--color-bg-card)",
+          }}
+        >
+          <p
+            style={{
+              fontSize: 14,
+              fontWeight: 600,
+              color: "var(--color-success)",
+              marginBottom: 4,
+            }}
+          >
+            Upload submitted
+          </p>
+          <p style={{ fontSize: 13, color: "var(--color-text-secondary)" }}>
+            Session ID: {uploadResult.sessionId}
+          </p>
+          <p style={{ fontSize: 13, color: "var(--color-text-secondary)" }}>
+            Status: {uploadResult.status}
+          </p>
+        </div>
+      )}
+
+      {/* Upload History */}
+      <div style={{ marginTop: 32 }}>
+        <div className="flex items-center justify-between" style={{ marginBottom: 12 }}>
+          <h3
+            style={{
+              fontSize: 16,
+              fontWeight: 600,
+              color: "var(--color-text-primary)",
+            }}
+          >
+            Upload History
+          </h3>
+          <button
+            onClick={loadSessions}
+            disabled={loadingSessions}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              color: "var(--color-text-tertiary)",
+              padding: 4,
+              display: "flex",
+              alignItems: "center",
+              gap: 4,
+              fontSize: 13,
+            }}
+          >
+            <RefreshCw size={14} className={loadingSessions ? "animate-spin" : ""} />
+            Refresh
+          </button>
+        </div>
+        {sessions.length === 0 && !loadingSessions ? (
+          <p style={{ fontSize: 13, color: "var(--color-text-tertiary)" }}>
+            No upload sessions yet.
+          </p>
+        ) : (
+          <div
+            style={{
+              borderRadius: 8,
+              border: "1px solid var(--color-border-default)",
+              overflow: "auto",
+            }}
+          >
+            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <thead>
+                <tr>
+                  <th style={thStyle}>File</th>
+                  <th style={thStyle}>Dataset</th>
+                  <th style={thStyle}>Status</th>
+                  <th style={thStyle}>Rows</th>
+                  <th style={thStyle}>Errors</th>
+                  <th style={thStyle}>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sessions.map((s) => (
+                  <tr key={s.id}>
+                    <td style={tdStyle}>{s.fileName}</td>
+                    <td style={tdStyle}>{s.datasetType}</td>
+                    <td style={tdStyle}>
+                      <StatusBadge status={s.status} />
+                    </td>
+                    <td style={tdStyle}>{s.rowCount ?? "-"}</td>
+                    <td style={tdStyle}>{s.errorCount ?? "-"}</td>
+                    <td style={tdStyle}>
+                      {s.createdAt
+                        ? new Date(s.createdAt).toLocaleDateString()
+                        : "-"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

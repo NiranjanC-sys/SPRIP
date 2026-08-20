@@ -26,6 +26,11 @@ const columns = [
     render: (r: Event) =>
       r.status ? <StatusBadge status={String(r.status)} /> : "-",
   },
+  {
+    key: "brandName",
+    header: "Brand",
+    render: (r: Event) => String((r as Record<string, unknown>).brandName ?? (r as Record<string, unknown>).brandId ?? "-"),
+  },
   { key: "location", header: "Location", render: (r: Event) => String(r.location ?? "-") },
   {
     key: "date",
@@ -54,12 +59,14 @@ const columns = [
 
 export function EventsPage() {
   const { data, status, error } = useApi(() => api.events(), []);
+  const brandsResult = useApi(() => api.brands(), []);
   const [allItems, setAllItems] = useState<Event[]>([]);
   const [nextCursor, setNextCursor] = useState<string | undefined>();
   const [total, setTotal] = useState(0);
   const [loadingMore, setLoadingMore] = useState(false);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("All");
+  const [brandFilter, setBrandFilter] = useState<string>("All");
 
   const initialLoaded = data !== null;
   if (initialLoaded && allItems.length === 0 && (data?.items.length ?? 0) > 0) {
@@ -69,6 +76,7 @@ export function EventsPage() {
   }
 
   const items = allItems.length > 0 ? allItems : data?.items ?? [];
+  const brands = brandsResult.data?.items ?? [];
 
   const loadMore = useCallback(async () => {
     if (!nextCursor || loadingMore) return;
@@ -94,8 +102,13 @@ export function EventsPage() {
         (r) => (r.status ?? "").toUpperCase() === statusFilter
       );
     }
+    if (brandFilter !== "All") {
+      result = result.filter(
+        (r) => String((r as Record<string, unknown>).brandId ?? "") === brandFilter
+      );
+    }
     return result;
-  }, [items, search, statusFilter]);
+  }, [items, search, statusFilter, brandFilter]);
 
   const selectStyle: React.CSSProperties = {
     padding: "8px 12px",
@@ -147,6 +160,18 @@ export function EventsPage() {
             </option>
           ))}
         </select>
+        <select
+          value={brandFilter}
+          onChange={(e) => setBrandFilter(e.target.value)}
+          style={selectStyle}
+        >
+          <option value="All">All Brands</option>
+          {brands.map((b) => (
+            <option key={b.id} value={b.id}>
+              {b.name}
+            </option>
+          ))}
+        </select>
       </div>
 
       <DataTable
@@ -171,7 +196,7 @@ export function EventsPage() {
           <span>
             Showing {filtered.length} of {total || items.length}
           </span>
-          {nextCursor && !search.trim() && statusFilter === "All" && (
+          {nextCursor && !search.trim() && statusFilter === "All" && brandFilter === "All" && (
             <button
               onClick={loadMore}
               disabled={loadingMore}
