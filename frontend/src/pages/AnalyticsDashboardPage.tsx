@@ -94,9 +94,8 @@ export function AnalyticsDashboardPage() {
   const impacts = useApi(() => api.impacts(), []);
   const roiResults = useApi(() => api.roiResults(), []);
 
-  // These endpoints are slow — catch failures gracefully
-  const roiTrend = useApi(() => api.dashboardRoiTrend().catch(() => null), []);
-  const engagement = useApi(() => api.dashboardEngagement().catch(() => null), []);
+  const roiTrend = useApi(() => api.dashboardRoiTrend(), []);
+  const engagement = useApi(() => api.dashboardEngagement(), []);
 
   const brands = brandsResult.data?.items ?? [];
 
@@ -122,17 +121,9 @@ export function AnalyticsDashboardPage() {
       .slice(0, 8);
   }, [roiResults.data, brandFilter]);
 
-  // Engagement distribution
   const engagementDistribution = useMemo(() => {
     const buckets = engagement.data?.buckets ?? [];
-    if (buckets.length > 0) {
-      return buckets.map((b) => ({ level: b.bucket, count: b.count }));
-    }
-    return [
-      { level: "High", count: 30 },
-      { level: "Medium", count: 45 },
-      { level: "Low", count: 25 },
-    ];
+    return buckets.map((b) => ({ level: b.bucket, count: b.count }));
   }, [engagement.data]);
 
   const engagementTotal = engagementDistribution.reduce((s, d) => s + d.count, 0);
@@ -329,6 +320,8 @@ export function AnalyticsDashboardPage() {
         <ChartCard title="HCP Engagement Distribution">
           {engagement.status === "loading" ? (
             <ChartLoading />
+          ) : engagementDistribution.length === 0 ? (
+            <ChartEmpty message="No engagement data available" />
           ) : (
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
