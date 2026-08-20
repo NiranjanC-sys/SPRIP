@@ -515,6 +515,89 @@ async def main() -> None:
         total_pa = len(brands) * 18  # 18 months
         print(f"  ~{total_pa} portfolio_aggregate rows")
 
+        # -- 8. Create forecasts (future events) ──────────────────────────
+        print("Creating forecasts...")
+        await conn.execute(text("DELETE FROM analytics.forecasts"))
+
+        # Get future events (event_date > today) for forecasting
+        future_events = [
+            evt for evt in events if evt["event_date"] > date.today()
+        ]
+        # If not enough future events, use recent ones
+        if len(future_events) < 50:
+            sorted_events = sorted(events, key=lambda e: e["event_date"], reverse=True)
+            future_events = sorted_events[:50]
+
+        forecast_count = 0
+        for evt in future_events[:50]:
+            event_id = evt["id"]
+            brand_id = evt["brand_id"]
+            run_id = brand_run_map.get(brand_id)
+            if run_id is None:
+                continue
+
+            # Generate realistic forecast values
+            seed_str = str(event_id) + "forecast"
+            point_est = round(_deterministic_float(seed_str, 3.0, 15.0), 4)
+            pi_low = round(point_est * 0.5, 4)
+            pi_high = round(point_est * 1.8, 4)
+            n_eff = round(_deterministic_float(seed_str + "neff", 5.0, 50.0), 1)
+            exp_att = round(_deterministic_float(seed_str + "att", 15.0, 80.0), 1)
+            exp_att_low = round(exp_att * 0.6, 1)
+            exp_att_high = round(exp_att * 1.4, 1)
+            exp_inc_nrx = round(point_est * exp_att, 2)
+            exp_cost = round(_deterministic_float(seed_str + "cost", 50000, 300000), 2)
+            exp_net_roi = round(exp_inc_nrx * REVENUE_PER_NRX - exp_cost, 2)
+            exp_net_roi_low = round(pi_low * exp_att_low * REVENUE_PER_NRX - exp_cost, 2)
+
+            # Most forecasts are MODEL, some POOLED
+            mode = "MODEL" if _deterministic_float(seed_str + "mode", 0, 1) > 0.25 else "POOLED"
+            pooling_cell = f"brand={brand_id}" if mode == "POOLED" else None
+            pooling_level = "BRAND" if mode == "POOLED" else None
+            blend_weight = round(_deterministic_float(seed_str + "bw", 0.3, 0.9), 2) if mode == "POOLED" else None
+
+            await conn.execute(text("""
+                INSERT INTO analytics.forecasts
+                    (id, tenant_id, run_id, brand_id, mode,
+                     point_estimate, pi_low, pi_high, alpha,
+                     n_effective, pooling_cell, pooling_level, blend_weight,
+                     expected_attendance, expected_attendance_low, expected_attendance_high,
+                     expected_incremental_nrx, expected_cost,
+                     expected_net_roi, expected_net_roi_low, currency,
+                     created_at, updated_at)
+                VALUES
+                    (:id, :tid, :run_id, :brand_id, :mode,
+                     :point_est, :pi_low, :pi_high, 0.20,
+                     :n_eff, :pooling_cell, :pooling_level, :blend_weight,
+                     :exp_att, :exp_att_low, :exp_att_high,
+                     :exp_inc_nrx, :exp_cost,
+                     :exp_net_roi, :exp_net_roi_low, 'INR',
+                     :now, :now)
+            """), {
+                "id": uuid.uuid4(),
+                "tid": tenant_id,
+                "run_id": run_id,
+                "brand_id": brand_id,
+                "mode": mode,
+                "point_est": point_est,
+                "pi_low": pi_low,
+                "pi_high": pi_high,
+                "n_eff": n_eff,
+                "pooling_cell": pooling_cell,
+                "pooling_level": pooling_level,
+                "blend_weight": blend_weight,
+                "exp_att": exp_att,
+                "exp_att_low": exp_att_low,
+                "exp_att_high": exp_att_high,
+                "exp_inc_nrx": exp_inc_nrx,
+                "exp_cost": exp_cost,
+                "exp_net_roi": exp_net_roi,
+                "exp_net_roi_low": exp_net_roi_low,
+                "now": now,
+            })
+            forecast_count += 1
+        print(f"  {forecast_count} forecasts")
+
     await engine.dispose()
     print("\n=== Analytics seed complete ===")
 

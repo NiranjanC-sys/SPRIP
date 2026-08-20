@@ -15,7 +15,9 @@ class RoiResultOut(Schema):
     run_id: uuid.UUID = Field(serialization_alias="runId")
     level: str
     event_id: uuid.UUID | None = Field(default=None, serialization_alias="eventId")
+    event_name: str | None = Field(default=None, serialization_alias="eventName")
     brand_id: uuid.UUID | None = Field(default=None, serialization_alias="brandId")
+    brand_name: str | None = Field(default=None, serialization_alias="brandName")
     incremental_nrx: float | None = Field(default=None, serialization_alias="incrementalNrx")
     gross_contribution: float | None = Field(default=None, serialization_alias="grossContribution")
     total_cost: float = Field(serialization_alias="totalCost")

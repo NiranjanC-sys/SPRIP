@@ -51,4 +51,24 @@ class HcpOut(Schema):
     audit: AuditStamp | None = None
 
 
-__all__ = ["HcpCreate", "HcpOut", "HcpPatch"]
+class RxHistoryItem(Schema):
+    month: str
+    nrx: float
+    trx: float
+    brand_id: str = Field(serialization_alias="brandId")
+
+
+class AttendedEventItem(Schema):
+    id: uuid.UUID
+    name: str | None = None
+    date: str | None = None
+    status: str | None = None
+    role: str | None = None
+
+
+class HcpDetailOut(HcpOut):
+    rx_history: list[RxHistoryItem] = Field(default_factory=list, serialization_alias="rxHistory")
+    events_attended: list[AttendedEventItem] = Field(default_factory=list, serialization_alias="eventsAttended")
+
+
+__all__ = ["HcpCreate", "HcpDetailOut", "HcpOut", "HcpPatch"]

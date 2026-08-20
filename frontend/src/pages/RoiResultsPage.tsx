@@ -23,9 +23,9 @@ const columns = [
     header: "Brand",
     render: (r: RoiResult) =>
       r.brandId ? (
-        <Link to={`/brands`} style={{ color: "var(--color-accent)" }} className="hover:underline">
-          {String(r.brandName ?? r.brandId)}
-        </Link>
+        <span style={{ color: "var(--color-text-primary)" }}>
+          {String((r as Record<string, unknown>).brandName ?? r.brandId)}
+        </span>
       ) : (
         "-"
       ),
@@ -47,6 +47,18 @@ const columns = [
     header: "Incr. NRx",
     render: (r: RoiResult) =>
       r.incrementalNrx != null ? Number(r.incrementalNrx).toFixed(1) : "-",
+  },
+  {
+    key: "grossContribution",
+    header: "Gross Contribution",
+    render: (r: RoiResult) =>
+      r.grossContribution != null ? `$${Number(r.grossContribution).toLocaleString()}` : "-",
+  },
+  {
+    key: "totalCost",
+    header: "Total Cost",
+    render: (r: RoiResult) =>
+      r.totalCost != null ? `$${Number(r.totalCost).toLocaleString()}` : "-",
   },
   {
     key: "netRoi",
@@ -75,14 +87,18 @@ const columns = [
 ];
 
 export function RoiResultsPage() {
-  const { data, status, error } = useApi(() => api.roiResults(), []);
-  const brandsResult = useApi(() => api.brands(), []);
   const [allItems, setAllItems] = useState<RoiResult[]>([]);
   const [nextCursor, setNextCursor] = useState<string | undefined>();
   const [total, setTotal] = useState(0);
   const [loadingMore, setLoadingMore] = useState(false);
   const [brandFilter, setBrandFilter] = useState<string>("All");
   const [levelFilter, setLevelFilter] = useState<string>("All");
+
+  const { data, status, error } = useApi(
+    () => api.roiResults(undefined, brandFilter !== "All" ? brandFilter : undefined, levelFilter !== "All" ? levelFilter : undefined),
+    [brandFilter, levelFilter]
+  );
+  const brandsResult = useApi(() => api.brands(), []);
 
   const initialLoaded = data !== null;
   if (initialLoaded && allItems.length === 0 && (data?.items.length ?? 0) > 0) {
@@ -98,14 +114,18 @@ export function RoiResultsPage() {
     if (!nextCursor || loadingMore) return;
     setLoadingMore(true);
     try {
-      const res: PaginatedResponse<RoiResult> = await api.roiResults(nextCursor);
+      const res: PaginatedResponse<RoiResult> = await api.roiResults(
+        nextCursor,
+        brandFilter !== "All" ? brandFilter : undefined,
+        levelFilter !== "All" ? levelFilter : undefined
+      );
       setAllItems((prev) => [...prev, ...res.items]);
       setNextCursor(res.nextCursor ?? undefined);
       setTotal(res.total);
     } finally {
       setLoadingMore(false);
     }
-  }, [nextCursor, loadingMore]);
+  }, [nextCursor, loadingMore, brandFilter, levelFilter]);
 
   const filtered = useMemo(() => {
     let result = items;

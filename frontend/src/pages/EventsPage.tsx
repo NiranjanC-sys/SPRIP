@@ -29,31 +29,23 @@ const columns = [
   {
     key: "brandName",
     header: "Brand",
-    render: (r: Event) => String((r as Record<string, unknown>).brandName ?? (r as Record<string, unknown>).brandId ?? "-"),
+    render: (r: Event) => String(r.brandName ?? r.brandId ?? "-"),
   },
-  { key: "location", header: "Location", render: (r: Event) => String(r.location ?? "-") },
   {
-    key: "date",
+    key: "venueCity",
+    header: "Location",
+    render: (r: Event) => String(r.venueCity || r.venueName || "-"),
+  },
+  {
+    key: "eventDate",
     header: "Date",
     render: (r: Event) =>
-      r.date ? new Date(r.date).toLocaleDateString() : "-",
+      r.eventDate ? new Date(r.eventDate).toLocaleDateString() : "-",
   },
   {
-    key: "attendees",
-    header: "Attendees",
-    render: (r: Event) => (r.attendees != null ? String(r.attendees) : "-"),
-  },
-  {
-    key: "cost",
-    header: "Cost",
-    render: (r: Event) =>
-      r.cost != null ? `$${Number(r.cost).toLocaleString()}` : "-",
-  },
-  {
-    key: "roi",
-    header: "ROI",
-    render: (r: Event) =>
-      r.roi != null ? `${Number(r.roi).toFixed(1)}x` : "-",
+    key: "plannedAttendance",
+    header: "Attendance",
+    render: (r: Event) => (r.plannedAttendance != null ? String(r.plannedAttendance) : "-"),
   },
 ];
 

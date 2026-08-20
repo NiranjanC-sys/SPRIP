@@ -13,6 +13,7 @@ from speaker_roi_api.schemas.common import Schema
 class ForecastOut(Schema):
     id: uuid.UUID
     brand_id: uuid.UUID | None = Field(default=None, serialization_alias="brandId")
+    brand_name: str | None = Field(default=None, serialization_alias="brandName")
     period_start: date | None = Field(default=None, serialization_alias="periodStart")
     period_end: date | None = Field(default=None, serialization_alias="periodEnd")
     predicted_nrx: float | None = Field(default=None, serialization_alias="predictedNrx")

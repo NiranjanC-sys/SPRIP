@@ -235,38 +235,7 @@ async def patch_assumption(
     return _assumption_out(row)
 
 
-@router.get(
-    "/roi/results",
-    response_model=Page[RoiResultOut],
-    summary="List ROI results",
-    dependencies=[Depends(require(Permission.ROI_READ))],
-)
-async def list_roi_results(
-    db: ReadOnlySession,
-    page: PageParams,
-    brand_id: Annotated[uuid.UUID | None, Query(alias="brandId")] = None,
-    event_id: Annotated[uuid.UUID | None, Query(alias="eventId")] = None,
-) -> Page[RoiResultOut]:
-    stmt = select(RoiResult)
-    if brand_id is not None:
-        stmt = stmt.where(RoiResult.brand_id == brand_id)
-    if event_id is not None:
-        stmt = stmt.where(RoiResult.event_id == event_id)
-    rows, cursor, _ = await crud.paginate(
-        db, stmt, page, sort_column=RoiResult.created_at, id_column=RoiResult.id
-    )
-    return Page(items=[_roi_out(r) for r in rows], next_cursor=cursor)
-
-
-@router.get(
-    "/roi/results/{result_id}",
-    response_model=RoiResultOut,
-    summary="Get an ROI result",
-    dependencies=[Depends(require(Permission.ROI_READ))],
-)
-async def get_roi_result(db: ReadOnlySession, result_id: uuid.UUID) -> RoiResultOut:
-    row = await crud.get_or_404(db, RoiResult, result_id, resource="roi_result")
-    return _roi_out(row)
+    # ROI results endpoints moved to routers/roi.py (enriched with brand/event names)
 
 
 __all__ = ["router"]

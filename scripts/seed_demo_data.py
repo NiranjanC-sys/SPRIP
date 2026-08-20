@@ -2,6 +2,7 @@
 
 import asyncio
 import csv
+import random
 import uuid
 from datetime import date
 from pathlib import Path
@@ -34,6 +35,13 @@ async def main():
         # --- Clear ---
         print("Clearing old data...")
         for tbl in [
+            # Analytics tables reference core tables (brands, events) via FK
+            "analytics.forecasts",
+            "analytics.portfolio_aggregates",
+            "analytics.roi_results",
+            "analytics.event_impacts",
+            "analytics.analysis_runs",
+            # Core tables
             "core.attendance", "core.event_costs", "core.event_speakers",
             "core.hcp_rx_monthly", "core.marketing_activity", "core.market_factors",
             "core.events", "core.campaigns", "core.hcp_identifiers", "core.hcps",
@@ -66,7 +74,27 @@ async def main():
             """), {"id": pid, "tid": tenant_id, "bid": bid, "code": code, "name": prod})
         print(f"  {len(brand_map)} brands: {', '.join(sorted(brand_map))}")
 
-        default_brand_id = list(brand_map.values())[0]
+        # Round-robin brand assignment list for events
+        brand_id_list = [brand_map[b] for b in sorted(brand_map.keys())]
+
+        # Venue data for realistic event locations
+        CITIES = [
+            "Mumbai", "Delhi", "Bangalore", "Chennai", "Hyderabad",
+            "Pune", "Kolkata", "Ahmedabad", "Jaipur", "Lucknow",
+        ]
+        VENUES = [
+            "Grand Hotel Conference Center",
+            "Medical Association Hall",
+            "Pharma Convention Center",
+            "University Auditorium",
+            "Hospital Conference Room",
+            "City Medical Forum",
+            "Healthcare Summit Venue",
+            "Research Institute Hall",
+            "Professional Development Center",
+            "Clinical Excellence Auditorium",
+        ]
+        random.seed(42)
 
         # --- HCPs ---
         print("Loading HCPs...")
@@ -101,6 +129,8 @@ async def main():
         fmt_map = {"Virtual": "VIRTUAL", "In-person": "IN_PERSON", "Hybrid": "HYBRID"}
         sts_map = {"Completed": "COMPLETED", "Confirmed": "CONFIRMED", "Cancelled": "CANCELLED", "Proposed": "PROPOSED"}
         event_map = {}
+        event_brand_map = {}  # event_id (csv) -> brand_id
+        event_idx = 0
         with open(DATA_DIR / "events.csv", encoding="utf-8") as f:
             for r in csv.DictReader(f):
                 eid = uuid.uuid4()
@@ -110,12 +140,21 @@ async def main():
                 sts = sts_map.get(r.get("status", ""), "PROPOSED")
                 topic = (r.get("topic") or "")[:58]
                 name = (r.get("topic") or code)[:120]
+                # Round-robin brand assignment
+                assigned_brand_id = brand_id_list[event_idx % len(brand_id_list)]
+                event_brand_map[r["event_id"]] = assigned_brand_id
+                # Random venue data
+                venue_city = random.choice(CITIES)
+                venue_name = random.choice(VENUES)
+                event_idx += 1
                 await conn.execute(text("""
                     INSERT INTO core.events (id, tenant_id, brand_id, code, name, event_date, format, status, topic_code,
+                        venue_city, venue_name,
                         workflow_status, measurement_eligible, row_version, created_at, updated_at)
                     VALUES (:id, :tid, :bid, :code, :name, :dt, :fmt, :sts, :topic,
+                        :vcity, :vname,
                         'DRAFT', true, 1, now(), now())
-                """), {"id": eid, "tid": tenant_id, "bid": default_brand_id, "code": code, "name": name, "dt": date.fromisoformat(r.get("date", "2026-01-01")), "fmt": fmt, "sts": sts, "topic": topic or None})
+                """), {"id": eid, "tid": tenant_id, "bid": assigned_brand_id, "code": code, "name": name, "dt": date.fromisoformat(r.get("date", "2026-01-01")), "fmt": fmt, "sts": sts, "topic": topic or None, "vcity": venue_city, "vname": venue_name})
         print(f"  {len(event_map)} events")
 
         # --- Event Costs ---

@@ -103,35 +103,55 @@ export interface Product {
 
 export interface HCP {
   id: string;
-  name: string;
-  specialty?: string;
-  tier?: string;
-  email?: string;
-  region?: string;
+  masterHcpId: string;
+  specialtyCode?: string;
+  regionCode?: string;
+  practiceType?: string;
+  segment?: string;
+  cityCode?: string;
+  isActive?: boolean;
+  firstSeenOn?: string;
+  audit?: Record<string, unknown>;
   [key: string]: unknown;
 }
 
 export interface Campaign {
   id: string;
+  code?: string;
   name: string;
-  status?: string;
   brandId?: string;
+  brandName?: string;
+  objective?: string;
   startDate?: string;
   endDate?: string;
-  budget?: number;
+  status?: string;
+  plannedBudget?: number;
+  currency?: string;
+  eventCount?: number;
+  isActive?: boolean;
+  audit?: Record<string, unknown>;
   [key: string]: unknown;
 }
 
 export interface Event {
   id: string;
+  code?: string;
   name: string;
-  date?: string;
+  brandId?: string;
+  brandName?: string;
   campaignId?: string;
+  eventDate?: string;
+  format?: string;
   status?: string;
-  location?: string;
-  attendees?: number;
-  cost?: number;
-  roi?: number;
+  topicCode?: string;
+  regionCode?: string;
+  venueCity?: string;
+  venueName?: string;
+  speakerTier?: string;
+  plannedAttendance?: number;
+  speakerCount?: number;
+  isActive?: boolean;
+  audit?: Record<string, unknown>;
   [key: string]: unknown;
 }
 

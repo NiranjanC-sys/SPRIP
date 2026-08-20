@@ -6,11 +6,17 @@ import uuid
 from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, Query, status
-from sqlalchemy import func, select
+from sqlalchemy import func, select, text
 from sqlalchemy.orm import selectinload
 
 from speaker_roi_api.deps import PageParams, ReadOnlySession, TenantSession, deny_vendor, require
-from speaker_roi_api.schemas.campaigns import CampaignCreate, CampaignOut, CampaignPatch
+from speaker_roi_api.schemas.campaigns import (
+    CampaignCreate,
+    CampaignDetailOut,
+    CampaignEventItem,
+    CampaignOut,
+    CampaignPatch,
+)
 from speaker_roi_api.schemas.common import Acknowledged, AuditStamp, Page
 from speaker_roi_api.schemas.master_data import DeactivateRequest
 from speaker_roi_api.security.rbac import Permission
@@ -146,15 +152,55 @@ async def create_campaign(db: TenantSession, payload: CampaignCreate) -> Campaig
 
 @router.get(
     "/campaigns/{campaign_id}",
-    response_model=CampaignOut,
+    response_model=CampaignDetailOut,
     summary="Get a campaign",
     dependencies=[Depends(require(Permission.CAMPAIGN_READ))],
 )
-async def get_campaign(db: ReadOnlySession, campaign_id: uuid.UUID) -> CampaignOut:
+async def get_campaign(db: ReadOnlySession, campaign_id: uuid.UUID) -> CampaignDetailOut:
     row = await crud.get_or_404(
         db, Campaign, campaign_id, resource="campaign", options=[selectinload(Campaign.brand)]
     )
-    return _out(row, brand_name=row.brand.name if row.brand else None)
+    base = _out(row, brand_name=row.brand.name if row.brand else None)
+
+    # Events belonging to this campaign
+    event_rows = (
+        await db.execute(
+            text(
+                "SELECT id, name, event_date, status, format "
+                "FROM core.events WHERE campaign_id = :cid "
+                "ORDER BY event_date"
+            ),
+            {"cid": campaign_id},
+        )
+    ).all()
+    events = [
+        CampaignEventItem(
+            id=r[0],
+            name=r[1],
+            event_date=r[2],
+            status=str(r[3]) if r[3] else "",
+            format=str(r[4]) if r[4] else "",
+        )
+        for r in event_rows
+    ]
+
+    # Total spend across all events in this campaign
+    spend_result = await db.execute(
+        text(
+            "SELECT COALESCE(SUM(ec.amount), 0) "
+            "FROM core.event_costs ec "
+            "JOIN core.events e ON e.id = ec.event_id "
+            "WHERE e.campaign_id = :cid"
+        ),
+        {"cid": campaign_id},
+    )
+    total_spend = float(spend_result.scalar() or 0)
+
+    return CampaignDetailOut(
+        **base.model_dump(by_alias=False),
+        events=events,
+        total_spend=total_spend,
+    )
 
 
 @router.patch(

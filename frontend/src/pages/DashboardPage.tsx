@@ -26,8 +26,8 @@ export function DashboardPage() {
     if (items.length === 0) return [];
     const byMonth = new Map<string, number>();
     items.forEach((e) => {
-      if (e.date) {
-        const d = new Date(e.date);
+      if (e.eventDate) {
+        const d = new Date(e.eventDate);
         const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
         byMonth.set(key, (byMonth.get(key) ?? 0) + 1);
       }
@@ -61,7 +61,7 @@ export function DashboardPage() {
           label="Total Budget"
           value={formatCurrency(
             campaigns.data?.items.reduce(
-              (sum, c) => sum + (Number(c.budget) || 0),
+              (sum, c) => sum + (Number(c.plannedBudget) || 0),
               0
             ) ?? 0
           )}
@@ -70,13 +70,8 @@ export function DashboardPage() {
         <MetricCard
           label="Avg ROI"
           value={
-            events.data?.items.length
-              ? `${(
-                  events.data.items.reduce(
-                    (s, e) => s + (Number(e.roi) || 0),
-                    0
-                  ) / events.data.items.length
-                ).toFixed(1)}x`
+            dashStats.data?.avgRoi != null && dashStats.data.avgRoi > 0
+              ? `${dashStats.data.avgRoi.toFixed(1)}x`
               : "N/A"
           }
           icon={TrendingUp}
@@ -134,7 +129,7 @@ export function DashboardPage() {
               <Row
                 key={e.id}
                 primary={e.name}
-                secondary={e.date ? new Date(e.date).toLocaleDateString() : ""}
+                secondary={e.eventDate ? new Date(e.eventDate).toLocaleDateString() : ""}
                 badge={e.status}
               />
             ))

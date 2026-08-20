@@ -10,13 +10,16 @@ import uuid
 from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, Query, Response, status
-from sqlalchemy import func, select
+from sqlalchemy import func, select, text
 from sqlalchemy.orm import selectinload
 
 from speaker_roi_api.deps import PageParams, ReadOnlySession, TenantSession, deny_vendor, require
 from speaker_roi_api.schemas.common import Acknowledged, AuditStamp, Page
 from speaker_roi_api.schemas.events import (
+    EventCostItem,
     EventCreate,
+    EventDetailOut,
+    EventImpactSummary,
     EventOut,
     EventPatch,
     EventSpeakerIn,
@@ -203,11 +206,11 @@ async def create_event(db: TenantSession, payload: EventCreate) -> EventOut:
 
 @router.get(
     "/events/{event_id}",
-    response_model=EventOut,
+    response_model=EventDetailOut,
     summary="Get an event",
     dependencies=[Depends(require(Permission.EVENT_READ))],
 )
-async def get_event(db: ReadOnlySession, event_id: uuid.UUID) -> EventOut:
+async def get_event(db: ReadOnlySession, event_id: uuid.UUID) -> EventDetailOut:
     row = await crud.get_or_404(
         db,
         Event,
@@ -216,11 +219,74 @@ async def get_event(db: ReadOnlySession, event_id: uuid.UUID) -> EventOut:
         options=[selectinload(Event.brand), selectinload(Event.speakers)],
     )
     _assert_brand_visible(row.brand_id)
-    return _event_out(
+    base = _event_out(
         row,
         brand_name=row.brand.name if row.brand else None,
         speaker_count=len(row.speakers),
         include_speakers=True,
+    )
+
+    # Attendance count
+    att_result = await db.execute(
+        text(
+            "SELECT COUNT(*) FROM core.attendance "
+            "WHERE event_id = :eid AND verified_attended = true"
+        ),
+        {"eid": event_id},
+    )
+    attendance_count = att_result.scalar() or 0
+
+    # Total cost
+    cost_result = await db.execute(
+        text("SELECT COALESCE(SUM(amount), 0) FROM core.event_costs WHERE event_id = :eid"),
+        {"eid": event_id},
+    )
+    total_cost_val = float(cost_result.scalar() or 0)
+
+    # Cost breakdown
+    cost_rows = (
+        await db.execute(
+            text(
+                "SELECT category_code, amount FROM core.event_costs "
+                "WHERE event_id = :eid ORDER BY category_code"
+            ),
+            {"eid": event_id},
+        )
+    ).all()
+    cost_breakdown = [
+        EventCostItem(category=r[0], amount=float(r[1])) for r in cost_rows
+    ]
+
+    # Impact from analytics.event_impacts
+    impact: EventImpactSummary | None = None
+    try:
+        impact_row = (
+            await db.execute(
+                text(
+                    "SELECT incremental_nrx, p_value, evidence_grade, confidence_level "
+                    "FROM analytics.event_impacts "
+                    "WHERE event_id = :eid "
+                    "ORDER BY created_at DESC LIMIT 1"
+                ),
+                {"eid": event_id},
+            )
+        ).first()
+        if impact_row is not None:
+            impact = EventImpactSummary(
+                incremental_value=float(impact_row[0]) if impact_row[0] is not None else None,
+                p_value=float(impact_row[1]) if impact_row[1] is not None else None,
+                grade=str(impact_row[2]) if impact_row[2] is not None else None,
+                confidence_level=float(impact_row[3]) if impact_row[3] is not None else None,
+            )
+    except Exception:
+        pass
+
+    return EventDetailOut(
+        **base.model_dump(by_alias=False),
+        attendance_count=int(attendance_count),
+        total_cost=total_cost_val,
+        cost_breakdown=cost_breakdown,
+        impact=impact,
     )
 
 

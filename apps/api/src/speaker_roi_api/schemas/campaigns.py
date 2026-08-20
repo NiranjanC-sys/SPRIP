@@ -58,4 +58,23 @@ class CampaignOut(Schema):
     audit: AuditStamp | None = None
 
 
-__all__ = ["CampaignCreate", "CampaignOut", "CampaignPatch"]
+class CampaignEventItem(Schema):
+    id: uuid.UUID
+    name: str | None = None
+    event_date: date = Field(serialization_alias="eventDate")
+    status: str
+    format: str
+
+
+class CampaignDetailOut(CampaignOut):
+    events: list[CampaignEventItem] = Field(default_factory=list)
+    total_spend: float | None = Field(default=None, serialization_alias="totalSpend")
+
+
+__all__ = [
+    "CampaignCreate",
+    "CampaignDetailOut",
+    "CampaignEventItem",
+    "CampaignOut",
+    "CampaignPatch",
+]

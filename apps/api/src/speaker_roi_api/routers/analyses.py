@@ -219,27 +219,7 @@ async def get_impact(db: ReadOnlySession, impact_id: uuid.UUID) -> EventImpactOu
 # ---------------------------------------------------------------------------
 
 
-@router.get(
-    "/forecasts",
-    response_model=Page[ForecastOut],
-    summary="List forecasts",
-    dependencies=[Depends(require(Permission.FORECAST_READ))],
-)
-async def list_forecasts(
-    db: ReadOnlySession,
-    page: PageParams,
-    brand_id: Annotated[uuid.UUID | None, Query(alias="brandId")] = None,
-    scenario_id: Annotated[uuid.UUID | None, Query(alias="scenarioId")] = None,
-) -> Page[ForecastOut]:
-    stmt = select(Forecast)
-    if brand_id is not None:
-        stmt = stmt.where(Forecast.brand_id == brand_id)
-    if scenario_id is not None:
-        stmt = stmt.where(Forecast.scenario_id == scenario_id)
-    rows, cursor, _ = await crud.paginate(
-        db, stmt, page, sort_column=Forecast.created_at, id_column=Forecast.id
-    )
-    return Page(items=[_forecast_out(r) for r in rows], next_cursor=cursor)
+    # Forecasts list endpoint moved to routers/forecasts.py (enriched with brand names)
 
 
 # ---------------------------------------------------------------------------

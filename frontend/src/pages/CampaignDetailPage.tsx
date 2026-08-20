@@ -45,10 +45,7 @@ export function CampaignDetailPage() {
 
   const campaign = data;
   const eventsList: Record<string, unknown>[] = campaign.events ?? [];
-  const totalSpent = eventsList.reduce((s, e) => s + (Number(e.cost) || 0), 0);
-  const avgRoi = eventsList.length
-    ? eventsList.reduce((s, e) => s + (Number(e.roi) || 0), 0) / eventsList.length
-    : 0;
+  const hasEvents = eventsList.length > 0;
 
   const eventColumns = [
     {
@@ -65,10 +62,10 @@ export function CampaignDetailPage() {
       ),
     },
     {
-      key: "date",
+      key: "eventDate",
       header: "Date",
       render: (r: Record<string, unknown>) =>
-        r.date ? new Date(String(r.date)).toLocaleDateString() : "-",
+        r.eventDate ? new Date(String(r.eventDate)).toLocaleDateString() : "-",
     },
     {
       key: "status",
@@ -77,21 +74,9 @@ export function CampaignDetailPage() {
         r.status ? <StatusBadge status={String(r.status)} /> : "-",
     },
     {
-      key: "attendees",
-      header: "Attendees",
-      render: (r: Record<string, unknown>) => String(r.attendees ?? "-"),
-    },
-    {
-      key: "cost",
-      header: "Cost",
-      render: (r: Record<string, unknown>) =>
-        r.cost != null ? `$${Number(r.cost).toLocaleString()}` : "-",
-    },
-    {
-      key: "roi",
-      header: "ROI",
-      render: (r: Record<string, unknown>) =>
-        r.roi != null ? `${Number(r.roi).toFixed(1)}x` : "-",
+      key: "plannedAttendance",
+      header: "Attendance",
+      render: (r: Record<string, unknown>) => String(r.plannedAttendance ?? "-"),
     },
   ];
 
@@ -122,26 +107,24 @@ export function CampaignDetailPage() {
       {/* Summary metrics */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
         <MetricCard
-          label="Budget"
-          value={campaign.budget != null ? formatCurrency(Number(campaign.budget)) : "N/A"}
+          label="Planned Budget"
+          value={campaign.plannedBudget != null ? formatCurrency(Number(campaign.plannedBudget)) : "N/A"}
           icon={DollarSign}
         />
         <MetricCard
-          label="Total Spent"
-          value={formatCurrency(totalSpent)}
+          label="Brand"
+          value={String(campaign.brandName ?? campaign.brandId ?? "N/A")}
           icon={Target}
         />
         <MetricCard
           label="Events"
-          value={eventsList.length}
+          value={campaign.eventCount ?? eventsList.length}
           icon={CalendarDays}
         />
         <MetricCard
-          label="Avg ROI"
-          value={avgRoi > 0 ? `${avgRoi.toFixed(1)}x` : "N/A"}
+          label="Status"
+          value={String(campaign.status ?? "N/A")}
           icon={TrendingUp}
-          trend={avgRoi > 1 ? "Positive" : undefined}
-          trendUp={avgRoi > 1}
         />
       </div>
 
@@ -201,13 +184,22 @@ export function CampaignDetailPage() {
         >
           Campaign Events
         </h3>
-        <DataTable
-          columns={eventColumns}
-          data={eventsList.length > 0 ? eventsList : null}
-          status="success"
-          error={null}
-          keyFn={(r) => String(r.id ?? Math.random())}
-        />
+        {hasEvents ? (
+          <DataTable
+            columns={eventColumns}
+            data={eventsList}
+            status="success"
+            error={null}
+            keyFn={(r) => String(r.id ?? Math.random())}
+          />
+        ) : (
+          <div
+            className="text-sm text-center py-8"
+            style={{ color: "var(--color-text-tertiary)" }}
+          >
+            No events data returned for this campaign
+          </div>
+        )}
       </div>
     </div>
   );

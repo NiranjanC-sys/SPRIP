@@ -101,8 +101,38 @@ class EventOut(Schema):
     audit: AuditStamp | None = None
 
 
+class EventCostItem(Schema):
+    category: str
+    amount: float
+
+
+class EventImpactSummary(Schema):
+    incremental_value: float | None = Field(
+        default=None, serialization_alias="incrementalValue"
+    )
+    p_value: float | None = Field(default=None, serialization_alias="pValue")
+    grade: str | None = None
+    confidence_level: float | None = Field(
+        default=None, serialization_alias="confidenceLevel"
+    )
+
+
+class EventDetailOut(EventOut):
+    attendance_count: int | None = Field(
+        default=None, serialization_alias="attendanceCount"
+    )
+    total_cost: float | None = Field(default=None, serialization_alias="totalCost")
+    cost_breakdown: list[EventCostItem] = Field(
+        default_factory=list, serialization_alias="costBreakdown"
+    )
+    impact: EventImpactSummary | None = None
+
+
 __all__ = [
+    "EventCostItem",
     "EventCreate",
+    "EventDetailOut",
+    "EventImpactSummary",
     "EventOut",
     "EventPatch",
     "EventSpeakerIn",

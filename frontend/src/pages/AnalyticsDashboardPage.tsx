@@ -104,12 +104,9 @@ export function AnalyticsDashboardPage() {
 
   // Compute fallback metrics if stats endpoint fails
   const totalSpend = stats.data?.totalSpend
-    ?? campaigns.data?.items.reduce((s, c) => s + (Number(c.budget) || 0), 0)
+    ?? campaigns.data?.items.reduce((s, c) => s + (Number(c.plannedBudget) || 0), 0)
     ?? 0;
-  const avgRoi = stats.data?.avgRoi
-    ?? (events.data?.items.length
-      ? events.data.items.reduce((s, e) => s + (Number(e.roi) || 0), 0) / events.data.items.length
-      : 0);
+  const avgRoi = stats.data?.avgRoi ?? 0;
   const totalEvents = stats.data?.totalEvents ?? events.data?.items.length ?? 0;
   const engagementRate = stats.data?.engagementRate ?? 0;
 
@@ -122,7 +119,7 @@ export function AnalyticsDashboardPage() {
     const map = new Map<string, number>();
     filtered.forEach((c) => {
       const brand = String(c.brandId ?? "Unknown");
-      map.set(brand, (map.get(brand) ?? 0) + (Number(c.budget) || 0));
+      map.set(brand, (map.get(brand) ?? 0) + (Number(c.plannedBudget) || 0));
     });
     return Array.from(map.entries())
       .map(([brand, spend]) => ({ brand, spend }))
@@ -173,23 +170,23 @@ export function AnalyticsDashboardPage() {
   // Top events by ROI from impacts
   const topEvents = useMemo(() => {
     const items = impacts.data?.items ?? events.data?.items ?? [];
-    let filtered = [...items].filter((e) => e.roi != null || e.incrementalRx != null);
+    let filtered = [...items].filter((e) => e.incrementalRx != null || e.netRoi != null || e.benefitCostRatio != null);
     if (brandFilter !== "All") {
       filtered = filtered.filter(
         (e) => String(e.brandId ?? "") === brandFilter || String(e.brand ?? "") === brandFilter
       );
     }
     return filtered
-      .sort((a, b) => (Number(b.roi) || 0) - (Number(a.roi) || 0))
+      .sort((a, b) => (Number(b.benefitCostRatio) || 0) - (Number(a.benefitCostRatio) || 0))
       .slice(0, 10);
   }, [impacts.data, events.data, brandFilter]);
 
   const topEventsColumns = [
     { key: "name", header: "Event", render: (r: Record<string, unknown>) => String(r.name ?? r.eventName ?? r.id) },
     { key: "brand", header: "Brand", render: (r: Record<string, unknown>) => String(r.brandName ?? r.brand ?? r.brandId ?? "-") },
-    { key: "attendees", header: "ATT", render: (r: Record<string, unknown>) => String(r.attendees ?? r.att ?? "-") },
+    { key: "plannedAttendance", header: "ATT", render: (r: Record<string, unknown>) => String(r.plannedAttendance ?? r.attendees ?? "-") },
     { key: "incrementalRx", header: "Incr. Rx", render: (r: Record<string, unknown>) => r.incrementalRx != null ? Number(r.incrementalRx).toFixed(1) : "-" },
-    { key: "roi", header: "ROI", render: (r: Record<string, unknown>) => r.roi != null ? `${Number(r.roi).toFixed(1)}x` : "-" },
+    { key: "benefitCostRatio", header: "BCR", render: (r: Record<string, unknown>) => r.benefitCostRatio != null ? `${Number(r.benefitCostRatio).toFixed(2)}x` : "-" },
   ];
 
   const tooltipStyle = {

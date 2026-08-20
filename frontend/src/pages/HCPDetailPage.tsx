@@ -60,11 +60,23 @@ export function HCPDetailPage() {
   }
 
   const hcp = data;
-  const rxHistory: { month: string; nrx: number }[] = hcp.rxHistory ?? [];
-  const eventsAttended: Record<string, unknown>[] = hcp.events ?? hcp.eventsAttended ?? [];
+  // Aggregate Rx by month (sum across brands)
+  const rawRx: { month: string; nrx: number; trx: number; brandId: string }[] = hcp.rxHistory ?? [];
+  const rxByMonth = new Map<string, { month: string; nrx: number; trx: number }>();
+  for (const r of rawRx) {
+    const existing = rxByMonth.get(r.month);
+    if (existing) {
+      existing.nrx += r.nrx;
+      existing.trx += r.trx;
+    } else {
+      rxByMonth.set(r.month, { month: r.month, nrx: r.nrx, trx: r.trx });
+    }
+  }
+  const rxHistory = Array.from(rxByMonth.values()).sort((a, b) => a.month.localeCompare(b.month));
+  const eventsAttended: Record<string, unknown>[] = hcp.eventsAttended ?? [];
 
   const eventColumns = [
-    { key: "name", header: "Event", render: (r: Record<string, unknown>) => String(r.name ?? r.eventName ?? r.id) },
+    { key: "name", header: "Event", render: (r: Record<string, unknown>) => String(r.name ?? r.id) },
     {
       key: "date",
       header: "Date",
@@ -77,7 +89,7 @@ export function HCPDetailPage() {
       render: (r: Record<string, unknown>) =>
         r.status ? <StatusBadge status={String(r.status)} /> : "-",
     },
-    { key: "role", header: "Role", render: (r: Record<string, unknown>) => String(r.role ?? r.speakerRole ?? "-") },
+    { key: "role", header: "Role", render: (r: Record<string, unknown>) => String(r.role ?? "-") },
   ];
 
   const tooltipStyle = {
@@ -101,8 +113,8 @@ export function HCPDetailPage() {
       </Link>
 
       <PageHeader
-        title={hcp.name || hcp.id}
-        description={[hcp.specialty, hcp.region, hcp.tier].filter(Boolean).join(" | ")}
+        title={hcp.masterHcpId || hcp.id}
+        description={[hcp.specialtyCode, hcp.regionCode, hcp.segment].filter(Boolean).join(" | ")}
       />
 
       {/* Info section */}
@@ -119,12 +131,13 @@ export function HCPDetailPage() {
         >
           Profile
         </h3>
-        <InfoRow label="Specialty" value={String(hcp.specialty ?? "-")} />
-        <InfoRow label="Region" value={String(hcp.region ?? "-")} />
-        <InfoRow label="Tier" value={String(hcp.tier ?? "-")} />
-        <InfoRow label="Email" value={String(hcp.email ?? "-")} />
-        {hcp.segment && <InfoRow label="Segment" value={String(hcp.segment)} />}
-        {hcp.npi && <InfoRow label="NPI" value={String(hcp.npi)} />}
+        <InfoRow label="HCP ID" value={String(hcp.masterHcpId ?? "-")} />
+        <InfoRow label="Specialty" value={String(hcp.specialtyCode ?? "-")} />
+        <InfoRow label="Region" value={String(hcp.regionCode ?? "-")} />
+        <InfoRow label="Segment" value={String(hcp.segment ?? "-")} />
+        <InfoRow label="Practice Type" value={String(hcp.practiceType ?? "-")} />
+        <InfoRow label="City" value={String(hcp.cityCode ?? "-")} />
+        <InfoRow label="Status" value={hcp.isActive ? "Active" : "Inactive"} />
       </div>
 
       {/* Rx History Chart */}

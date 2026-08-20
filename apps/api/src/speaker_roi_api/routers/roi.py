@@ -14,6 +14,7 @@ from speaker_roi_api.schemas.roi import BrandRoiSummary, RoiResultOut, RoiSummar
 from speaker_roi_api.security.rbac import Permission
 from speaker_roi_api.services import crud
 from speaker_roi_core.models.analytics import RoiResult
+from speaker_roi_core.models.core import Brand, Event
 
 router = APIRouter(tags=["ROI"])
 
@@ -28,13 +29,20 @@ def _stamp(row: Any) -> AuditStamp:
     )
 
 
-def _result_out(row: RoiResult) -> RoiResultOut:
+def _result_out(
+    row: RoiResult,
+    *,
+    brand_name: str | None = None,
+    event_name: str | None = None,
+) -> RoiResultOut:
     return RoiResultOut(
         id=row.id,
         run_id=row.run_id,
         level=str(row.level),
         event_id=row.event_id,
+        event_name=event_name,
         brand_id=row.brand_id,
+        brand_name=brand_name,
         incremental_nrx=float(row.incremental_nrx) if row.incremental_nrx is not None else None,
         gross_contribution=float(row.gross_contribution) if row.gross_contribution is not None else None,
         total_cost=float(row.total_cost),
@@ -69,7 +77,36 @@ async def list_roi_results(
     rows, cursor, _ = await crud.paginate(
         db, stmt, page, sort_column=RoiResult.created_at, id_column=RoiResult.id
     )
-    return Page(items=[_result_out(r) for r in rows], next_cursor=cursor)
+
+    # Batch-fetch brand names via ORM
+    brand_names: dict[uuid.UUID, str] = {}
+    brand_ids = {r.brand_id for r in rows if r.brand_id is not None}
+    if brand_ids:
+        bn_rows = (
+            await db.execute(select(Brand.id, Brand.name).where(Brand.id.in_(brand_ids)))
+        ).all()
+        brand_names = {r[0]: r[1] for r in bn_rows}
+
+    # Batch-fetch event names via ORM
+    event_names: dict[uuid.UUID, str] = {}
+    event_ids = {r.event_id for r in rows if r.event_id is not None}
+    if event_ids:
+        en_rows = (
+            await db.execute(select(Event.id, Event.name).where(Event.id.in_(event_ids)))
+        ).all()
+        event_names = {r[0]: r[1] for r in en_rows}
+
+    return Page(
+        items=[
+            _result_out(
+                r,
+                brand_name=brand_names.get(r.brand_id) if r.brand_id else None,
+                event_name=event_names.get(r.event_id) if r.event_id else None,
+            )
+            for r in rows
+        ],
+        next_cursor=cursor,
+    )
 
 
 @router.get(
@@ -80,7 +117,20 @@ async def list_roi_results(
 )
 async def get_roi_result(db: ReadOnlySession, result_id: uuid.UUID) -> RoiResultOut:
     row = await crud.get_or_404(db, RoiResult, result_id, resource="roi_result")
-    return _result_out(row)
+
+    brand_name: str | None = None
+    if row.brand_id is not None:
+        brand_name = (
+            await db.execute(select(Brand.name).where(Brand.id == row.brand_id))
+        ).scalar()
+
+    event_name: str | None = None
+    if row.event_id is not None:
+        event_name = (
+            await db.execute(select(Event.name).where(Event.id == row.event_id))
+        ).scalar()
+
+    return _result_out(row, brand_name=brand_name, event_name=event_name)
 
 
 @router.get(

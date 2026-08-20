@@ -39,10 +39,10 @@ const columns = [
       r.endDate ? new Date(r.endDate).toLocaleDateString() : "-",
   },
   {
-    key: "budget",
+    key: "plannedBudget",
     header: "Budget",
     render: (r: Campaign) =>
-      r.budget != null ? `$${Number(r.budget).toLocaleString()}` : "-",
+      r.plannedBudget != null ? `$${(r.plannedBudget || 0).toLocaleString()}` : "-",
   },
 ];
 

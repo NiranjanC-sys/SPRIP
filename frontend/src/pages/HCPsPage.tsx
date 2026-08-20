@@ -10,22 +10,21 @@ import type { HCP, PaginatedResponse } from "@/types/api";
 
 const columns = [
   {
-    key: "name",
-    header: "Name",
+    key: "masterHcpId",
+    header: "HCP ID",
     render: (r: HCP) => (
       <Link to={`/hcps/${r.id}`} style={{ color: "var(--color-accent)" }} className="hover:underline">
-        {r.name || r.id}
+        {r.masterHcpId || r.id}
       </Link>
     ),
   },
-  { key: "specialty", header: "Specialty", render: (r: HCP) => String(r.specialty ?? "-") },
+  { key: "specialtyCode", header: "Specialty", render: (r: HCP) => String(r.specialtyCode ?? "-") },
   {
-    key: "tier",
-    header: "Tier",
-    render: (r: HCP) => r.tier ? <StatusBadge status={String(r.tier)} /> : "-",
+    key: "segment",
+    header: "Segment",
+    render: (r: HCP) => r.segment ? <StatusBadge status={String(r.segment)} /> : "-",
   },
-  { key: "region", header: "Region", render: (r: HCP) => String(r.region ?? "-") },
-  { key: "email", header: "Email", render: (r: HCP) => String(r.email ?? "-") },
+  { key: "regionCode", header: "Region", render: (r: HCP) => String(r.regionCode ?? "-") },
 ];
 
 export function HCPsPage() {
@@ -64,8 +63,8 @@ export function HCPsPage() {
     const q = search.toLowerCase();
     return items.filter(
       (r) =>
-        (r.name ?? "").toLowerCase().includes(q) ||
-        (r.specialty ?? "").toLowerCase().includes(q)
+        (r.masterHcpId ?? "").toLowerCase().includes(q) ||
+        (r.specialtyCode ?? "").toLowerCase().includes(q)
     );
   }, [items, search]);
 
@@ -90,7 +89,7 @@ export function HCPsPage() {
         />
         <input
           type="text"
-          placeholder="Search by name or specialty..."
+          placeholder="Search by HCP ID or specialty..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           style={{

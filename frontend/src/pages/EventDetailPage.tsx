@@ -70,6 +70,7 @@ export function EventDetailPage() {
   const event = data;
   const costItems: Record<string, unknown>[] = costs.data?.items ?? event.costs ?? [];
   const attendeeList: Record<string, unknown>[] = event.attendees_list ?? event.attendeesList ?? [];
+  const hasAttendeeData = attendeeList.length > 0;
 
   // Build cost breakdown chart data
   const costChartData = costItems.map((c) => ({
@@ -106,9 +107,9 @@ export function EventDetailPage() {
       <PageHeader
         title={event.name || event.id}
         description={[
-          event.date ? new Date(event.date).toLocaleDateString() : null,
+          event.eventDate ? new Date(event.eventDate).toLocaleDateString() : null,
           event.format,
-          event.location,
+          event.venueCity || event.venueName,
         ]
           .filter(Boolean)
           .join(" | ")}
@@ -119,26 +120,24 @@ export function EventDetailPage() {
       {/* Metrics */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
         <MetricCard
-          label="Total Cost"
-          value={event.cost != null ? formatCurrency(Number(event.cost)) : "N/A"}
-          icon={DollarSign}
-        />
-        <MetricCard
-          label="Attendees"
-          value={event.attendees ?? event.attendeeCount ?? 0}
+          label="Planned Attendance"
+          value={event.plannedAttendance ?? 0}
           icon={Users}
         />
         <MetricCard
-          label="ROI"
-          value={event.roi != null ? `${Number(event.roi).toFixed(1)}x` : "N/A"}
+          label="Speaker Tier"
+          value={String(event.speakerTier ?? "N/A")}
           icon={TrendingUp}
-          trend={Number(event.roi) > 1 ? "Positive" : undefined}
-          trendUp={Number(event.roi) > 1}
         />
         <MetricCard
           label="Format"
-          value={String(event.format ?? event.type ?? "N/A")}
+          value={String(event.format ?? "N/A")}
           icon={BarChart3}
+        />
+        <MetricCard
+          label="Venue"
+          value={String(event.venueCity || event.venueName || "N/A")}
+          icon={DollarSign}
         />
       </div>
 
@@ -243,13 +242,22 @@ export function EventDetailPage() {
         >
           Attendees
         </h3>
-        <DataTable
-          columns={attendeeColumns}
-          data={attendeeList.length > 0 ? attendeeList : null}
-          status="success"
-          error={null}
-          keyFn={(r) => String(r.id ?? r.hcpId ?? Math.random())}
-        />
+        {hasAttendeeData ? (
+          <DataTable
+            columns={attendeeColumns}
+            data={attendeeList}
+            status="success"
+            error={null}
+            keyFn={(r) => String(r.id ?? r.hcpId ?? Math.random())}
+          />
+        ) : (
+          <div
+            className="text-sm text-center py-8"
+            style={{ color: "var(--color-text-tertiary)" }}
+          >
+            Attendance data loading
+          </div>
+        )}
       </div>
     </div>
   );

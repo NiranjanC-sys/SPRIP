@@ -124,7 +124,7 @@ export const api = {
   },
   analyses: (cursor?: string) =>
     request<PaginatedResponse<Analysis>>(
-      `/api/v1/analyses${cursor ? `?cursor=${cursor}` : ""}`
+      `/api/v1/analyses/runs${cursor ? `?cursor=${cursor}` : ""}`
     ),
   financeVersions: () =>
     request<PaginatedResponse<FinanceVersion>>("/api/v1/finance/versions"),
@@ -136,10 +136,14 @@ export const api = {
   campaignDetail: (id: string) => request<any>(`/api/v1/campaigns/${id}`),
   eventCosts: (eventId: string) => request<PaginatedResponse<any>>(`/api/v1/events/${eventId}/costs`),
   impacts: (cursor?: string) => request<PaginatedResponse<any>>(`/api/v1/analyses/impacts${cursor ? `?cursor=${cursor}` : ""}`),
-  roiResults: (cursor?: string) =>
-    request<PaginatedResponse<RoiResult>>(
-      `/api/v1/roi/results${cursor ? `?cursor=${cursor}` : ""}`
-    ),
+  roiResults: (cursor?: string, brandId?: string, level?: string) => {
+    const params = new URLSearchParams();
+    if (cursor) params.set("cursor", cursor);
+    if (brandId) params.set("brandId", brandId);
+    if (level) params.set("level", level);
+    const qs = params.toString();
+    return request<PaginatedResponse<RoiResult>>(`/api/v1/roi/results${qs ? `?${qs}` : ""}`);
+  },
   roiSummary: () => request<any>("/api/v1/roi/summary"),
   forecasts: (cursor?: string) =>
     request<PaginatedResponse<ForecastItem>>(

@@ -13,7 +13,14 @@ from fastapi import APIRouter, Depends, Query, status
 
 from speaker_roi_api.deps import PageParams, ReadOnlySession, TenantSession, deny_vendor, require
 from speaker_roi_api.schemas.common import Acknowledged, AuditStamp, Page
-from speaker_roi_api.schemas.hcps import HcpCreate, HcpOut, HcpPatch
+from speaker_roi_api.schemas.hcps import (
+    AttendedEventItem,
+    HcpCreate,
+    HcpDetailOut,
+    HcpOut,
+    HcpPatch,
+    RxHistoryItem,
+)
 from speaker_roi_api.schemas.master_data import DeactivateRequest
 from speaker_roi_api.security.rbac import Permission
 from speaker_roi_api.services import crud
@@ -124,13 +131,59 @@ async def create_hcp(db: TenantSession, payload: HcpCreate) -> HcpOut:
 
 @router.get(
     "/hcps/{hcp_id}",
-    response_model=HcpOut,
-    summary="Get an HCP",
+    response_model=HcpDetailOut,
+    summary="Get an HCP with Rx history and events",
     dependencies=[Depends(require(Permission.HCP_READ))],
 )
-async def get_hcp(db: ReadOnlySession, hcp_id: uuid.UUID) -> HcpOut:
+async def get_hcp(db: ReadOnlySession, hcp_id: uuid.UUID) -> HcpDetailOut:
+    from sqlalchemy import select, text
+
     row = await crud.get_or_404(db, Hcp, hcp_id, resource="hcp")
-    return _hcp_out(row)
+    base = _hcp_out(row)
+
+    rx_rows = (await db.execute(text(
+        "SELECT month, nrx, trx, brand_id "
+        "FROM core.hcp_rx_monthly "
+        "WHERE hcp_id = :hid "
+        "ORDER BY month"
+    ), {"hid": hcp_id})).all()
+
+    rx_history = [
+        RxHistoryItem(
+            month=str(r[0])[:7],
+            nrx=float(r[1] or 0),
+            trx=float(r[2] or 0),
+            brand_id=str(r[3]),
+        )
+        for r in rx_rows
+    ]
+
+    event_rows = (await db.execute(text(
+        "SELECT e.id, e.name, e.event_date, e.status, "
+        "a.registration_status, a.verified_attended "
+        "FROM core.attendance a "
+        "JOIN core.events e ON e.id = a.event_id "
+        "WHERE a.hcp_id = :hid "
+        "ORDER BY e.event_date DESC "
+        "LIMIT 50"
+    ), {"hid": hcp_id})).all()
+
+    events_attended = [
+        AttendedEventItem(
+            id=r[0],
+            name=r[1],
+            date=str(r[2]) if r[2] else None,
+            status=str(r[3]) if r[3] else None,
+            role=str(r[4]) if r[4] else None,
+        )
+        for r in event_rows
+    ]
+
+    return HcpDetailOut(
+        **base.model_dump(by_alias=False),
+        rx_history=rx_history,
+        events_attended=events_attended,
+    )
 
 
 @router.patch(
