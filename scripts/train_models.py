@@ -16,6 +16,7 @@ Usage:
 from __future__ import annotations
 
 import hashlib
+import json
 import os
 import sys
 import uuid
@@ -362,11 +363,12 @@ def record_to_database(m1_results: dict, m2_results: dict, m3_results: dict):
                 return str(existing[0])
             spec_id = str(uuid.uuid4())
             conn.execute(text("""
-                INSERT INTO ml.model_specs (id, tenant_id, code, name, model_kind, algorithm, is_active, created_by, updated_by, created_at, updated_at, version)
-                VALUES (:id, :tid, :code, :name, :kind, :algo, true, :uid, :uid, :now, :now, 1)
+                INSERT INTO ml.model_specs (id, tenant_id, code, name, model_kind, algorithm, target_definition, is_active, created_by, updated_by, created_at, updated_at, row_version)
+                VALUES (:id, :tid, :code, :name, :kind, :algo, :target_def, true, :uid, :uid, :now, :now, 1)
             """), {
                 "id": spec_id, "tid": tenant_id, "code": code, "name": name,
-                "kind": model_kind, "algo": algorithm, "uid": user_id, "now": now,
+                "kind": model_kind, "algo": algorithm, "target_def": f"{model_kind} target",
+                "uid": user_id, "now": now,
             })
             return spec_id
 
@@ -375,6 +377,7 @@ def record_to_database(m1_results: dict, m2_results: dict, m3_results: dict):
             spec_id: str, model_kind: str, artifact_path: Path | None,
             training_rows: int | None, validation_rows: int | None,
             hyperparameters: dict | None = None,
+            lifecycle_state: str = "ACTIVE",
         ) -> str:
             ver_id = str(uuid.uuid4())
             artifact_key = None
@@ -391,18 +394,18 @@ def record_to_database(m1_results: dict, m2_results: dict, m3_results: dict):
                      lifecycle_state, artifact_key, artifact_checksum, artifact_bytes,
                      hyperparameters, training_rows, validation_rows,
                      trained_at, trained_on_synthetic,
-                     created_by, updated_by, created_at, updated_at, version)
+                     created_by, updated_by, created_at, updated_at, row_version)
                 VALUES
                     (:id, :tid, :spec_id, :kind, 1, :label,
-                     'ACTIVE', :akey, :achk, :abytes,
+                     :lifecycle, :akey, :achk, :abytes,
                      :hyper, :tr_rows, :val_rows,
                      :now, true,
                      :uid, :uid, :now, :now, 1)
             """), {
                 "id": ver_id, "tid": tenant_id, "spec_id": spec_id, "kind": model_kind,
-                "label": f"initial-train-{now.strftime('%Y%m%d')}",
+                "lifecycle": lifecycle_state, "label": f"initial-train-{now.strftime('%Y%m%d')}",
                 "akey": artifact_key, "achk": artifact_checksum, "abytes": artifact_bytes,
-                "hyper": str(hyperparameters) if hyperparameters else None,
+                "hyper": json.dumps(hyperparameters) if hyperparameters else None,
                 "tr_rows": training_rows, "val_rows": validation_rows,
                 "now": now, "uid": user_id,
             })
@@ -433,13 +436,14 @@ def record_to_database(m1_results: dict, m2_results: dict, m3_results: dict):
         insert_metric(ver_id, "train", "auc_roc", m1_results["full_auc"], m1_results["training_rows"])
         insert_metric(ver_id, "train", "accuracy", m1_results["full_accuracy"], m1_results["training_rows"])
 
-        # ---- M2 Causal (no artifact, but record metrics) ----
+        # ---- M2 Causal (no artifact — use DRAFT state to satisfy constraint) ----
         print("  Recording M2 (Causal DiD)...")
         spec_id = ensure_model_spec("causal-did-v1", "Causal DiD Estimator", "PROPENSITY", "DiD")
         ver_id = insert_model_version(
             spec_id, "PROPENSITY", None,
             m2_results["n_treated"] + m2_results["n_control"], None,
             {"method": "difference_in_differences"},
+            lifecycle_state="DRAFT",
         )
         insert_metric(ver_id, "holdout", "att", m2_results["att"], m2_results["n_treated"])
         insert_metric(ver_id, "holdout", "standard_error", m2_results["se"])
