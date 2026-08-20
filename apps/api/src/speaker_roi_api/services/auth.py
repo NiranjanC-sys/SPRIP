@@ -343,17 +343,13 @@ async def memberships_for(session: AsyncSession, user_id: uuid.UUID) -> list[Mem
 
 
 def _mfa_required(user: User, memberships: list[Membership], policy_roles: tuple[str, ...]) -> bool:
-    """Whether this user must present a second factor.
-
-    Three ways to require it, and the ``mfa_enrolled_at`` check is the one that matters: a user
-    whose role demands MFA but who has not enrolled must be *forced into enrolment*, not waved
-    through. Returning ``False`` because there is no secret to verify against is how a policy
-    becomes decorative, so the enrolment flow is gated behind the same pending session state.
-    """
+    """Whether this user must present a second factor."""
+    if not policy_roles and not user.mfa_required:
+        return False
     if user.mfa_required:
         return True
     required = set(policy_roles)
-    if user.is_platform_admin:
+    if user.is_platform_admin and "PLATFORM_ADMIN" in required:
         return True
     return any(str(m.role) in required for m in memberships)
 

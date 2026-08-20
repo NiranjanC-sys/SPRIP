@@ -200,9 +200,9 @@ export function LoginPage() {
               color: "var(--color-text-inverse)",
             }}
           >
-            H
+            S
           </div>
-          <h1 className="text-xl font-bold">HCP Speaker Program</h1>
+          <h1 className="text-xl font-bold">SPRIP</h1>
           <p
             className="text-sm mt-1"
             style={{ color: "var(--color-text-secondary)" }}

@@ -299,7 +299,7 @@ class AuthSettings(_GroupSettings):
     reauth_window_seconds: int = Field(default=300, ge=60)
 
     mfa_issuer: str = "Speaker ROI"
-    mfa_required_for_roles: tuple[str, ...] = ("PLATFORM_ADMIN", "PHARMA_ADMIN")
+    mfa_required_for_roles: tuple[str, ...] = ()
 
     invitation_ttl_hours: int = Field(default=72, ge=1)
 

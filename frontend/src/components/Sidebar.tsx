@@ -50,11 +50,11 @@ export function Sidebar() {
             color: "var(--color-text-inverse)",
           }}
         >
-          H
+          S
         </div>
         {!collapsed && (
           <span className="font-semibold text-sm whitespace-nowrap">
-            HCP Speaker Program
+            SPRIP
           </span>
         )}
       </div>
