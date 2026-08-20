@@ -58,7 +58,6 @@ tmp/
 data/synthetic/
 data/local/
 DATA.zip
-DATA_EXTRACT/
 minio-data/
 pgdata/
 

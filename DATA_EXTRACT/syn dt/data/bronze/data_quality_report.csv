@@ -1,0 +1,121 @@
+check_name,dataset,expected,observed,status
+row_count_hcp_master,hcp_master.csv,== 2500,2500,pass
+row_count_events,events.csv,== 300,300,pass
+row_count_event_invitations,event_invitations.csv,20000 .. 30000,28331,pass
+row_count_event_attendance,event_attendance.csv,8000 .. 12000,9926,pass
+row_count_hcp_rx_monthly,hcp_rx_monthly.csv,>= 45000,207596,pass
+row_count_marketing_activity,marketing_activity.csv,>= 50000,80000,pass
+row_count_event_cost,event_cost.csv,== 300,300,pass
+row_count_market_factors,market_factors.csv,== 224,224,pass
+row_count_identity_crosswalk,identity_crosswalk.csv,== 2500,2500,pass
+row_count_business_assumptions,business_assumptions.csv,== 12 (4 products x 3 scenarios),12,pass
+row_count_ground_truth,ground_truth.csv,> 0; one row per verified attendee of a Completed event,5033,pass
+unique_key_hcp_master_hcp_id,hcp_master.csv,0 duplicate rows on (hcp_id); unique keys == 2500,0 duplicates; unique keys == 2500,pass
+unique_key_events_event_id,events.csv,0 duplicate rows on (event_id); unique keys == 300,0 duplicates; unique keys == 300,pass
+unique_key_event_invitations_event_hcp,event_invitations.csv,"0 duplicate rows on (event_id, hcp_id); unique keys == 28331",0 duplicates; unique keys == 28331,pass
+unique_key_event_cost_event_id,event_cost.csv,0 duplicate rows on (event_id); unique keys == 300,0 duplicates; unique keys == 300,pass
+unique_key_market_factors_region_month,market_factors.csv,"0 duplicate rows on (region, month); unique keys == 224",0 duplicates; unique keys == 224,pass
+unique_key_identity_crosswalk_master_hcp_id,identity_crosswalk.csv,0 duplicate rows on (master_hcp_id); unique keys == 2500,0 duplicates; unique keys == 2500,pass
+unique_key_business_assumptions_product_scenario,business_assumptions.csv,"0 duplicate rows on (product, scenario); unique keys == 12",0 duplicates; unique keys == 12,pass
+unique_key_hcp_rx_monthly_hcp_month_product,hcp_rx_monthly.csv,"0 duplicate rows on (hcp_id, month, product); unique keys == 207596",0 duplicates; unique keys == 207596,pass
+unique_key_marketing_activity_hcp_date,marketing_activity.csv,"0 duplicate rows on (hcp_id, date); unique keys == 80000",0 duplicates; unique keys == 80000,pass
+unique_key_ground_truth_event_hcp,ground_truth.csv,"0 duplicate rows on (event_id, hcp_id); unique keys == 5033",0 duplicates; unique keys == 5033,pass
+null_count_hcp_master,hcp_master.csv,0 nulls in any column,0,pass
+null_count_events,events.csv,0 nulls in any column,0,pass
+null_count_event_invitations,event_invitations.csv,0 nulls in any column,0,pass
+null_count_event_attendance,event_attendance.csv,0 nulls in any column,0,pass
+null_count_hcp_rx_monthly,hcp_rx_monthly.csv,0 nulls in any column,0,pass
+null_count_marketing_activity,marketing_activity.csv,0 nulls in any column,0,pass
+null_count_event_cost,event_cost.csv,0 nulls in any column,0,pass
+null_count_market_factors,market_factors.csv,0 nulls in any column,0,pass
+null_count_identity_crosswalk,identity_crosswalk.csv,== 125 (intentional identity gaps only),125,pass
+null_count_business_assumptions,business_assumptions.csv,0 nulls in any column,0,pass
+null_count_ground_truth,ground_truth.csv,0 nulls in any column,0,pass
+fk_invitations_hcp_id_to_hcp_master,event_invitations.csv,0 violations,0,pass
+fk_invitations_event_id_to_events,event_invitations.csv,0 violations,0,pass
+fk_attendance_hcp_id_to_hcp_master,event_attendance.csv,0 violations,0,pass
+fk_attendance_event_id_to_events,event_attendance.csv,0 violations,0,pass
+fk_attendance_pair_to_invitations,event_attendance.csv,0 violations,0,pass
+fk_rx_hcp_id_to_hcp_master,hcp_rx_monthly.csv,0 violations,0,pass
+fk_rx_product_to_business_assumptions,hcp_rx_monthly.csv,0 violations,0,pass
+fk_rx_month_to_market_factors,hcp_rx_monthly.csv,0 violations,0,pass
+fk_marketing_hcp_id_to_hcp_master,marketing_activity.csv,0 violations,0,pass
+fk_cost_event_id_to_events,event_cost.csv,0 violations,0,pass
+fk_market_factors_region_to_hcp_master,market_factors.csv,0 violations,0,pass
+fk_crosswalk_master_hcp_id_to_hcp_master,identity_crosswalk.csv,0 violations,0,pass
+fk_ground_truth_event_id_to_events,ground_truth.csv,0 violations,0,pass
+fk_ground_truth_hcp_id_to_hcp_master,ground_truth.csv,0 violations,0,pass
+coverage_all_hcps_have_rx_history,hcp_rx_monthly.csv,2500 distinct hcp_id,2500,pass
+coverage_all_hcps_have_marketing_history,marketing_activity.csv,2500 distinct hcp_id,2500,pass
+coverage_all_events_have_cost_row,event_cost.csv,300 distinct event_id,300,pass
+domain_hcp_master_specialty,hcp_master.csv,"values within ['Cardiology', 'Dermatology', 'Endocrinology', 'Gastroenterology', 'Neurology', 'Oncology', 'Primary Care', 'Psychiatry']",0 out-of-domain values,pass
+domain_hcp_master_region,hcp_master.csv,"values within ['Midwest', 'Mountain', 'Northeast', 'Pacific Northwest', 'Southeast', 'Southwest', 'West']",0 out-of-domain values,pass
+domain_hcp_master_segment,hcp_master.csv,"values within ['High', 'Low', 'Medium']",0 out-of-domain values,pass
+domain_hcp_master_active_flag,hcp_master.csv,"values within ['0', '1']",0 out-of-domain values,pass
+domain_events_status,events.csv,"values within ['Cancelled', 'Completed', 'Planned']",0 out-of-domain values,pass
+domain_events_format,events.csv,"values within ['Hybrid', 'In-person', 'Virtual']",0 out-of-domain values,pass
+domain_events_topic,events.csv,"values within ['Advanced Solid Tumor Therapy', 'Heart Failure Management', 'Immuno-Oncology Sequencing', 'Lipid Management & CV Risk', 'Migraine Prophylaxis', 'Neuroinflammation Update', 'Obesity & Metabolic Health', 'Type 2 Diabetes Intensification']",0 out-of-domain values,pass
+domain_invitations_channel,event_invitations.csv,"values within ['Email', 'Phone', 'Portal', 'Rep']",0 out-of-domain values,pass
+domain_invitations_eligible_reason,event_invitations.csv,"values within ['Combination of factors', 'Geographic proximity', 'Patient-volume threshold', 'Prior engagement', 'Product affinity', 'Specialty match']",0 out-of-domain values,pass
+domain_attendance_registered,event_attendance.csv,"values within ['0', '1']",0 out-of-domain values,pass
+domain_attendance_verified_attended,event_attendance.csv,"values within ['0', '1']",0 out-of-domain values,pass
+domain_rx_product,hcp_rx_monthly.csv,"values within ['CARDIVEX', 'ENDOSTAT', 'NEUROVANT', 'ONCOLERA']",0 out-of-domain values,pass
+domain_crosswalk_match_status,identity_crosswalk.csv,"values within ['review', 'verified']",0 out-of-domain values,pass
+domain_business_assumptions_scenario,business_assumptions.csv,"values within ['Base', 'Conservative', 'Optimistic']",0 out-of-domain values,pass
+range_rx_counts_non_negative,hcp_rx_monthly.csv,"min(nrx, trx, competitor_trx) >= 0","min nrx=0, trx=0, competitor_trx=0",pass
+range_rx_trx_ge_nrx,hcp_rx_monthly.csv,0 rows with trx < nrx,0,pass
+range_rx_max_plausible,hcp_rx_monthly.csv,max nrx <= 200 and max trx <= 500 (no runaway negative-binomial tails),"max nrx=151, max trx=351",pass
+range_marketing_non_negative,marketing_activity.csv,"min(rep_calls, emails, samples, other_events) >= 0",min=0,pass
+range_cost_non_negative,event_cost.csv,all cost components and total >= 0,"min component=1.00, min total=1581.71",pass
+cost_total_reconciles_to_components,event_cost.csv,0 rows where total != sum(components) (tolerance $0.005),0,pass
+range_attendance_engagement_bounds,event_attendance.csv,engagement within 0..100,"min=0, max=100",pass
+logic_attended_has_positive_duration,event_attendance.csv,0 rows with verified_attended=1 and duration <= 0,0,pass
+logic_not_attended_has_zero_duration_engagement,event_attendance.csv,0 rows with verified_attended=0 and non-zero duration/engagement,0,pass
+logic_attended_implies_registered,event_attendance.csv,0 rows with verified_attended=1 and registered=0,0,pass
+range_market_factors_bounds,market_factors.csv,access in 0.50..1.00; seasonality in 0.85..1.15; competitor_index in 0.60..2.00,access 0.609..0.854; seasonality 0.913..1.083; competitor_index 0.913..1.563,pass
+business_assumptions_margin_formula,business_assumptions.csv,net_contribution_per_incremental_nrx == expected_fills_per_new_rx * net_contribution_per_fill,0 rows breaking the identity,pass
+business_assumptions_scenario_ordering,business_assumptions.csv,Optimistic > Base > Conservative for every product,holds for all 4 products,pass
+date_invited_at_not_after_event_date,event_invitations.csv,0 invitations issued after the event date,0,pass
+date_invited_at_within_panel_horizon,event_invitations.csv,all invited_at between 2024-07-01 and 2027-02-28,2024-07-03 .. 2027-02-17,pass
+date_completed_cancelled_events_are_historical,events.csv,0 Completed/Cancelled events after 2026-05-31,0,pass
+date_planned_events_are_future_dated,events.csv,0 Planned events on/before 2026-05-31,0,pass
+date_event_span_at_least_18_months,events.csv,>= 18 months between first and last historical event,2024-09-01 .. 2026-05-30,pass
+did_window_structurally_available_all_completed_events,events.csv + hcp_rx_monthly.csv,all 261 Completed events have >= 6 pre and >= 3 post calendar months inside the 32-month Rx panel,261/261 events,pass
+did_observed_pre_history_6m_attendee_pairs,hcp_rx_monthly.csv,>= 80% of attendee-event pairs have all 6 pre months observed,85.79% (4318/5033),pass
+did_observed_post_history_3m_attendee_pairs,hcp_rx_monthly.csv,>= 88% of attendee-event pairs have all 3 post months observed,92.45% (4653/5033),pass
+did_observed_full_window_attendee_pairs,hcp_rx_monthly.csv,>= 72% of attendee-event pairs pass the full 6-pre/3-post min-history rule (remainder blocked by the injected 3% coverage gaps),79.57% (4005/5033),pass
+control_group_rx_density_matches_attendees,hcp_rx_monthly.csv,median observed Rx months for never-attending invitees within 2 months of attendees (non-attendees must NOT be data-sparse),"attendees=32 months, never-attending invitees=32 months",pass
+control_pool_eligible_non_attendee_pairs,event_invitations.csv + event_attendance.csv,>= 12000 eligible non-attendee HCP-event pairs on Completed events; every Completed event retains >= 5 candidate controls,"19332 control pairs; min per event=25, median=69",pass
+control_pool_never_attending_hcps,event_attendance.csv,>= 500 invited HCPs never verified at any Completed event (clean never-treated pool),718 never-attending invitees of 2425 invited HCPs (1707 distinct attendees),pass
+leakage_no_derived_analytics_columns_in_bronze,all bronze source files,no before_rx/after_rx/rx_lift/roi/incremental-outcome/effect/latent-mechanism columns (business_assumptions.net_contribution_per_incremental_nrx allowlisted as an assumption),0 offending columns,pass
+leakage_latent_mechanism_variables_absent,all bronze source files,"latent generator variables (patient opportunity, product affinity, engagement propensity, event region, event quality tier) never written to bronze",0 latent columns present in any of the 13 bronze files,pass
+leakage_ground_truth_is_separate_holdout,ground_truth.csv,true_event_effect_* present ONLY in ground_truth.csv,confirmed: 2 truth columns isolated in ground_truth.csv,pass
+imperfection_unmatched_event_identity_injected,identity_crosswalk.csv,2.0% of rows with NULL event_hcp_id,2.00% (50/2500),pass
+imperfection_unmatched_rx_vendor_identity_injected,identity_crosswalk.csv,3.0% of rows with NULL rx_vendor_hcp_id,3.00% (75/2500),pass
+imperfection_identity_review_status_injected,identity_crosswalk.csv,3-5% of rows with match_status='review'; 95%+ verified,5.00% (125/2500),pass
+imperfection_identity_review_iff_null_id,identity_crosswalk.csv,match_status='review' exactly when event_hcp_id or rx_vendor_hcp_id is NULL,"review=125, rows with a NULL id=125",pass
+imperfection_identity_gaps_uncorrelated_with_specialty_region,identity_crosswalk.csv,max share deviation vs population < 0.08 (no hidden correlation),max deviation=0.0556,pass
+conformance_all_identities_resolved,identity_crosswalk.csv,"0 rows requiring review (clean-data rule) -> downstream must QUARANTINE these HCPs, never treat them as non-attendees",125 rows require review,fail
+imperfection_missing_rx_month_injected,hcp_rx_monthly.csv,3.0% of expected HCP-product-month rows absent (not zero-filled),3.00% (6420 of 214016 expected slots),pass
+imperfection_missing_rx_month_burstiness,hcp_rx_monthly.csv,>= 40 HCPs carry a contiguous multi-month coverage gap (vendor-style outage),71 HCPs given 4-9 month contiguous gaps; 74 HCPs observe < 29 months,pass
+conformance_rx_panel_complete,hcp_rx_monthly.csv,every active hcp_id x product pair observed in all 32 panel months,6420 HCP-product-months absent -> downstream must flag the coverage gap and enforce the min-history rule,fail
+imperfection_duplicate_signin_injected,event_attendance.csv,~1.0% of attendance rows are a second sign-in for the same event_id + hcp_id,0.99% (98/9926),pass
+imperfection_duplicate_signin_status_conflict,event_attendance.csv,"a subset of duplicated keys disagree on verified_attended, so 'dedupe to LATEST verified status' (last row in ingestion order wins) is materially different from 'dedupe to first'",17 of 98 duplicated keys have conflicting verified_attended,pass
+conformance_attendance_unique_on_event_hcp,event_attendance.csv,0 duplicate event_id + hcp_id rows (clean-data rule),98 duplicate rows -> downstream must deduplicate to the latest verified status,fail
+imperfection_overlapping_event_exposure_injected,event_attendance.csv + events.csv,>= 8.0% of distinct verified attendees attend a second related (same-product) Completed event within 90 days; discoverable ONLY via event dates (no flag column),26.24% (448/1707); 137 injected + naturally occurring,pass
+conformance_single_clean_exposure_per_attendee,event_attendance.csv + events.csv,0 attendees with overlapping same-product exposure within 90 days (clean-cohort rule),448 contaminated attendees -> eligibility builder must detect via dates and exclude them from the clean cohort,fail
+imperfection_cancelled_event_rate_injected,events.csv,~5.0% of events with status='Cancelled',5.00% (15/300),pass
+imperfection_cancelled_event_residual_rows_injected,event_attendance.csv,every Cancelled event still carries residual sign-in rows in the raw feed,"15/15 cancelled events carry rows (411 rows, 20 marked verified_attended=1)",pass
+imperfection_cancelled_events_carry_no_true_effect,ground_truth.csv,0 ground_truth rows on Cancelled or Planned events (never real exposure),0,pass
+imperfection_planned_events_have_no_attendance,event_attendance.csv,0 attendance rows on Planned (future) events,0,pass
+conformance_attendance_only_on_completed_events,event_attendance.csv + events.csv,0 attendance rows referencing a non-Completed event (clean-data rule),411 rows on Cancelled events (20 verified) -> must NEVER be treated as treatment exposure,fail
+imperfection_outlier_cost_injected,event_cost.csv,~2.0% of events with total cost 3-5x the normal range for their format,6 events scaled 3.0-5.0x (2.00%); 5 events detected at >= 2.5x their format median,pass
+imperfection_outlier_costs_still_reconcile,event_cost.csv,"outliers inflate the components too, so total == sum(components) still holds (the defect is magnitude, not arithmetic) - flag for finance review, do NOT auto-correct",0 reconciliation breaks among 6 outliers,pass
+conformance_cost_within_format_band,event_cost.csv,0 events with total cost >= 2.5x the median for their format (finance band),5 events breach the band -> route to finance review,fail
+cost_in_person_exceeds_virtual,event_cost.csv + events.csv,median In-person total > median Virtual total (esp. venue + travel),"median In-person=$11,673, Hybrid=$8,098, Virtual=$4,354",pass
+realism_heterogeneous_event_effects,ground_truth.csv,event-level mean true effect spans strong-positive to negative; not all programs work,"154 strong (>1.0 NRx/attendee), 33 moderate, 13 near-zero, 61 negative",pass
+selection_bias_attendance_skews_to_high_segment,event_attendance.csv + hcp_master.csv,High-segment share strictly higher among attendees than among invitees (gives the propensity model a real task),High share: invitees=0.186 -> attendees=0.241,pass
+selection_bias_attendees_have_higher_baseline_rx,hcp_rx_monthly.csv,mean NRx per month higher for attendees than for eligible non-attendees (confounding present),"attendees=5.21, eligible non-attendees=1.37",pass
+realism_event_size_and_attendance_vary,event_attendance.csv,verified attendees per Completed event vary widely (no uniform event size),"min=2, p25=11, median=16, p75=25, max=77",pass
+realism_uneven_categorical_distributions,hcp_master.csv,specialty / region / segment shares all uneven (no uniform sampling),specialty 0.071-0.242; region 0.044-0.226; segment 0.180-0.450,pass
+realism_active_flag_split,hcp_master.csv,80-95% active,87.28% (2182/2500),pass

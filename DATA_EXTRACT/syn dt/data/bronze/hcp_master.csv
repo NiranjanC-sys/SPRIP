@@ -1,0 +1,2501 @@
+hcp_id,specialty,region,segment,active_flag
+HCP100001,Neurology,West,Medium,1
+HCP100002,Cardiology,Northeast,Medium,1
+HCP100003,Oncology,Southeast,Low,1
+HCP100004,Psychiatry,Pacific Northwest,Medium,1
+HCP100005,Neurology,West,Low,1
+HCP100006,Psychiatry,Midwest,Low,1
+HCP100007,Neurology,Southwest,Medium,1
+HCP100008,Dermatology,Midwest,Medium,1
+HCP100009,Endocrinology,Northeast,Medium,1
+HCP100010,Oncology,Midwest,Medium,1
+HCP100011,Oncology,Southeast,Medium,1
+HCP100012,Gastroenterology,West,Low,0
+HCP100013,Cardiology,Northeast,Low,1
+HCP100014,Neurology,Southeast,Medium,1
+HCP100015,Primary Care,Midwest,High,1
+HCP100016,Oncology,Midwest,Low,1
+HCP100017,Oncology,Northeast,Low,1
+HCP100018,Psychiatry,Northeast,Low,1
+HCP100019,Psychiatry,Mountain,Low,1
+HCP100020,Gastroenterology,Southeast,Medium,1
+HCP100021,Cardiology,Northeast,Low,1
+HCP100022,Primary Care,Midwest,High,0
+HCP100023,Primary Care,Midwest,High,1
+HCP100024,Gastroenterology,Northeast,Medium,1
+HCP100025,Primary Care,Pacific Northwest,Low,1
+HCP100026,Primary Care,Midwest,Medium,1
+HCP100027,Primary Care,Northeast,Low,0
+HCP100028,Oncology,Southwest,Low,1
+HCP100029,Psychiatry,Midwest,Low,1
+HCP100030,Primary Care,Midwest,Medium,1
+HCP100031,Endocrinology,Pacific Northwest,Low,1
+HCP100032,Cardiology,Southwest,High,1
+HCP100033,Cardiology,Southwest,Medium,1
+HCP100034,Cardiology,Southeast,High,1
+HCP100035,Neurology,Southeast,Medium,1
+HCP100036,Dermatology,Midwest,Low,1
+HCP100037,Dermatology,Northeast,Low,0
+HCP100038,Psychiatry,Southeast,Low,0
+HCP100039,Endocrinology,Midwest,Medium,1
+HCP100040,Primary Care,West,Medium,1
+HCP100041,Oncology,Mountain,Low,1
+HCP100042,Dermatology,Midwest,Medium,1
+HCP100043,Oncology,Southwest,Low,1
+HCP100044,Neurology,Southeast,Low,1
+HCP100045,Oncology,West,Low,1
+HCP100046,Gastroenterology,Southeast,Low,1
+HCP100047,Cardiology,Midwest,Medium,1
+HCP100048,Primary Care,Southwest,Low,1
+HCP100049,Cardiology,West,Low,1
+HCP100050,Gastroenterology,Mountain,Medium,1
+HCP100051,Gastroenterology,Southeast,Medium,1
+HCP100052,Oncology,Northeast,Low,1
+HCP100053,Oncology,Northeast,Low,1
+HCP100054,Primary Care,Southeast,High,1
+HCP100055,Cardiology,West,Medium,0
+HCP100056,Primary Care,Pacific Northwest,Medium,1
+HCP100057,Gastroenterology,Northeast,Medium,1
+HCP100058,Oncology,Southwest,High,1
+HCP100059,Primary Care,Northeast,Low,1
+HCP100060,Neurology,West,Medium,1
+HCP100061,Dermatology,Midwest,Medium,1
+HCP100062,Cardiology,Mountain,Medium,1
+HCP100063,Dermatology,Northeast,Low,0
+HCP100064,Cardiology,Southwest,Medium,1
+HCP100065,Cardiology,Northeast,Low,1
+HCP100066,Oncology,Southwest,Low,0
+HCP100067,Dermatology,Southeast,Low,1
+HCP100068,Primary Care,Northeast,Low,1
+HCP100069,Oncology,Southeast,Medium,1
+HCP100070,Endocrinology,Midwest,Low,1
+HCP100071,Dermatology,Northeast,Low,0
+HCP100072,Cardiology,Northeast,Medium,1
+HCP100073,Dermatology,West,Medium,0
+HCP100074,Neurology,West,Medium,1
+HCP100075,Endocrinology,Midwest,Medium,1
+HCP100076,Neurology,Southeast,Low,1
+HCP100077,Dermatology,Midwest,Medium,1
+HCP100078,Oncology,Mountain,Medium,1
+HCP100079,Dermatology,West,Low,1
+HCP100080,Gastroenterology,West,Low,1
+HCP100081,Endocrinology,Midwest,Medium,1
+HCP100082,Oncology,Southwest,Medium,1
+HCP100083,Dermatology,Northeast,Low,0
+HCP100084,Gastroenterology,Northeast,Low,0
+HCP100085,Gastroenterology,Southwest,Medium,1
+HCP100086,Oncology,Southeast,Medium,1
+HCP100087,Primary Care,West,High,1
+HCP100088,Cardiology,Midwest,Medium,1
+HCP100089,Gastroenterology,Northeast,Medium,1
+HCP100090,Psychiatry,Southwest,Medium,0
+HCP100091,Neurology,West,High,1
+HCP100092,Neurology,Midwest,Medium,0
+HCP100093,Cardiology,Southeast,Medium,1
+HCP100094,Neurology,Midwest,Low,0
+HCP100095,Cardiology,West,Medium,1
+HCP100096,Endocrinology,Northeast,Low,1
+HCP100097,Cardiology,Northeast,High,1
+HCP100098,Primary Care,Midwest,Low,1
+HCP100099,Cardiology,Southeast,Medium,0
+HCP100100,Oncology,Midwest,Low,1
+HCP100101,Cardiology,Southwest,High,0
+HCP100102,Cardiology,West,High,1
+HCP100103,Primary Care,West,Medium,1
+HCP100104,Endocrinology,Northeast,Medium,1
+HCP100105,Psychiatry,Southwest,Low,0
+HCP100106,Cardiology,Mountain,Low,1
+HCP100107,Gastroenterology,West,Low,1
+HCP100108,Neurology,Southeast,Low,0
+HCP100109,Endocrinology,Southwest,Low,1
+HCP100110,Cardiology,Southwest,Medium,1
+HCP100111,Endocrinology,Northeast,High,1
+HCP100112,Primary Care,Northeast,Medium,1
+HCP100113,Oncology,Southeast,Low,1
+HCP100114,Cardiology,Midwest,Medium,1
+HCP100115,Cardiology,West,High,1
+HCP100116,Primary Care,Northeast,Low,1
+HCP100117,Primary Care,Southeast,Medium,1
+HCP100118,Primary Care,Southeast,Low,1
+HCP100119,Psychiatry,Midwest,Low,1
+HCP100120,Primary Care,Southeast,Low,1
+HCP100121,Dermatology,West,High,1
+HCP100122,Oncology,West,Medium,1
+HCP100123,Neurology,West,Medium,1
+HCP100124,Cardiology,West,High,1
+HCP100125,Oncology,West,High,1
+HCP100126,Cardiology,Northeast,High,1
+HCP100127,Psychiatry,West,Low,0
+HCP100128,Cardiology,Northeast,Medium,1
+HCP100129,Cardiology,West,Medium,0
+HCP100130,Cardiology,Southeast,Medium,1
+HCP100131,Primary Care,Southeast,High,1
+HCP100132,Cardiology,West,Low,1
+HCP100133,Oncology,West,High,1
+HCP100134,Primary Care,Midwest,High,1
+HCP100135,Primary Care,Pacific Northwest,High,1
+HCP100136,Primary Care,Northeast,Medium,1
+HCP100137,Endocrinology,Southeast,Medium,1
+HCP100138,Cardiology,Mountain,Low,1
+HCP100139,Primary Care,Mountain,High,1
+HCP100140,Gastroenterology,West,Low,1
+HCP100141,Psychiatry,Southwest,Low,0
+HCP100142,Psychiatry,West,Low,1
+HCP100143,Oncology,Midwest,Medium,1
+HCP100144,Primary Care,Southeast,Low,0
+HCP100145,Primary Care,West,Low,1
+HCP100146,Primary Care,Midwest,Medium,1
+HCP100147,Dermatology,Midwest,Low,1
+HCP100148,Oncology,Midwest,Medium,1
+HCP100149,Primary Care,Midwest,Medium,1
+HCP100150,Dermatology,West,Low,1
+HCP100151,Primary Care,Southwest,Low,1
+HCP100152,Primary Care,Midwest,High,1
+HCP100153,Dermatology,Northeast,High,1
+HCP100154,Neurology,Southwest,Medium,1
+HCP100155,Cardiology,Midwest,Medium,1
+HCP100156,Primary Care,Northeast,Medium,1
+HCP100157,Endocrinology,Northeast,Medium,1
+HCP100158,Gastroenterology,Southwest,Low,1
+HCP100159,Endocrinology,Midwest,Low,1
+HCP100160,Neurology,Southeast,Medium,1
+HCP100161,Primary Care,Northeast,High,1
+HCP100162,Oncology,Midwest,Low,1
+HCP100163,Neurology,Midwest,Medium,1
+HCP100164,Neurology,Northeast,Medium,1
+HCP100165,Oncology,Midwest,Low,1
+HCP100166,Primary Care,West,High,1
+HCP100167,Oncology,Midwest,Low,1
+HCP100168,Endocrinology,Southwest,Low,1
+HCP100169,Primary Care,Southwest,Medium,1
+HCP100170,Cardiology,Southeast,High,1
+HCP100171,Oncology,Midwest,Medium,1
+HCP100172,Oncology,Midwest,Low,0
+HCP100173,Neurology,Northeast,Medium,1
+HCP100174,Oncology,Midwest,Medium,1
+HCP100175,Endocrinology,Southeast,Low,1
+HCP100176,Gastroenterology,Northeast,Medium,1
+HCP100177,Gastroenterology,Midwest,Medium,1
+HCP100178,Neurology,Northeast,Medium,1
+HCP100179,Endocrinology,Mountain,Medium,1
+HCP100180,Endocrinology,Southeast,Medium,1
+HCP100181,Gastroenterology,Mountain,Medium,1
+HCP100182,Cardiology,Southeast,Medium,0
+HCP100183,Dermatology,Mountain,Low,1
+HCP100184,Primary Care,Southwest,Low,1
+HCP100185,Gastroenterology,Northeast,Low,1
+HCP100186,Cardiology,West,Medium,1
+HCP100187,Primary Care,Northeast,Medium,0
+HCP100188,Oncology,Midwest,Low,0
+HCP100189,Primary Care,Southeast,Low,1
+HCP100190,Gastroenterology,Mountain,Low,0
+HCP100191,Psychiatry,Northeast,Medium,1
+HCP100192,Primary Care,Southwest,Low,0
+HCP100193,Cardiology,West,Medium,1
+HCP100194,Cardiology,Midwest,Medium,1
+HCP100195,Cardiology,West,Medium,1
+HCP100196,Cardiology,Northeast,High,1
+HCP100197,Oncology,Southeast,Medium,0
+HCP100198,Primary Care,Northeast,High,1
+HCP100199,Primary Care,Midwest,High,1
+HCP100200,Cardiology,West,Low,0
+HCP100201,Primary Care,Southwest,Low,1
+HCP100202,Cardiology,Mountain,Medium,1
+HCP100203,Oncology,Pacific Northwest,Low,1
+HCP100204,Dermatology,Northeast,High,1
+HCP100205,Cardiology,Southeast,Low,1
+HCP100206,Primary Care,Southeast,Medium,1
+HCP100207,Dermatology,Midwest,Low,1
+HCP100208,Cardiology,Northeast,High,1
+HCP100209,Endocrinology,Southwest,High,1
+HCP100210,Primary Care,Southeast,Medium,0
+HCP100211,Neurology,Southeast,Medium,1
+HCP100212,Dermatology,Southwest,Low,1
+HCP100213,Oncology,Northeast,High,1
+HCP100214,Gastroenterology,Southeast,Low,1
+HCP100215,Psychiatry,Southwest,Low,1
+HCP100216,Gastroenterology,Midwest,Low,1
+HCP100217,Endocrinology,Northeast,Medium,1
+HCP100218,Primary Care,Southwest,Low,1
+HCP100219,Neurology,Northeast,Low,0
+HCP100220,Primary Care,Southwest,Low,1
+HCP100221,Oncology,Southwest,Low,1
+HCP100222,Cardiology,Northeast,High,1
+HCP100223,Primary Care,Pacific Northwest,Low,1
+HCP100224,Primary Care,Midwest,Medium,1
+HCP100225,Oncology,Midwest,Medium,1
+HCP100226,Endocrinology,Southwest,Medium,1
+HCP100227,Dermatology,Midwest,Low,1
+HCP100228,Dermatology,Southeast,High,1
+HCP100229,Gastroenterology,West,Low,0
+HCP100230,Endocrinology,Southeast,High,1
+HCP100231,Neurology,Northeast,Low,1
+HCP100232,Endocrinology,West,Medium,0
+HCP100233,Primary Care,Southwest,Low,1
+HCP100234,Primary Care,Pacific Northwest,Medium,1
+HCP100235,Neurology,Mountain,Medium,0
+HCP100236,Oncology,Midwest,Low,1
+HCP100237,Primary Care,West,Low,1
+HCP100238,Oncology,Southwest,Low,1
+HCP100239,Neurology,Southeast,Low,1
+HCP100240,Psychiatry,West,Low,1
+HCP100241,Primary Care,West,Medium,1
+HCP100242,Gastroenterology,Northeast,Medium,1
+HCP100243,Primary Care,Northeast,Medium,0
+HCP100244,Primary Care,Southeast,Low,1
+HCP100245,Gastroenterology,Southeast,High,1
+HCP100246,Neurology,Pacific Northwest,Low,0
+HCP100247,Cardiology,Northeast,Low,1
+HCP100248,Psychiatry,Southeast,Low,1
+HCP100249,Cardiology,Northeast,High,1
+HCP100250,Endocrinology,Northeast,Low,1
+HCP100251,Gastroenterology,Southeast,Low,1
+HCP100252,Primary Care,Northeast,High,1
+HCP100253,Oncology,Northeast,Low,1
+HCP100254,Gastroenterology,Southwest,Medium,1
+HCP100255,Dermatology,Southeast,Medium,1
+HCP100256,Dermatology,West,Medium,1
+HCP100257,Oncology,West,Low,0
+HCP100258,Gastroenterology,Southeast,Medium,1
+HCP100259,Endocrinology,West,Medium,0
+HCP100260,Cardiology,West,High,1
+HCP100261,Neurology,West,Medium,1
+HCP100262,Psychiatry,West,Medium,1
+HCP100263,Psychiatry,Mountain,Medium,1
+HCP100264,Cardiology,Midwest,Medium,1
+HCP100265,Dermatology,Midwest,Medium,1
+HCP100266,Primary Care,West,Medium,1
+HCP100267,Primary Care,Southwest,Low,1
+HCP100268,Primary Care,Northeast,Medium,0
+HCP100269,Cardiology,Northeast,High,1
+HCP100270,Primary Care,Mountain,High,1
+HCP100271,Oncology,Pacific Northwest,Low,0
+HCP100272,Gastroenterology,Northeast,Low,1
+HCP100273,Primary Care,West,Low,0
+HCP100274,Dermatology,Midwest,Low,1
+HCP100275,Cardiology,Northeast,High,1
+HCP100276,Primary Care,Northeast,High,1
+HCP100277,Dermatology,Midwest,High,1
+HCP100278,Oncology,Midwest,Low,0
+HCP100279,Cardiology,Midwest,Low,1
+HCP100280,Oncology,Southeast,Low,1
+HCP100281,Endocrinology,Southwest,Low,0
+HCP100282,Oncology,Northeast,Medium,1
+HCP100283,Dermatology,Southwest,Low,1
+HCP100284,Endocrinology,West,High,1
+HCP100285,Cardiology,Southwest,Low,1
+HCP100286,Primary Care,Pacific Northwest,Low,1
+HCP100287,Oncology,Northeast,Medium,1
+HCP100288,Gastroenterology,Southeast,Medium,1
+HCP100289,Neurology,West,Medium,1
+HCP100290,Primary Care,Southwest,High,1
+HCP100291,Primary Care,Southeast,Low,1
+HCP100292,Dermatology,Northeast,Medium,1
+HCP100293,Cardiology,Southeast,Medium,1
+HCP100294,Neurology,Southwest,Low,0
+HCP100295,Primary Care,Southeast,High,1
+HCP100296,Oncology,West,Low,1
+HCP100297,Dermatology,Northeast,Low,1
+HCP100298,Neurology,Southeast,Medium,1
+HCP100299,Primary Care,West,Medium,1
+HCP100300,Primary Care,Southeast,Low,1
+HCP100301,Psychiatry,Northeast,Low,1
+HCP100302,Primary Care,Southeast,High,1
+HCP100303,Primary Care,Northeast,Low,0
+HCP100304,Endocrinology,West,High,1
+HCP100305,Oncology,West,Medium,1
+HCP100306,Oncology,Midwest,Medium,1
+HCP100307,Cardiology,Southeast,Medium,1
+HCP100308,Oncology,Midwest,Low,1
+HCP100309,Psychiatry,West,High,1
+HCP100310,Psychiatry,Midwest,Low,1
+HCP100311,Neurology,Midwest,High,1
+HCP100312,Oncology,Southwest,Medium,1
+HCP100313,Neurology,Southeast,Low,1
+HCP100314,Dermatology,Southeast,Low,1
+HCP100315,Endocrinology,Pacific Northwest,Medium,1
+HCP100316,Psychiatry,Northeast,Medium,1
+HCP100317,Dermatology,Midwest,Low,0
+HCP100318,Oncology,West,Medium,0
+HCP100319,Oncology,Northeast,Medium,1
+HCP100320,Endocrinology,Southeast,Low,1
+HCP100321,Primary Care,Northeast,Low,1
+HCP100322,Primary Care,Southwest,Medium,1
+HCP100323,Oncology,Northeast,Low,1
+HCP100324,Cardiology,Midwest,Low,0
+HCP100325,Psychiatry,Northeast,Low,1
+HCP100326,Neurology,Northeast,Low,0
+HCP100327,Primary Care,Midwest,Low,1
+HCP100328,Neurology,Southeast,High,1
+HCP100329,Dermatology,Southwest,Low,0
+HCP100330,Endocrinology,Northeast,Low,1
+HCP100331,Gastroenterology,Northeast,Low,1
+HCP100332,Oncology,Northeast,Low,0
+HCP100333,Psychiatry,Midwest,Low,0
+HCP100334,Endocrinology,Midwest,Medium,1
+HCP100335,Cardiology,Pacific Northwest,Low,1
+HCP100336,Gastroenterology,Northeast,Low,1
+HCP100337,Cardiology,Southeast,Medium,1
+HCP100338,Dermatology,Southwest,Low,0
+HCP100339,Psychiatry,Midwest,Medium,1
+HCP100340,Neurology,West,Medium,0
+HCP100341,Dermatology,Mountain,High,0
+HCP100342,Cardiology,Northeast,Medium,1
+HCP100343,Cardiology,Southeast,High,1
+HCP100344,Oncology,Mountain,High,1
+HCP100345,Primary Care,Northeast,Low,0
+HCP100346,Neurology,Southeast,Low,1
+HCP100347,Oncology,Southeast,Low,1
+HCP100348,Primary Care,Northeast,Medium,1
+HCP100349,Primary Care,Midwest,Low,1
+HCP100350,Dermatology,Southeast,Medium,0
+HCP100351,Oncology,Midwest,High,1
+HCP100352,Gastroenterology,West,Low,1
+HCP100353,Endocrinology,Southeast,Low,1
+HCP100354,Cardiology,Southeast,High,1
+HCP100355,Primary Care,West,Low,1
+HCP100356,Cardiology,Midwest,Medium,1
+HCP100357,Dermatology,Southeast,Medium,1
+HCP100358,Cardiology,Northeast,Low,1
+HCP100359,Oncology,Northeast,Low,1
+HCP100360,Oncology,Southeast,Medium,1
+HCP100361,Endocrinology,Southwest,Medium,1
+HCP100362,Primary Care,Northeast,Low,1
+HCP100363,Primary Care,West,High,1
+HCP100364,Endocrinology,Northeast,Low,1
+HCP100365,Dermatology,Southeast,Low,0
+HCP100366,Dermatology,Midwest,Low,1
+HCP100367,Psychiatry,Northeast,Low,1
+HCP100368,Cardiology,Southwest,Medium,1
+HCP100369,Dermatology,Midwest,Low,1
+HCP100370,Neurology,Southeast,High,1
+HCP100371,Cardiology,Pacific Northwest,Low,1
+HCP100372,Cardiology,Mountain,Low,1
+HCP100373,Primary Care,Southwest,Low,0
+HCP100374,Primary Care,Southwest,Low,0
+HCP100375,Oncology,Northeast,Low,1
+HCP100376,Cardiology,Southeast,Low,1
+HCP100377,Cardiology,Southeast,Low,1
+HCP100378,Neurology,Northeast,High,1
+HCP100379,Oncology,Midwest,Low,1
+HCP100380,Cardiology,Southeast,Medium,1
+HCP100381,Primary Care,Pacific Northwest,Low,1
+HCP100382,Endocrinology,Midwest,High,0
+HCP100383,Primary Care,Pacific Northwest,Low,1
+HCP100384,Primary Care,West,Low,1
+HCP100385,Primary Care,Southeast,Medium,1
+HCP100386,Primary Care,Southwest,High,1
+HCP100387,Endocrinology,Midwest,Medium,1
+HCP100388,Primary Care,Midwest,Medium,1
+HCP100389,Cardiology,Southwest,Medium,1
+HCP100390,Endocrinology,Midwest,Low,1
+HCP100391,Oncology,Southwest,Medium,1
+HCP100392,Gastroenterology,Northeast,Low,0
+HCP100393,Cardiology,Southeast,Medium,1
+HCP100394,Gastroenterology,Midwest,Medium,1
+HCP100395,Cardiology,Southwest,High,1
+HCP100396,Endocrinology,West,Low,1
+HCP100397,Primary Care,Northeast,Low,1
+HCP100398,Cardiology,Northeast,Medium,1
+HCP100399,Oncology,West,Low,0
+HCP100400,Oncology,West,Low,1
+HCP100401,Dermatology,Southwest,Low,1
+HCP100402,Endocrinology,West,Medium,1
+HCP100403,Cardiology,Midwest,Low,1
+HCP100404,Oncology,Southwest,Medium,1
+HCP100405,Cardiology,Northeast,Medium,1
+HCP100406,Endocrinology,Northeast,Medium,1
+HCP100407,Neurology,Northeast,High,1
+HCP100408,Primary Care,Northeast,Low,1
+HCP100409,Dermatology,Northeast,Low,1
+HCP100410,Endocrinology,Midwest,Low,1
+HCP100411,Psychiatry,Northeast,Low,1
+HCP100412,Endocrinology,Southwest,High,1
+HCP100413,Primary Care,Northeast,Medium,1
+HCP100414,Cardiology,Northeast,Low,1
+HCP100415,Primary Care,Southeast,Medium,1
+HCP100416,Oncology,Northeast,Low,1
+HCP100417,Primary Care,Southwest,Medium,1
+HCP100418,Primary Care,Southeast,Low,1
+HCP100419,Dermatology,Pacific Northwest,Low,1
+HCP100420,Cardiology,Southeast,High,1
+HCP100421,Primary Care,Northeast,Medium,1
+HCP100422,Oncology,Southwest,Low,1
+HCP100423,Endocrinology,Northeast,Low,1
+HCP100424,Dermatology,Northeast,Low,1
+HCP100425,Dermatology,West,Low,0
+HCP100426,Endocrinology,West,Low,1
+HCP100427,Oncology,Southeast,Low,1
+HCP100428,Oncology,Southwest,Medium,1
+HCP100429,Primary Care,Southwest,Medium,1
+HCP100430,Primary Care,Northeast,Low,0
+HCP100431,Oncology,Northeast,High,1
+HCP100432,Primary Care,Pacific Northwest,Low,1
+HCP100433,Cardiology,Midwest,Low,1
+HCP100434,Oncology,Southwest,Low,1
+HCP100435,Primary Care,Northeast,High,1
+HCP100436,Gastroenterology,Northeast,High,1
+HCP100437,Gastroenterology,Southwest,Medium,1
+HCP100438,Oncology,West,Low,0
+HCP100439,Primary Care,Southeast,Medium,1
+HCP100440,Endocrinology,West,Medium,1
+HCP100441,Primary Care,Pacific Northwest,Low,1
+HCP100442,Psychiatry,Midwest,Medium,1
+HCP100443,Dermatology,Northeast,Medium,1
+HCP100444,Primary Care,Southwest,Medium,1
+HCP100445,Gastroenterology,Southwest,Medium,1
+HCP100446,Dermatology,Northeast,Low,0
+HCP100447,Gastroenterology,Northeast,Medium,1
+HCP100448,Dermatology,Pacific Northwest,Medium,0
+HCP100449,Gastroenterology,Midwest,High,1
+HCP100450,Primary Care,Midwest,High,1
+HCP100451,Cardiology,Pacific Northwest,High,1
+HCP100452,Dermatology,West,Medium,1
+HCP100453,Cardiology,West,Medium,1
+HCP100454,Endocrinology,Mountain,Low,1
+HCP100455,Psychiatry,West,Low,1
+HCP100456,Dermatology,Northeast,Low,1
+HCP100457,Psychiatry,Midwest,Medium,1
+HCP100458,Cardiology,West,Low,1
+HCP100459,Primary Care,Southwest,Medium,1
+HCP100460,Neurology,Northeast,High,1
+HCP100461,Neurology,Southeast,Low,0
+HCP100462,Primary Care,Midwest,High,1
+HCP100463,Cardiology,Northeast,Low,0
+HCP100464,Primary Care,Midwest,Low,1
+HCP100465,Psychiatry,Southeast,Medium,1
+HCP100466,Primary Care,Northeast,Low,1
+HCP100467,Primary Care,Northeast,Low,1
+HCP100468,Oncology,Northeast,Low,1
+HCP100469,Oncology,West,Medium,1
+HCP100470,Psychiatry,Southeast,Medium,1
+HCP100471,Cardiology,Midwest,Medium,1
+HCP100472,Primary Care,Northeast,High,1
+HCP100473,Psychiatry,Southeast,Medium,0
+HCP100474,Cardiology,Mountain,Medium,0
+HCP100475,Gastroenterology,West,Medium,1
+HCP100476,Neurology,Southwest,Low,1
+HCP100477,Gastroenterology,Northeast,Low,1
+HCP100478,Primary Care,Midwest,Medium,1
+HCP100479,Endocrinology,Southeast,Low,0
+HCP100480,Primary Care,Northeast,Medium,1
+HCP100481,Psychiatry,Pacific Northwest,High,1
+HCP100482,Primary Care,West,Medium,1
+HCP100483,Cardiology,Midwest,Low,0
+HCP100484,Primary Care,Northeast,Low,1
+HCP100485,Endocrinology,Mountain,Low,1
+HCP100486,Endocrinology,West,Low,0
+HCP100487,Psychiatry,West,Low,1
+HCP100488,Neurology,West,Low,1
+HCP100489,Gastroenterology,Southeast,Medium,1
+HCP100490,Cardiology,Northeast,Medium,1
+HCP100491,Neurology,Southeast,Low,0
+HCP100492,Oncology,Northeast,Low,1
+HCP100493,Psychiatry,Northeast,Low,1
+HCP100494,Endocrinology,Southwest,Low,0
+HCP100495,Psychiatry,Northeast,High,0
+HCP100496,Primary Care,West,High,1
+HCP100497,Endocrinology,Pacific Northwest,High,1
+HCP100498,Psychiatry,West,Medium,1
+HCP100499,Neurology,Southwest,Medium,1
+HCP100500,Primary Care,Southeast,Low,1
+HCP100501,Dermatology,West,Low,1
+HCP100502,Psychiatry,Mountain,Medium,1
+HCP100503,Primary Care,Southeast,High,1
+HCP100504,Primary Care,West,High,1
+HCP100505,Primary Care,Southeast,Low,0
+HCP100506,Psychiatry,Northeast,Medium,1
+HCP100507,Oncology,Mountain,High,1
+HCP100508,Cardiology,Northeast,Medium,1
+HCP100509,Cardiology,West,Medium,1
+HCP100510,Oncology,Southeast,Low,1
+HCP100511,Oncology,Southwest,Medium,1
+HCP100512,Oncology,Midwest,Medium,1
+HCP100513,Dermatology,Southeast,Medium,1
+HCP100514,Dermatology,Southeast,Low,0
+HCP100515,Oncology,Southwest,Medium,1
+HCP100516,Psychiatry,Northeast,High,1
+HCP100517,Cardiology,Southeast,Medium,1
+HCP100518,Primary Care,West,Low,1
+HCP100519,Neurology,Northeast,Medium,1
+HCP100520,Cardiology,Southwest,High,1
+HCP100521,Neurology,Midwest,Medium,1
+HCP100522,Primary Care,Northeast,Low,1
+HCP100523,Primary Care,Northeast,Medium,1
+HCP100524,Cardiology,Northeast,Low,1
+HCP100525,Oncology,Southeast,High,1
+HCP100526,Neurology,Southeast,Low,0
+HCP100527,Oncology,Southwest,Low,1
+HCP100528,Primary Care,Northeast,High,1
+HCP100529,Neurology,West,Medium,1
+HCP100530,Neurology,Northeast,Medium,1
+HCP100531,Dermatology,Southwest,Medium,1
+HCP100532,Primary Care,Mountain,Low,1
+HCP100533,Primary Care,Northeast,Low,1
+HCP100534,Cardiology,Midwest,Low,1
+HCP100535,Primary Care,West,Low,1
+HCP100536,Cardiology,West,Low,1
+HCP100537,Neurology,Northeast,Low,1
+HCP100538,Endocrinology,Southeast,Low,1
+HCP100539,Dermatology,Northeast,Low,1
+HCP100540,Endocrinology,Southwest,Medium,1
+HCP100541,Oncology,Northeast,High,1
+HCP100542,Oncology,Midwest,Low,1
+HCP100543,Primary Care,Northeast,Low,1
+HCP100544,Psychiatry,West,Medium,1
+HCP100545,Neurology,Northeast,Low,0
+HCP100546,Gastroenterology,Mountain,Medium,1
+HCP100547,Primary Care,Northeast,Low,1
+HCP100548,Oncology,Southwest,Medium,1
+HCP100549,Psychiatry,West,Low,1
+HCP100550,Oncology,Northeast,High,1
+HCP100551,Primary Care,Southeast,Medium,1
+HCP100552,Psychiatry,Midwest,Low,1
+HCP100553,Psychiatry,Northeast,Low,1
+HCP100554,Primary Care,Northeast,High,1
+HCP100555,Psychiatry,Midwest,Low,1
+HCP100556,Neurology,Southeast,Medium,1
+HCP100557,Neurology,Southwest,High,1
+HCP100558,Cardiology,Mountain,Medium,0
+HCP100559,Endocrinology,Midwest,High,1
+HCP100560,Oncology,Southeast,Low,1
+HCP100561,Cardiology,Southwest,Low,1
+HCP100562,Primary Care,West,Medium,1
+HCP100563,Cardiology,Northeast,Medium,1
+HCP100564,Endocrinology,Southwest,Medium,1
+HCP100565,Neurology,Southwest,High,1
+HCP100566,Primary Care,Southwest,Medium,1
+HCP100567,Primary Care,Southeast,Low,1
+HCP100568,Cardiology,Southeast,High,1
+HCP100569,Endocrinology,Southeast,Low,1
+HCP100570,Primary Care,West,Medium,1
+HCP100571,Oncology,Southwest,Low,0
+HCP100572,Primary Care,Midwest,Low,1
+HCP100573,Primary Care,West,Medium,1
+HCP100574,Neurology,Midwest,Low,1
+HCP100575,Neurology,Southeast,Low,0
+HCP100576,Gastroenterology,West,Low,1
+HCP100577,Neurology,West,Low,1
+HCP100578,Oncology,Southeast,Low,1
+HCP100579,Cardiology,Northeast,Medium,1
+HCP100580,Primary Care,Midwest,Medium,1
+HCP100581,Dermatology,Pacific Northwest,High,1
+HCP100582,Primary Care,Northeast,High,0
+HCP100583,Dermatology,Midwest,Medium,1
+HCP100584,Endocrinology,Pacific Northwest,Low,1
+HCP100585,Gastroenterology,Southeast,High,1
+HCP100586,Primary Care,Midwest,High,1
+HCP100587,Primary Care,West,Low,1
+HCP100588,Endocrinology,Midwest,Low,1
+HCP100589,Cardiology,Southeast,Medium,1
+HCP100590,Psychiatry,Southwest,Low,1
+HCP100591,Gastroenterology,West,Medium,1
+HCP100592,Cardiology,Pacific Northwest,Low,1
+HCP100593,Primary Care,West,Medium,1
+HCP100594,Primary Care,Mountain,Low,1
+HCP100595,Psychiatry,Pacific Northwest,High,1
+HCP100596,Primary Care,Southwest,Low,1
+HCP100597,Psychiatry,Midwest,High,1
+HCP100598,Primary Care,Midwest,Low,1
+HCP100599,Cardiology,Northeast,Low,1
+HCP100600,Endocrinology,West,High,1
+HCP100601,Cardiology,Southeast,High,1
+HCP100602,Dermatology,Southwest,Medium,1
+HCP100603,Primary Care,Southwest,Low,1
+HCP100604,Dermatology,Midwest,Low,0
+HCP100605,Primary Care,West,Medium,1
+HCP100606,Cardiology,Midwest,Medium,1
+HCP100607,Gastroenterology,Southeast,Medium,1
+HCP100608,Primary Care,Pacific Northwest,Medium,1
+HCP100609,Cardiology,Northeast,High,1
+HCP100610,Cardiology,Southwest,Low,1
+HCP100611,Neurology,Southwest,Medium,1
+HCP100612,Gastroenterology,West,Medium,1
+HCP100613,Gastroenterology,Southeast,Medium,1
+HCP100614,Endocrinology,West,Low,1
+HCP100615,Endocrinology,Northeast,Low,1
+HCP100616,Primary Care,Northeast,High,1
+HCP100617,Dermatology,Midwest,Low,1
+HCP100618,Dermatology,Northeast,Low,0
+HCP100619,Primary Care,Southeast,High,1
+HCP100620,Primary Care,Northeast,High,1
+HCP100621,Neurology,Mountain,Low,1
+HCP100622,Neurology,Southeast,Low,1
+HCP100623,Primary Care,Northeast,Low,1
+HCP100624,Psychiatry,Northeast,Low,1
+HCP100625,Cardiology,Mountain,Low,1
+HCP100626,Gastroenterology,West,High,1
+HCP100627,Primary Care,Southeast,Medium,1
+HCP100628,Endocrinology,West,Low,1
+HCP100629,Oncology,West,Low,1
+HCP100630,Dermatology,West,High,1
+HCP100631,Primary Care,West,Low,1
+HCP100632,Psychiatry,West,Medium,1
+HCP100633,Oncology,Midwest,Medium,1
+HCP100634,Cardiology,West,High,1
+HCP100635,Endocrinology,Northeast,Medium,1
+HCP100636,Primary Care,Northeast,Medium,1
+HCP100637,Primary Care,Pacific Northwest,Medium,1
+HCP100638,Psychiatry,Midwest,Medium,0
+HCP100639,Cardiology,Northeast,High,1
+HCP100640,Cardiology,Northeast,High,1
+HCP100641,Gastroenterology,Midwest,Medium,1
+HCP100642,Primary Care,Southeast,Low,1
+HCP100643,Primary Care,Pacific Northwest,Low,1
+HCP100644,Psychiatry,Southwest,Low,1
+HCP100645,Endocrinology,West,Medium,1
+HCP100646,Dermatology,West,Medium,1
+HCP100647,Psychiatry,West,Low,1
+HCP100648,Primary Care,Midwest,Low,1
+HCP100649,Primary Care,West,Low,0
+HCP100650,Primary Care,Northeast,Medium,1
+HCP100651,Dermatology,Southeast,Medium,1
+HCP100652,Endocrinology,Midwest,Medium,1
+HCP100653,Gastroenterology,Southwest,Low,0
+HCP100654,Gastroenterology,Northeast,Low,1
+HCP100655,Oncology,Southwest,Low,0
+HCP100656,Cardiology,Midwest,High,1
+HCP100657,Primary Care,Northeast,High,1
+HCP100658,Psychiatry,Midwest,Medium,1
+HCP100659,Cardiology,Midwest,High,1
+HCP100660,Oncology,Southwest,Low,0
+HCP100661,Cardiology,Midwest,Medium,1
+HCP100662,Cardiology,Southwest,Low,1
+HCP100663,Cardiology,Northeast,High,1
+HCP100664,Cardiology,Midwest,Medium,1
+HCP100665,Dermatology,Northeast,Low,1
+HCP100666,Psychiatry,Northeast,Low,1
+HCP100667,Gastroenterology,Mountain,Low,1
+HCP100668,Dermatology,Midwest,Low,1
+HCP100669,Primary Care,West,Medium,1
+HCP100670,Neurology,Southeast,Medium,1
+HCP100671,Endocrinology,Northeast,High,1
+HCP100672,Gastroenterology,Northeast,Low,1
+HCP100673,Primary Care,Northeast,Medium,1
+HCP100674,Oncology,Mountain,High,1
+HCP100675,Cardiology,Southeast,Low,1
+HCP100676,Endocrinology,West,Medium,1
+HCP100677,Psychiatry,Mountain,Low,1
+HCP100678,Endocrinology,Northeast,Medium,1
+HCP100679,Primary Care,West,High,1
+HCP100680,Neurology,Pacific Northwest,High,1
+HCP100681,Psychiatry,Southwest,Medium,1
+HCP100682,Endocrinology,Midwest,Medium,1
+HCP100683,Psychiatry,Northeast,Medium,0
+HCP100684,Dermatology,Midwest,Medium,1
+HCP100685,Primary Care,West,Low,1
+HCP100686,Primary Care,Southeast,Low,1
+HCP100687,Cardiology,Southwest,Low,1
+HCP100688,Endocrinology,West,Medium,1
+HCP100689,Primary Care,Northeast,Low,0
+HCP100690,Cardiology,Southwest,Low,0
+HCP100691,Gastroenterology,West,Low,0
+HCP100692,Primary Care,Southeast,Medium,1
+HCP100693,Dermatology,Pacific Northwest,Medium,1
+HCP100694,Primary Care,Southeast,Low,1
+HCP100695,Primary Care,Southeast,Medium,1
+HCP100696,Dermatology,West,Low,0
+HCP100697,Dermatology,West,High,1
+HCP100698,Primary Care,West,Low,1
+HCP100699,Cardiology,Southwest,High,1
+HCP100700,Primary Care,Southeast,Low,0
+HCP100701,Cardiology,Southeast,Low,1
+HCP100702,Primary Care,Northeast,Low,0
+HCP100703,Psychiatry,Southwest,High,1
+HCP100704,Cardiology,Pacific Northwest,Low,1
+HCP100705,Oncology,Midwest,Low,1
+HCP100706,Psychiatry,Mountain,Low,0
+HCP100707,Dermatology,Southeast,High,0
+HCP100708,Neurology,West,Low,1
+HCP100709,Psychiatry,Northeast,Medium,0
+HCP100710,Endocrinology,Midwest,Medium,1
+HCP100711,Cardiology,Midwest,Low,1
+HCP100712,Cardiology,Southeast,Low,1
+HCP100713,Primary Care,Southeast,Low,1
+HCP100714,Cardiology,Midwest,Medium,1
+HCP100715,Oncology,Southeast,Medium,1
+HCP100716,Neurology,Southeast,Low,1
+HCP100717,Psychiatry,Northeast,Low,1
+HCP100718,Neurology,Southeast,Medium,1
+HCP100719,Endocrinology,West,Low,1
+HCP100720,Endocrinology,Southwest,High,1
+HCP100721,Neurology,Pacific Northwest,High,1
+HCP100722,Primary Care,Southeast,Low,1
+HCP100723,Neurology,Mountain,Low,1
+HCP100724,Oncology,Northeast,Low,1
+HCP100725,Oncology,Mountain,Medium,1
+HCP100726,Primary Care,Northeast,High,1
+HCP100727,Cardiology,Southwest,Medium,1
+HCP100728,Neurology,Northeast,Low,1
+HCP100729,Endocrinology,Northeast,Low,1
+HCP100730,Cardiology,Midwest,High,1
+HCP100731,Oncology,Southeast,Low,1
+HCP100732,Endocrinology,West,Low,0
+HCP100733,Endocrinology,Northeast,Low,1
+HCP100734,Psychiatry,Northeast,Low,1
+HCP100735,Psychiatry,Northeast,Low,1
+HCP100736,Gastroenterology,Southeast,Low,1
+HCP100737,Primary Care,Midwest,Low,0
+HCP100738,Primary Care,Midwest,Low,1
+HCP100739,Cardiology,Northeast,Low,1
+HCP100740,Dermatology,Northeast,Medium,1
+HCP100741,Primary Care,Southeast,Low,1
+HCP100742,Cardiology,West,Medium,1
+HCP100743,Psychiatry,Southeast,Low,1
+HCP100744,Oncology,Northeast,Medium,1
+HCP100745,Gastroenterology,Northeast,Medium,1
+HCP100746,Primary Care,Southeast,Low,1
+HCP100747,Dermatology,West,Low,1
+HCP100748,Oncology,West,High,1
+HCP100749,Primary Care,Northeast,Medium,1
+HCP100750,Endocrinology,Southwest,Medium,1
+HCP100751,Cardiology,Southwest,Low,1
+HCP100752,Oncology,Midwest,High,1
+HCP100753,Endocrinology,Midwest,Medium,0
+HCP100754,Psychiatry,West,Medium,1
+HCP100755,Neurology,Southwest,Low,1
+HCP100756,Primary Care,Southeast,High,1
+HCP100757,Cardiology,Southwest,High,1
+HCP100758,Endocrinology,Midwest,High,1
+HCP100759,Neurology,Midwest,Low,1
+HCP100760,Cardiology,Midwest,Medium,1
+HCP100761,Primary Care,Midwest,Medium,1
+HCP100762,Cardiology,Southeast,Low,1
+HCP100763,Oncology,Midwest,Low,1
+HCP100764,Cardiology,Southwest,Medium,1
+HCP100765,Primary Care,West,Medium,1
+HCP100766,Primary Care,Midwest,High,1
+HCP100767,Primary Care,Southeast,Low,1
+HCP100768,Neurology,Southeast,Low,1
+HCP100769,Neurology,Northeast,High,1
+HCP100770,Oncology,Midwest,High,1
+HCP100771,Neurology,Southeast,Low,1
+HCP100772,Dermatology,Mountain,Low,1
+HCP100773,Primary Care,Midwest,Medium,1
+HCP100774,Oncology,West,Low,1
+HCP100775,Cardiology,West,Low,1
+HCP100776,Primary Care,Midwest,Low,1
+HCP100777,Primary Care,Southeast,High,1
+HCP100778,Cardiology,Midwest,Medium,1
+HCP100779,Primary Care,West,High,1
+HCP100780,Oncology,Midwest,Medium,1
+HCP100781,Psychiatry,Southwest,Medium,1
+HCP100782,Gastroenterology,Pacific Northwest,Medium,1
+HCP100783,Primary Care,Northeast,Medium,1
+HCP100784,Psychiatry,Mountain,High,1
+HCP100785,Primary Care,Midwest,Medium,1
+HCP100786,Cardiology,Southwest,Medium,1
+HCP100787,Oncology,Southwest,Medium,1
+HCP100788,Endocrinology,Southeast,Low,1
+HCP100789,Neurology,Midwest,Medium,1
+HCP100790,Primary Care,West,Medium,1
+HCP100791,Psychiatry,Midwest,Medium,1
+HCP100792,Oncology,Pacific Northwest,Low,1
+HCP100793,Neurology,West,Low,1
+HCP100794,Primary Care,Southeast,Medium,1
+HCP100795,Primary Care,Northeast,Medium,0
+HCP100796,Cardiology,Southwest,Low,1
+HCP100797,Gastroenterology,Southeast,Low,1
+HCP100798,Endocrinology,Northeast,High,1
+HCP100799,Endocrinology,Northeast,High,1
+HCP100800,Oncology,West,Low,1
+HCP100801,Gastroenterology,Midwest,Low,0
+HCP100802,Cardiology,Midwest,Medium,1
+HCP100803,Primary Care,Southeast,High,1
+HCP100804,Dermatology,Midwest,Medium,1
+HCP100805,Endocrinology,Midwest,Low,1
+HCP100806,Primary Care,Northeast,Medium,0
+HCP100807,Dermatology,Midwest,High,1
+HCP100808,Primary Care,West,Low,1
+HCP100809,Psychiatry,Southwest,Low,1
+HCP100810,Primary Care,Northeast,High,1
+HCP100811,Endocrinology,Pacific Northwest,Low,1
+HCP100812,Cardiology,Midwest,Medium,1
+HCP100813,Dermatology,Northeast,Low,1
+HCP100814,Neurology,Northeast,High,0
+HCP100815,Primary Care,Midwest,High,1
+HCP100816,Gastroenterology,Southeast,Low,1
+HCP100817,Endocrinology,West,High,1
+HCP100818,Neurology,Southwest,Low,1
+HCP100819,Cardiology,Mountain,Medium,1
+HCP100820,Endocrinology,Southeast,High,1
+HCP100821,Psychiatry,Northeast,Medium,0
+HCP100822,Endocrinology,Southeast,Medium,1
+HCP100823,Psychiatry,Southeast,Low,1
+HCP100824,Primary Care,Midwest,High,1
+HCP100825,Endocrinology,West,Medium,1
+HCP100826,Cardiology,Southeast,Low,1
+HCP100827,Primary Care,Midwest,High,1
+HCP100828,Primary Care,Southwest,Low,1
+HCP100829,Oncology,Midwest,Low,1
+HCP100830,Gastroenterology,Midwest,Low,1
+HCP100831,Dermatology,Northeast,Medium,1
+HCP100832,Endocrinology,Southeast,Low,1
+HCP100833,Cardiology,West,Low,1
+HCP100834,Primary Care,Midwest,Low,0
+HCP100835,Psychiatry,Northeast,High,1
+HCP100836,Primary Care,Midwest,Medium,1
+HCP100837,Endocrinology,Midwest,Medium,1
+HCP100838,Dermatology,Southeast,Low,1
+HCP100839,Endocrinology,Northeast,High,1
+HCP100840,Primary Care,Northeast,Low,1
+HCP100841,Psychiatry,Midwest,Medium,0
+HCP100842,Oncology,Southeast,High,1
+HCP100843,Gastroenterology,Mountain,Medium,1
+HCP100844,Oncology,Mountain,Low,1
+HCP100845,Primary Care,Northeast,Medium,0
+HCP100846,Primary Care,Mountain,Low,1
+HCP100847,Endocrinology,Northeast,Medium,1
+HCP100848,Endocrinology,Southwest,High,1
+HCP100849,Endocrinology,Northeast,Low,1
+HCP100850,Endocrinology,Southeast,Medium,1
+HCP100851,Psychiatry,Southeast,High,1
+HCP100852,Cardiology,Southeast,Low,1
+HCP100853,Oncology,Midwest,Low,1
+HCP100854,Oncology,Midwest,Medium,1
+HCP100855,Cardiology,Southwest,Low,1
+HCP100856,Psychiatry,Mountain,High,1
+HCP100857,Dermatology,West,Low,0
+HCP100858,Endocrinology,Southeast,Low,1
+HCP100859,Neurology,Midwest,Medium,1
+HCP100860,Primary Care,Southeast,Low,1
+HCP100861,Gastroenterology,Midwest,Low,0
+HCP100862,Primary Care,Midwest,Low,0
+HCP100863,Primary Care,Midwest,Low,0
+HCP100864,Endocrinology,Mountain,Low,1
+HCP100865,Primary Care,West,Low,1
+HCP100866,Neurology,Southeast,High,1
+HCP100867,Oncology,West,Medium,1
+HCP100868,Gastroenterology,Southeast,Medium,1
+HCP100869,Psychiatry,Midwest,Low,1
+HCP100870,Oncology,Southeast,Medium,1
+HCP100871,Oncology,West,Low,1
+HCP100872,Primary Care,Midwest,Medium,1
+HCP100873,Gastroenterology,Northeast,Medium,1
+HCP100874,Oncology,West,Low,1
+HCP100875,Dermatology,Southeast,Low,1
+HCP100876,Neurology,Mountain,Medium,1
+HCP100877,Primary Care,West,High,0
+HCP100878,Gastroenterology,West,Low,1
+HCP100879,Primary Care,Midwest,Low,0
+HCP100880,Neurology,Southwest,Low,1
+HCP100881,Psychiatry,Midwest,Medium,1
+HCP100882,Primary Care,Northeast,Medium,1
+HCP100883,Primary Care,Midwest,Medium,1
+HCP100884,Dermatology,Southwest,Medium,1
+HCP100885,Cardiology,West,Low,1
+HCP100886,Endocrinology,Midwest,Low,1
+HCP100887,Primary Care,Northeast,Medium,1
+HCP100888,Endocrinology,Southeast,Low,1
+HCP100889,Gastroenterology,Southwest,Low,1
+HCP100890,Gastroenterology,Northeast,Low,1
+HCP100891,Psychiatry,Pacific Northwest,High,1
+HCP100892,Dermatology,Northeast,Low,1
+HCP100893,Oncology,Southeast,Low,1
+HCP100894,Primary Care,West,Medium,1
+HCP100895,Dermatology,Northeast,Low,0
+HCP100896,Neurology,Southeast,Low,1
+HCP100897,Gastroenterology,Southwest,Medium,1
+HCP100898,Neurology,Southeast,Medium,0
+HCP100899,Cardiology,Midwest,Low,0
+HCP100900,Neurology,Southeast,Medium,1
+HCP100901,Oncology,Southeast,Low,1
+HCP100902,Endocrinology,West,Low,1
+HCP100903,Psychiatry,Northeast,Medium,1
+HCP100904,Endocrinology,Southwest,Medium,1
+HCP100905,Neurology,Southeast,Medium,1
+HCP100906,Primary Care,Northeast,Low,1
+HCP100907,Endocrinology,Northeast,Medium,1
+HCP100908,Endocrinology,Northeast,High,1
+HCP100909,Cardiology,Northeast,Low,1
+HCP100910,Psychiatry,Southeast,Low,1
+HCP100911,Endocrinology,Midwest,Medium,1
+HCP100912,Oncology,Northeast,Low,0
+HCP100913,Primary Care,West,High,1
+HCP100914,Endocrinology,Northeast,High,1
+HCP100915,Neurology,Northeast,High,1
+HCP100916,Gastroenterology,Southwest,Medium,1
+HCP100917,Cardiology,Northeast,Low,1
+HCP100918,Psychiatry,West,Medium,1
+HCP100919,Neurology,West,Medium,1
+HCP100920,Primary Care,Midwest,Medium,1
+HCP100921,Oncology,West,Medium,1
+HCP100922,Primary Care,Northeast,Medium,1
+HCP100923,Endocrinology,Northeast,High,1
+HCP100924,Neurology,Mountain,Low,0
+HCP100925,Psychiatry,Southeast,Low,1
+HCP100926,Neurology,Midwest,Low,1
+HCP100927,Oncology,West,Medium,1
+HCP100928,Oncology,Mountain,Low,1
+HCP100929,Cardiology,Southeast,Medium,1
+HCP100930,Primary Care,West,Low,1
+HCP100931,Cardiology,Midwest,Low,1
+HCP100932,Oncology,Midwest,High,1
+HCP100933,Oncology,Midwest,Low,1
+HCP100934,Cardiology,Southeast,High,1
+HCP100935,Primary Care,Northeast,Medium,1
+HCP100936,Primary Care,Southeast,Medium,1
+HCP100937,Endocrinology,Midwest,Low,1
+HCP100938,Dermatology,Midwest,Low,0
+HCP100939,Primary Care,Southeast,High,1
+HCP100940,Cardiology,Southeast,Medium,1
+HCP100941,Primary Care,Pacific Northwest,Low,1
+HCP100942,Gastroenterology,Northeast,Low,1
+HCP100943,Primary Care,Southwest,High,1
+HCP100944,Primary Care,West,Medium,1
+HCP100945,Psychiatry,Northeast,Medium,1
+HCP100946,Psychiatry,Southeast,Low,0
+HCP100947,Endocrinology,Northeast,Medium,1
+HCP100948,Psychiatry,Southwest,High,1
+HCP100949,Neurology,Mountain,High,1
+HCP100950,Cardiology,Southeast,Medium,1
+HCP100951,Neurology,Northeast,Medium,1
+HCP100952,Psychiatry,Midwest,Low,1
+HCP100953,Cardiology,Northeast,Low,1
+HCP100954,Cardiology,Mountain,Low,1
+HCP100955,Cardiology,Mountain,Low,1
+HCP100956,Psychiatry,West,Medium,1
+HCP100957,Psychiatry,Midwest,Low,1
+HCP100958,Primary Care,Southeast,Low,0
+HCP100959,Neurology,Midwest,Medium,1
+HCP100960,Endocrinology,West,Medium,1
+HCP100961,Primary Care,Midwest,High,1
+HCP100962,Neurology,Northeast,High,1
+HCP100963,Cardiology,Northeast,Medium,1
+HCP100964,Neurology,Mountain,Medium,1
+HCP100965,Primary Care,Southeast,Medium,1
+HCP100966,Psychiatry,Midwest,Low,1
+HCP100967,Cardiology,Midwest,Low,1
+HCP100968,Primary Care,Northeast,High,1
+HCP100969,Primary Care,Northeast,Medium,1
+HCP100970,Primary Care,Southwest,Low,1
+HCP100971,Primary Care,Midwest,Low,1
+HCP100972,Dermatology,Southwest,Low,0
+HCP100973,Cardiology,Pacific Northwest,Low,1
+HCP100974,Neurology,Midwest,Medium,1
+HCP100975,Cardiology,Southwest,High,1
+HCP100976,Endocrinology,West,Medium,1
+HCP100977,Cardiology,Northeast,Medium,1
+HCP100978,Endocrinology,Northeast,Low,1
+HCP100979,Gastroenterology,Midwest,High,1
+HCP100980,Psychiatry,West,Low,1
+HCP100981,Cardiology,Southeast,High,1
+HCP100982,Dermatology,West,Low,1
+HCP100983,Gastroenterology,Pacific Northwest,Low,1
+HCP100984,Cardiology,Midwest,Medium,1
+HCP100985,Primary Care,Midwest,Low,1
+HCP100986,Primary Care,Midwest,Low,1
+HCP100987,Psychiatry,Southwest,Low,1
+HCP100988,Psychiatry,Southeast,Low,1
+HCP100989,Gastroenterology,West,Low,0
+HCP100990,Endocrinology,Mountain,Medium,1
+HCP100991,Oncology,Southeast,Medium,1
+HCP100992,Neurology,Northeast,Medium,1
+HCP100993,Dermatology,Midwest,Low,1
+HCP100994,Primary Care,Northeast,High,1
+HCP100995,Primary Care,Northeast,Low,0
+HCP100996,Cardiology,Southwest,Low,1
+HCP100997,Oncology,Pacific Northwest,Medium,0
+HCP100998,Primary Care,Southeast,Medium,1
+HCP100999,Cardiology,Northeast,High,1
+HCP101000,Primary Care,Northeast,Medium,1
+HCP101001,Neurology,Midwest,Low,1
+HCP101002,Primary Care,West,Low,0
+HCP101003,Dermatology,Northeast,Medium,1
+HCP101004,Endocrinology,Southeast,Low,0
+HCP101005,Gastroenterology,Northeast,Medium,1
+HCP101006,Cardiology,Midwest,Medium,1
+HCP101007,Primary Care,Southeast,Low,1
+HCP101008,Endocrinology,Southeast,Low,1
+HCP101009,Cardiology,Pacific Northwest,Medium,1
+HCP101010,Primary Care,Northeast,Medium,1
+HCP101011,Gastroenterology,Southwest,Low,0
+HCP101012,Neurology,Midwest,Low,1
+HCP101013,Neurology,Southwest,Medium,1
+HCP101014,Neurology,Northeast,High,1
+HCP101015,Endocrinology,Southwest,Medium,1
+HCP101016,Psychiatry,Midwest,Medium,1
+HCP101017,Cardiology,Midwest,High,1
+HCP101018,Neurology,West,Medium,1
+HCP101019,Neurology,Midwest,Low,1
+HCP101020,Neurology,Northeast,Low,1
+HCP101021,Dermatology,Northeast,Low,1
+HCP101022,Primary Care,Northeast,Medium,1
+HCP101023,Neurology,Southwest,Low,1
+HCP101024,Cardiology,Mountain,Medium,0
+HCP101025,Endocrinology,Northeast,Low,1
+HCP101026,Oncology,West,Low,0
+HCP101027,Cardiology,Northeast,Medium,1
+HCP101028,Primary Care,Southeast,Low,1
+HCP101029,Oncology,Northeast,Low,0
+HCP101030,Cardiology,Southwest,Medium,0
+HCP101031,Neurology,Northeast,High,1
+HCP101032,Oncology,Northeast,Medium,1
+HCP101033,Cardiology,Midwest,Low,0
+HCP101034,Cardiology,Southwest,Medium,1
+HCP101035,Primary Care,Southeast,Low,1
+HCP101036,Primary Care,West,Low,0
+HCP101037,Endocrinology,Northeast,Low,1
+HCP101038,Cardiology,West,Low,0
+HCP101039,Cardiology,Southwest,Medium,1
+HCP101040,Primary Care,Northeast,Medium,1
+HCP101041,Neurology,Northeast,Low,1
+HCP101042,Gastroenterology,Northeast,Low,1
+HCP101043,Psychiatry,Pacific Northwest,Low,1
+HCP101044,Endocrinology,Mountain,Low,1
+HCP101045,Endocrinology,West,Low,0
+HCP101046,Primary Care,Northeast,Medium,1
+HCP101047,Oncology,Southwest,Low,1
+HCP101048,Cardiology,Northeast,High,1
+HCP101049,Primary Care,Southwest,High,1
+HCP101050,Cardiology,Northeast,Medium,0
+HCP101051,Neurology,Midwest,Low,1
+HCP101052,Cardiology,Southeast,Low,1
+HCP101053,Cardiology,Northeast,High,1
+HCP101054,Primary Care,Northeast,Medium,1
+HCP101055,Oncology,Southwest,High,1
+HCP101056,Dermatology,West,High,1
+HCP101057,Oncology,Northeast,High,1
+HCP101058,Primary Care,Northeast,Low,1
+HCP101059,Primary Care,West,Low,0
+HCP101060,Endocrinology,Midwest,High,1
+HCP101061,Oncology,Southeast,Low,0
+HCP101062,Cardiology,Northeast,Medium,1
+HCP101063,Neurology,Northeast,Low,1
+HCP101064,Oncology,Southwest,Low,1
+HCP101065,Cardiology,West,Low,1
+HCP101066,Psychiatry,Midwest,Medium,1
+HCP101067,Primary Care,Southwest,High,1
+HCP101068,Psychiatry,Midwest,Low,1
+HCP101069,Primary Care,Southeast,Medium,1
+HCP101070,Cardiology,Midwest,Low,0
+HCP101071,Cardiology,Southeast,Medium,1
+HCP101072,Gastroenterology,Southeast,Medium,1
+HCP101073,Neurology,Southwest,Low,1
+HCP101074,Oncology,Southeast,High,1
+HCP101075,Dermatology,Southeast,Low,1
+HCP101076,Cardiology,Southwest,Low,1
+HCP101077,Oncology,Northeast,Low,1
+HCP101078,Primary Care,Southeast,Low,1
+HCP101079,Oncology,Mountain,Low,1
+HCP101080,Dermatology,Southeast,Medium,1
+HCP101081,Primary Care,Southwest,Medium,1
+HCP101082,Cardiology,Northeast,High,1
+HCP101083,Endocrinology,West,Low,1
+HCP101084,Dermatology,Midwest,Low,1
+HCP101085,Endocrinology,Midwest,High,1
+HCP101086,Oncology,Northeast,Medium,1
+HCP101087,Cardiology,Southeast,Medium,1
+HCP101088,Endocrinology,West,Low,1
+HCP101089,Cardiology,Northeast,High,1
+HCP101090,Primary Care,Southwest,Low,1
+HCP101091,Oncology,Northeast,Medium,1
+HCP101092,Oncology,Southeast,Low,1
+HCP101093,Primary Care,Northeast,Medium,1
+HCP101094,Endocrinology,Mountain,Low,1
+HCP101095,Endocrinology,Southeast,Medium,1
+HCP101096,Oncology,Northeast,High,1
+HCP101097,Oncology,Southeast,High,1
+HCP101098,Neurology,West,Low,1
+HCP101099,Oncology,Midwest,Low,1
+HCP101100,Oncology,West,Medium,1
+HCP101101,Neurology,Southwest,Low,1
+HCP101102,Endocrinology,Southeast,High,1
+HCP101103,Dermatology,Pacific Northwest,Medium,1
+HCP101104,Psychiatry,Pacific Northwest,Low,1
+HCP101105,Cardiology,Southwest,Medium,1
+HCP101106,Oncology,Midwest,Low,1
+HCP101107,Gastroenterology,Southeast,Low,0
+HCP101108,Primary Care,Northeast,High,1
+HCP101109,Endocrinology,Southwest,Low,1
+HCP101110,Dermatology,Southeast,Low,0
+HCP101111,Dermatology,Northeast,High,1
+HCP101112,Primary Care,West,Medium,1
+HCP101113,Cardiology,Midwest,Medium,1
+HCP101114,Neurology,Southeast,Medium,1
+HCP101115,Gastroenterology,West,Medium,0
+HCP101116,Cardiology,Northeast,Medium,1
+HCP101117,Primary Care,Southeast,Low,1
+HCP101118,Endocrinology,West,Low,0
+HCP101119,Cardiology,Northeast,High,1
+HCP101120,Cardiology,Southwest,High,1
+HCP101121,Endocrinology,Midwest,Medium,0
+HCP101122,Primary Care,Northeast,Medium,1
+HCP101123,Gastroenterology,Northeast,Medium,1
+HCP101124,Primary Care,West,High,1
+HCP101125,Primary Care,West,Medium,1
+HCP101126,Gastroenterology,Midwest,Low,1
+HCP101127,Dermatology,Southwest,Low,1
+HCP101128,Cardiology,Southeast,Low,1
+HCP101129,Cardiology,West,Medium,1
+HCP101130,Cardiology,Southeast,Low,0
+HCP101131,Dermatology,Mountain,Medium,1
+HCP101132,Cardiology,West,Medium,0
+HCP101133,Cardiology,Northeast,Low,1
+HCP101134,Primary Care,West,Low,1
+HCP101135,Neurology,West,High,1
+HCP101136,Primary Care,Midwest,Low,1
+HCP101137,Endocrinology,Southeast,High,1
+HCP101138,Neurology,Northeast,Medium,1
+HCP101139,Psychiatry,West,Medium,1
+HCP101140,Cardiology,Southwest,Low,1
+HCP101141,Oncology,Southeast,Medium,1
+HCP101142,Endocrinology,Midwest,Medium,1
+HCP101143,Oncology,Mountain,High,0
+HCP101144,Neurology,Southeast,Low,1
+HCP101145,Psychiatry,Midwest,Low,1
+HCP101146,Endocrinology,Southeast,Medium,1
+HCP101147,Primary Care,Southeast,High,1
+HCP101148,Primary Care,Northeast,Low,1
+HCP101149,Cardiology,Southeast,Medium,1
+HCP101150,Psychiatry,Southwest,Medium,1
+HCP101151,Primary Care,Midwest,High,1
+HCP101152,Cardiology,Southwest,Low,1
+HCP101153,Primary Care,Southeast,Low,1
+HCP101154,Cardiology,Mountain,Medium,0
+HCP101155,Neurology,Southwest,High,1
+HCP101156,Endocrinology,Southeast,Low,1
+HCP101157,Oncology,Pacific Northwest,High,1
+HCP101158,Dermatology,Midwest,Low,1
+HCP101159,Primary Care,Southeast,Low,1
+HCP101160,Neurology,Southeast,Medium,1
+HCP101161,Psychiatry,Southwest,Low,1
+HCP101162,Dermatology,Midwest,Low,0
+HCP101163,Primary Care,Mountain,Medium,1
+HCP101164,Neurology,Southwest,Low,1
+HCP101165,Cardiology,Southeast,Low,1
+HCP101166,Primary Care,West,Low,1
+HCP101167,Primary Care,Midwest,High,1
+HCP101168,Psychiatry,Midwest,Low,1
+HCP101169,Endocrinology,Midwest,Medium,1
+HCP101170,Primary Care,Northeast,Low,1
+HCP101171,Oncology,Southeast,Medium,1
+HCP101172,Oncology,Northeast,Medium,1
+HCP101173,Dermatology,Midwest,Medium,1
+HCP101174,Dermatology,Midwest,High,1
+HCP101175,Neurology,Midwest,Low,0
+HCP101176,Psychiatry,Southwest,Low,1
+HCP101177,Oncology,Pacific Northwest,Medium,1
+HCP101178,Primary Care,Southeast,Medium,1
+HCP101179,Primary Care,Northeast,Low,1
+HCP101180,Cardiology,Southeast,Low,1
+HCP101181,Endocrinology,Southeast,Low,1
+HCP101182,Endocrinology,West,Medium,1
+HCP101183,Oncology,Southeast,Medium,0
+HCP101184,Endocrinology,Southeast,Low,1
+HCP101185,Primary Care,Southeast,High,1
+HCP101186,Primary Care,Southeast,Low,1
+HCP101187,Primary Care,Southeast,Medium,1
+HCP101188,Endocrinology,Southwest,Low,1
+HCP101189,Primary Care,West,Medium,1
+HCP101190,Endocrinology,West,Medium,1
+HCP101191,Endocrinology,West,Medium,1
+HCP101192,Dermatology,West,Low,1
+HCP101193,Cardiology,Southwest,High,1
+HCP101194,Primary Care,Southeast,High,1
+HCP101195,Primary Care,West,High,0
+HCP101196,Psychiatry,Southeast,Medium,1
+HCP101197,Psychiatry,Midwest,Medium,1
+HCP101198,Endocrinology,Southeast,Low,1
+HCP101199,Oncology,Northeast,Low,1
+HCP101200,Endocrinology,West,Medium,1
+HCP101201,Endocrinology,Midwest,Medium,1
+HCP101202,Oncology,Southwest,Low,1
+HCP101203,Cardiology,Midwest,Low,1
+HCP101204,Neurology,Southeast,High,1
+HCP101205,Psychiatry,Southwest,Medium,0
+HCP101206,Gastroenterology,Northeast,Medium,1
+HCP101207,Neurology,Midwest,Low,1
+HCP101208,Cardiology,Midwest,Medium,1
+HCP101209,Psychiatry,Southeast,High,1
+HCP101210,Cardiology,Midwest,Low,1
+HCP101211,Psychiatry,Midwest,Low,1
+HCP101212,Oncology,West,Medium,1
+HCP101213,Psychiatry,Northeast,Medium,1
+HCP101214,Cardiology,Southwest,Low,1
+HCP101215,Cardiology,Mountain,Low,1
+HCP101216,Psychiatry,Southeast,Medium,1
+HCP101217,Cardiology,Midwest,Medium,1
+HCP101218,Psychiatry,Midwest,Medium,1
+HCP101219,Cardiology,Northeast,Low,1
+HCP101220,Cardiology,Southeast,High,1
+HCP101221,Oncology,Northeast,Medium,1
+HCP101222,Dermatology,West,Low,1
+HCP101223,Primary Care,Pacific Northwest,Medium,1
+HCP101224,Oncology,Mountain,Medium,1
+HCP101225,Psychiatry,Southwest,Low,0
+HCP101226,Cardiology,Southeast,Low,1
+HCP101227,Gastroenterology,Midwest,Medium,1
+HCP101228,Dermatology,Southeast,High,1
+HCP101229,Gastroenterology,Southwest,Low,1
+HCP101230,Psychiatry,Northeast,Low,1
+HCP101231,Cardiology,West,Low,1
+HCP101232,Psychiatry,Northeast,Low,1
+HCP101233,Dermatology,Mountain,Low,1
+HCP101234,Cardiology,Northeast,Low,1
+HCP101235,Cardiology,Southwest,Low,1
+HCP101236,Endocrinology,Northeast,Low,1
+HCP101237,Cardiology,West,Low,1
+HCP101238,Primary Care,Midwest,High,1
+HCP101239,Endocrinology,Northeast,High,0
+HCP101240,Dermatology,Southeast,Medium,1
+HCP101241,Primary Care,West,Low,0
+HCP101242,Psychiatry,Southwest,Low,1
+HCP101243,Oncology,Southeast,Medium,1
+HCP101244,Endocrinology,Mountain,Medium,1
+HCP101245,Gastroenterology,Southeast,Low,1
+HCP101246,Primary Care,West,Low,1
+HCP101247,Oncology,Southeast,Medium,1
+HCP101248,Primary Care,Southeast,Medium,1
+HCP101249,Neurology,Northeast,High,1
+HCP101250,Dermatology,Southeast,Medium,0
+HCP101251,Cardiology,West,Low,1
+HCP101252,Dermatology,Northeast,Low,1
+HCP101253,Primary Care,Southeast,Medium,1
+HCP101254,Dermatology,Midwest,Low,1
+HCP101255,Primary Care,Pacific Northwest,Medium,1
+HCP101256,Psychiatry,Midwest,Medium,1
+HCP101257,Cardiology,Southeast,High,1
+HCP101258,Endocrinology,Northeast,Low,1
+HCP101259,Primary Care,Midwest,High,1
+HCP101260,Psychiatry,West,Low,1
+HCP101261,Primary Care,Midwest,Medium,1
+HCP101262,Primary Care,Northeast,Low,1
+HCP101263,Primary Care,Northeast,Low,0
+HCP101264,Neurology,Northeast,Low,1
+HCP101265,Oncology,West,Low,1
+HCP101266,Endocrinology,Pacific Northwest,Medium,1
+HCP101267,Neurology,Southeast,Medium,1
+HCP101268,Neurology,Midwest,Medium,1
+HCP101269,Primary Care,Northeast,Low,1
+HCP101270,Primary Care,West,Medium,0
+HCP101271,Cardiology,Midwest,High,1
+HCP101272,Cardiology,Southeast,Medium,1
+HCP101273,Endocrinology,Northeast,Low,0
+HCP101274,Cardiology,Midwest,Low,1
+HCP101275,Cardiology,Mountain,Medium,1
+HCP101276,Primary Care,West,Medium,1
+HCP101277,Cardiology,West,Low,1
+HCP101278,Primary Care,Southwest,Medium,1
+HCP101279,Gastroenterology,Pacific Northwest,Medium,1
+HCP101280,Gastroenterology,Pacific Northwest,Low,1
+HCP101281,Primary Care,Southwest,Low,1
+HCP101282,Oncology,Mountain,Low,1
+HCP101283,Neurology,Southeast,Medium,1
+HCP101284,Cardiology,Southeast,Low,1
+HCP101285,Primary Care,Midwest,High,1
+HCP101286,Psychiatry,Midwest,Low,1
+HCP101287,Endocrinology,Northeast,Medium,1
+HCP101288,Primary Care,West,Low,1
+HCP101289,Oncology,Midwest,High,1
+HCP101290,Cardiology,Southwest,Low,1
+HCP101291,Cardiology,Southeast,High,1
+HCP101292,Psychiatry,Northeast,Low,1
+HCP101293,Oncology,Midwest,Low,1
+HCP101294,Gastroenterology,Northeast,Low,1
+HCP101295,Gastroenterology,West,Low,1
+HCP101296,Primary Care,Northeast,High,1
+HCP101297,Primary Care,Southeast,Medium,1
+HCP101298,Primary Care,Southeast,Low,1
+HCP101299,Cardiology,Midwest,Low,1
+HCP101300,Neurology,West,High,1
+HCP101301,Primary Care,Southwest,Low,1
+HCP101302,Dermatology,Pacific Northwest,Low,1
+HCP101303,Primary Care,Southwest,High,1
+HCP101304,Psychiatry,Mountain,High,1
+HCP101305,Gastroenterology,Northeast,High,1
+HCP101306,Oncology,Southeast,Medium,0
+HCP101307,Psychiatry,Southwest,Low,1
+HCP101308,Neurology,Southeast,Low,0
+HCP101309,Cardiology,Southeast,Low,0
+HCP101310,Cardiology,Southeast,High,1
+HCP101311,Cardiology,Southwest,Medium,1
+HCP101312,Gastroenterology,Northeast,Medium,1
+HCP101313,Oncology,Southwest,Medium,0
+HCP101314,Primary Care,West,Low,1
+HCP101315,Cardiology,Midwest,Low,1
+HCP101316,Primary Care,Mountain,Low,0
+HCP101317,Primary Care,Southeast,High,1
+HCP101318,Cardiology,Southwest,Medium,1
+HCP101319,Gastroenterology,Midwest,Low,1
+HCP101320,Primary Care,Northeast,Low,1
+HCP101321,Neurology,Midwest,High,1
+HCP101322,Endocrinology,West,Low,1
+HCP101323,Dermatology,Southeast,Medium,1
+HCP101324,Cardiology,Southwest,Low,1
+HCP101325,Psychiatry,Southeast,Low,1
+HCP101326,Primary Care,Southeast,Medium,1
+HCP101327,Gastroenterology,Southwest,Low,1
+HCP101328,Psychiatry,West,Medium,1
+HCP101329,Primary Care,Midwest,High,1
+HCP101330,Psychiatry,Midwest,Medium,0
+HCP101331,Cardiology,Southwest,Low,1
+HCP101332,Endocrinology,Southwest,Low,1
+HCP101333,Cardiology,Pacific Northwest,Low,1
+HCP101334,Oncology,Mountain,High,1
+HCP101335,Psychiatry,Midwest,Low,0
+HCP101336,Oncology,West,Medium,1
+HCP101337,Gastroenterology,Northeast,Low,1
+HCP101338,Dermatology,West,Medium,1
+HCP101339,Primary Care,Midwest,Medium,1
+HCP101340,Neurology,Northeast,High,1
+HCP101341,Endocrinology,West,Low,1
+HCP101342,Cardiology,Southwest,Medium,1
+HCP101343,Neurology,Midwest,Medium,1
+HCP101344,Oncology,Southeast,Low,1
+HCP101345,Gastroenterology,West,Low,1
+HCP101346,Cardiology,Midwest,Medium,1
+HCP101347,Cardiology,Northeast,Low,1
+HCP101348,Oncology,West,High,1
+HCP101349,Primary Care,Southwest,High,1
+HCP101350,Neurology,West,Low,0
+HCP101351,Cardiology,Southwest,High,1
+HCP101352,Cardiology,Mountain,Low,1
+HCP101353,Oncology,Northeast,Low,0
+HCP101354,Dermatology,Southwest,Medium,1
+HCP101355,Oncology,Midwest,Low,1
+HCP101356,Oncology,Southwest,Medium,1
+HCP101357,Neurology,Midwest,Low,0
+HCP101358,Cardiology,Southwest,Medium,1
+HCP101359,Cardiology,West,Low,1
+HCP101360,Cardiology,West,Low,1
+HCP101361,Primary Care,Southwest,High,1
+HCP101362,Oncology,West,Low,1
+HCP101363,Endocrinology,Mountain,High,1
+HCP101364,Primary Care,Mountain,Medium,1
+HCP101365,Cardiology,Mountain,Medium,1
+HCP101366,Primary Care,Mountain,Medium,1
+HCP101367,Primary Care,Northeast,High,1
+HCP101368,Oncology,Southeast,Medium,1
+HCP101369,Cardiology,Southeast,Low,1
+HCP101370,Primary Care,Northeast,Medium,1
+HCP101371,Psychiatry,Northeast,Low,1
+HCP101372,Cardiology,Southwest,High,1
+HCP101373,Oncology,Pacific Northwest,Low,1
+HCP101374,Neurology,Southeast,Low,1
+HCP101375,Cardiology,Midwest,Low,1
+HCP101376,Dermatology,Southeast,Low,1
+HCP101377,Primary Care,Midwest,Low,1
+HCP101378,Neurology,Pacific Northwest,Medium,1
+HCP101379,Oncology,Southeast,Low,1
+HCP101380,Endocrinology,Southeast,Medium,0
+HCP101381,Psychiatry,West,Low,1
+HCP101382,Endocrinology,Southwest,Low,1
+HCP101383,Cardiology,Pacific Northwest,Medium,0
+HCP101384,Primary Care,Southeast,Low,1
+HCP101385,Dermatology,Northeast,Low,1
+HCP101386,Neurology,West,Medium,1
+HCP101387,Neurology,Midwest,Low,0
+HCP101388,Cardiology,Mountain,High,0
+HCP101389,Cardiology,Midwest,Medium,1
+HCP101390,Neurology,Northeast,Medium,1
+HCP101391,Psychiatry,Midwest,Low,1
+HCP101392,Primary Care,Midwest,High,1
+HCP101393,Oncology,Northeast,High,1
+HCP101394,Cardiology,Southwest,Medium,1
+HCP101395,Neurology,Mountain,Low,1
+HCP101396,Dermatology,Northeast,Low,1
+HCP101397,Dermatology,Midwest,Low,1
+HCP101398,Neurology,Northeast,Low,0
+HCP101399,Gastroenterology,Southwest,Low,1
+HCP101400,Endocrinology,Midwest,Low,1
+HCP101401,Dermatology,Southwest,High,1
+HCP101402,Primary Care,Southeast,Medium,0
+HCP101403,Primary Care,Midwest,High,1
+HCP101404,Dermatology,Northeast,High,1
+HCP101405,Endocrinology,Northeast,Medium,1
+HCP101406,Dermatology,Southeast,Low,1
+HCP101407,Psychiatry,Midwest,Medium,1
+HCP101408,Endocrinology,Northeast,Medium,1
+HCP101409,Gastroenterology,Midwest,High,1
+HCP101410,Primary Care,Midwest,Low,1
+HCP101411,Oncology,Southwest,High,1
+HCP101412,Dermatology,Southeast,Low,1
+HCP101413,Dermatology,Southwest,Low,1
+HCP101414,Endocrinology,Southeast,Low,0
+HCP101415,Oncology,West,Low,1
+HCP101416,Neurology,Southeast,High,1
+HCP101417,Cardiology,West,High,1
+HCP101418,Neurology,West,Low,1
+HCP101419,Endocrinology,Southeast,High,1
+HCP101420,Psychiatry,Southeast,High,1
+HCP101421,Endocrinology,Northeast,Medium,0
+HCP101422,Oncology,West,High,1
+HCP101423,Primary Care,Southwest,Medium,1
+HCP101424,Neurology,Southeast,Low,0
+HCP101425,Neurology,Northeast,Low,1
+HCP101426,Oncology,West,High,1
+HCP101427,Psychiatry,Southwest,Low,1
+HCP101428,Cardiology,Midwest,High,1
+HCP101429,Neurology,Northeast,Medium,0
+HCP101430,Neurology,Northeast,High,1
+HCP101431,Neurology,Northeast,Low,0
+HCP101432,Primary Care,Northeast,Low,1
+HCP101433,Gastroenterology,Northeast,Medium,1
+HCP101434,Gastroenterology,Midwest,Low,1
+HCP101435,Cardiology,Southwest,Low,1
+HCP101436,Dermatology,Mountain,Low,1
+HCP101437,Neurology,West,High,1
+HCP101438,Dermatology,Midwest,High,1
+HCP101439,Endocrinology,Northeast,Medium,1
+HCP101440,Oncology,Southwest,High,1
+HCP101441,Primary Care,Southeast,Medium,1
+HCP101442,Endocrinology,West,Medium,1
+HCP101443,Primary Care,Southwest,High,1
+HCP101444,Oncology,Southwest,Medium,1
+HCP101445,Primary Care,Midwest,Medium,0
+HCP101446,Neurology,Northeast,Medium,1
+HCP101447,Cardiology,Mountain,Medium,1
+HCP101448,Endocrinology,Midwest,Medium,1
+HCP101449,Oncology,Southwest,Medium,1
+HCP101450,Dermatology,Northeast,Medium,1
+HCP101451,Oncology,Southeast,Medium,1
+HCP101452,Neurology,Northeast,Low,1
+HCP101453,Primary Care,Southwest,High,1
+HCP101454,Neurology,Southwest,High,1
+HCP101455,Cardiology,Southwest,Low,0
+HCP101456,Cardiology,Midwest,Low,1
+HCP101457,Cardiology,Southeast,Medium,1
+HCP101458,Gastroenterology,West,Medium,1
+HCP101459,Psychiatry,Northeast,Medium,1
+HCP101460,Oncology,Northeast,High,1
+HCP101461,Cardiology,Midwest,Medium,1
+HCP101462,Neurology,Northeast,High,1
+HCP101463,Psychiatry,Midwest,Low,1
+HCP101464,Neurology,Southeast,Medium,1
+HCP101465,Gastroenterology,Northeast,Medium,1
+HCP101466,Primary Care,Midwest,Low,1
+HCP101467,Primary Care,Mountain,Low,1
+HCP101468,Cardiology,Northeast,Low,1
+HCP101469,Neurology,Northeast,Low,1
+HCP101470,Cardiology,Southeast,Low,1
+HCP101471,Primary Care,Northeast,High,1
+HCP101472,Primary Care,Southeast,Medium,1
+HCP101473,Oncology,Northeast,Medium,1
+HCP101474,Endocrinology,West,Medium,1
+HCP101475,Primary Care,Midwest,Medium,1
+HCP101476,Cardiology,West,Medium,1
+HCP101477,Dermatology,Southwest,Low,0
+HCP101478,Endocrinology,West,Low,1
+HCP101479,Cardiology,Southwest,Medium,1
+HCP101480,Primary Care,Southwest,Low,1
+HCP101481,Primary Care,West,Medium,1
+HCP101482,Neurology,West,Low,1
+HCP101483,Primary Care,Southeast,Medium,1
+HCP101484,Primary Care,Southwest,Medium,1
+HCP101485,Dermatology,Northeast,Medium,1
+HCP101486,Neurology,Mountain,Medium,1
+HCP101487,Oncology,Northeast,Medium,1
+HCP101488,Cardiology,Southeast,Low,1
+HCP101489,Cardiology,Northeast,Low,1
+HCP101490,Primary Care,Midwest,Low,1
+HCP101491,Oncology,Northeast,Low,1
+HCP101492,Primary Care,Southeast,Low,1
+HCP101493,Neurology,Midwest,Medium,1
+HCP101494,Primary Care,Midwest,High,1
+HCP101495,Primary Care,Southeast,Low,0
+HCP101496,Gastroenterology,Southeast,Low,1
+HCP101497,Gastroenterology,Northeast,Low,1
+HCP101498,Cardiology,Northeast,Low,1
+HCP101499,Gastroenterology,Northeast,Medium,0
+HCP101500,Primary Care,Mountain,High,1
+HCP101501,Gastroenterology,Southeast,Medium,1
+HCP101502,Endocrinology,Midwest,Medium,1
+HCP101503,Neurology,Southwest,Medium,1
+HCP101504,Oncology,Midwest,High,1
+HCP101505,Endocrinology,West,Low,1
+HCP101506,Primary Care,West,Medium,1
+HCP101507,Cardiology,Mountain,Low,1
+HCP101508,Primary Care,Midwest,High,1
+HCP101509,Cardiology,West,High,0
+HCP101510,Neurology,Midwest,Medium,1
+HCP101511,Primary Care,Midwest,Low,1
+HCP101512,Primary Care,Northeast,Low,1
+HCP101513,Primary Care,Southwest,Medium,1
+HCP101514,Primary Care,Mountain,Low,1
+HCP101515,Psychiatry,Southeast,Low,1
+HCP101516,Primary Care,Northeast,Medium,1
+HCP101517,Psychiatry,West,High,1
+HCP101518,Dermatology,Southeast,Low,0
+HCP101519,Oncology,Northeast,High,1
+HCP101520,Psychiatry,Southeast,Low,1
+HCP101521,Primary Care,Northeast,High,1
+HCP101522,Primary Care,Midwest,Low,0
+HCP101523,Psychiatry,Southeast,Low,1
+HCP101524,Oncology,Northeast,Low,1
+HCP101525,Primary Care,Pacific Northwest,Medium,1
+HCP101526,Endocrinology,Northeast,Medium,1
+HCP101527,Cardiology,Southwest,Medium,1
+HCP101528,Cardiology,Northeast,Medium,1
+HCP101529,Endocrinology,Southwest,Medium,1
+HCP101530,Primary Care,Northeast,Medium,1
+HCP101531,Oncology,Southeast,Medium,1
+HCP101532,Primary Care,Southwest,Medium,1
+HCP101533,Dermatology,Southwest,Low,1
+HCP101534,Cardiology,Northeast,Medium,1
+HCP101535,Primary Care,Northeast,Medium,1
+HCP101536,Neurology,Southwest,High,0
+HCP101537,Oncology,West,Medium,1
+HCP101538,Oncology,Southeast,Medium,1
+HCP101539,Endocrinology,Midwest,Medium,1
+HCP101540,Primary Care,Northeast,High,1
+HCP101541,Neurology,Northeast,Low,1
+HCP101542,Oncology,West,Medium,1
+HCP101543,Dermatology,West,Low,0
+HCP101544,Endocrinology,Mountain,Low,1
+HCP101545,Cardiology,Midwest,Low,1
+HCP101546,Primary Care,Northeast,High,1
+HCP101547,Endocrinology,Southwest,Medium,0
+HCP101548,Oncology,Midwest,High,1
+HCP101549,Neurology,West,Medium,1
+HCP101550,Dermatology,Mountain,Medium,0
+HCP101551,Cardiology,Northeast,Medium,0
+HCP101552,Primary Care,Pacific Northwest,Medium,1
+HCP101553,Dermatology,Northeast,Medium,1
+HCP101554,Gastroenterology,West,Low,1
+HCP101555,Oncology,West,Medium,0
+HCP101556,Dermatology,Midwest,Medium,1
+HCP101557,Endocrinology,Southwest,Low,1
+HCP101558,Endocrinology,Mountain,Medium,1
+HCP101559,Endocrinology,Northeast,Medium,1
+HCP101560,Psychiatry,Northeast,Medium,1
+HCP101561,Gastroenterology,Northeast,Medium,1
+HCP101562,Psychiatry,Midwest,High,1
+HCP101563,Neurology,Mountain,Low,1
+HCP101564,Oncology,Northeast,High,1
+HCP101565,Cardiology,West,High,1
+HCP101566,Neurology,West,Low,1
+HCP101567,Primary Care,West,Low,1
+HCP101568,Primary Care,West,Medium,1
+HCP101569,Dermatology,Midwest,Low,1
+HCP101570,Oncology,Southeast,Medium,1
+HCP101571,Primary Care,Southwest,Low,1
+HCP101572,Cardiology,Midwest,High,1
+HCP101573,Primary Care,Pacific Northwest,Low,1
+HCP101574,Gastroenterology,Mountain,Low,1
+HCP101575,Cardiology,Northeast,Low,0
+HCP101576,Cardiology,Midwest,Medium,1
+HCP101577,Primary Care,Southwest,High,1
+HCP101578,Psychiatry,Southeast,Low,0
+HCP101579,Primary Care,Southeast,Medium,1
+HCP101580,Endocrinology,West,Medium,1
+HCP101581,Neurology,Southwest,Low,1
+HCP101582,Endocrinology,Northeast,Medium,1
+HCP101583,Primary Care,Mountain,Medium,1
+HCP101584,Primary Care,Northeast,Low,1
+HCP101585,Oncology,West,High,1
+HCP101586,Cardiology,Southeast,Low,1
+HCP101587,Neurology,Pacific Northwest,Low,0
+HCP101588,Neurology,Southeast,Low,1
+HCP101589,Primary Care,Pacific Northwest,Medium,1
+HCP101590,Cardiology,Midwest,Medium,1
+HCP101591,Endocrinology,Southeast,Medium,1
+HCP101592,Dermatology,Midwest,Low,1
+HCP101593,Primary Care,Northeast,Low,0
+HCP101594,Dermatology,West,Low,1
+HCP101595,Cardiology,Midwest,Medium,1
+HCP101596,Primary Care,West,High,1
+HCP101597,Primary Care,Northeast,Medium,1
+HCP101598,Primary Care,Southeast,Low,1
+HCP101599,Neurology,Northeast,High,1
+HCP101600,Neurology,Pacific Northwest,Medium,1
+HCP101601,Psychiatry,Southwest,High,1
+HCP101602,Primary Care,Southeast,Low,1
+HCP101603,Endocrinology,Midwest,High,1
+HCP101604,Endocrinology,Midwest,High,1
+HCP101605,Cardiology,West,Medium,1
+HCP101606,Cardiology,Southwest,High,1
+HCP101607,Endocrinology,Southeast,Low,1
+HCP101608,Gastroenterology,Northeast,Medium,1
+HCP101609,Endocrinology,Northeast,High,1
+HCP101610,Oncology,West,Low,1
+HCP101611,Psychiatry,West,Low,1
+HCP101612,Oncology,Southeast,Medium,1
+HCP101613,Dermatology,Mountain,High,1
+HCP101614,Gastroenterology,Midwest,Low,1
+HCP101615,Cardiology,Mountain,Medium,1
+HCP101616,Primary Care,Northeast,Medium,1
+HCP101617,Primary Care,Midwest,Medium,1
+HCP101618,Primary Care,Southeast,Medium,1
+HCP101619,Cardiology,Pacific Northwest,Low,1
+HCP101620,Gastroenterology,Southeast,Low,1
+HCP101621,Primary Care,West,Medium,0
+HCP101622,Cardiology,Northeast,High,1
+HCP101623,Cardiology,Southwest,Medium,1
+HCP101624,Dermatology,Midwest,High,1
+HCP101625,Psychiatry,Southwest,Low,0
+HCP101626,Oncology,Northeast,High,0
+HCP101627,Primary Care,West,High,1
+HCP101628,Oncology,West,Medium,1
+HCP101629,Primary Care,Southwest,High,0
+HCP101630,Gastroenterology,West,Low,1
+HCP101631,Gastroenterology,Southeast,Medium,1
+HCP101632,Oncology,Northeast,Low,1
+HCP101633,Psychiatry,Southeast,Low,1
+HCP101634,Primary Care,West,Low,0
+HCP101635,Cardiology,Southwest,Low,1
+HCP101636,Cardiology,Southwest,Medium,1
+HCP101637,Cardiology,Southwest,Medium,1
+HCP101638,Cardiology,Southwest,Medium,1
+HCP101639,Primary Care,Mountain,High,1
+HCP101640,Cardiology,Southeast,Medium,1
+HCP101641,Oncology,Midwest,Medium,1
+HCP101642,Endocrinology,Northeast,Medium,1
+HCP101643,Cardiology,West,Medium,1
+HCP101644,Cardiology,Southwest,High,1
+HCP101645,Primary Care,Northeast,Low,1
+HCP101646,Cardiology,Southwest,Low,1
+HCP101647,Oncology,Southwest,Low,1
+HCP101648,Primary Care,Northeast,High,1
+HCP101649,Gastroenterology,West,Low,1
+HCP101650,Oncology,Midwest,Low,1
+HCP101651,Primary Care,Midwest,High,0
+HCP101652,Primary Care,Southwest,Medium,1
+HCP101653,Neurology,Southeast,High,1
+HCP101654,Cardiology,West,High,1
+HCP101655,Cardiology,Midwest,Low,1
+HCP101656,Endocrinology,Northeast,Low,1
+HCP101657,Endocrinology,West,Low,0
+HCP101658,Primary Care,Northeast,Medium,1
+HCP101659,Oncology,Pacific Northwest,Medium,1
+HCP101660,Primary Care,Mountain,Low,1
+HCP101661,Primary Care,Northeast,Low,1
+HCP101662,Oncology,Mountain,Low,1
+HCP101663,Cardiology,Midwest,Low,1
+HCP101664,Primary Care,West,Medium,1
+HCP101665,Cardiology,Northeast,Low,0
+HCP101666,Cardiology,Southwest,Low,1
+HCP101667,Oncology,Southwest,High,0
+HCP101668,Primary Care,Midwest,Medium,1
+HCP101669,Primary Care,West,High,1
+HCP101670,Psychiatry,West,Low,0
+HCP101671,Primary Care,Southwest,Low,0
+HCP101672,Dermatology,Northeast,Low,1
+HCP101673,Psychiatry,Northeast,Low,0
+HCP101674,Primary Care,Mountain,Medium,1
+HCP101675,Oncology,Northeast,High,1
+HCP101676,Primary Care,Northeast,High,1
+HCP101677,Primary Care,Midwest,Medium,1
+HCP101678,Psychiatry,Southwest,Medium,1
+HCP101679,Neurology,West,Low,1
+HCP101680,Endocrinology,West,Medium,1
+HCP101681,Primary Care,Northeast,Low,1
+HCP101682,Oncology,Southwest,Low,1
+HCP101683,Psychiatry,Midwest,Low,1
+HCP101684,Endocrinology,Northeast,Low,1
+HCP101685,Primary Care,Northeast,Low,0
+HCP101686,Primary Care,Southwest,High,1
+HCP101687,Dermatology,Southwest,Medium,1
+HCP101688,Dermatology,Southeast,Low,0
+HCP101689,Psychiatry,Mountain,Low,1
+HCP101690,Dermatology,Northeast,High,1
+HCP101691,Primary Care,Southwest,Low,1
+HCP101692,Primary Care,West,High,1
+HCP101693,Primary Care,Southeast,Low,1
+HCP101694,Dermatology,West,Medium,1
+HCP101695,Neurology,West,Low,0
+HCP101696,Primary Care,Southwest,High,1
+HCP101697,Primary Care,Southeast,High,1
+HCP101698,Cardiology,Southwest,Medium,1
+HCP101699,Primary Care,Mountain,Medium,1
+HCP101700,Primary Care,Southeast,Medium,0
+HCP101701,Oncology,Northeast,Medium,1
+HCP101702,Neurology,Mountain,Medium,1
+HCP101703,Psychiatry,Southwest,Medium,0
+HCP101704,Endocrinology,West,Low,1
+HCP101705,Psychiatry,West,Low,1
+HCP101706,Endocrinology,West,Medium,0
+HCP101707,Cardiology,Southwest,High,1
+HCP101708,Primary Care,Pacific Northwest,Low,1
+HCP101709,Primary Care,Southwest,High,1
+HCP101710,Cardiology,Mountain,Medium,0
+HCP101711,Primary Care,Southwest,Low,0
+HCP101712,Psychiatry,Mountain,Low,1
+HCP101713,Neurology,Midwest,Medium,1
+HCP101714,Endocrinology,Northeast,Medium,1
+HCP101715,Cardiology,Southeast,Low,1
+HCP101716,Endocrinology,Southeast,Medium,1
+HCP101717,Primary Care,Southeast,Medium,1
+HCP101718,Primary Care,Northeast,Medium,1
+HCP101719,Psychiatry,Southeast,Low,1
+HCP101720,Cardiology,Midwest,High,1
+HCP101721,Primary Care,Southwest,Low,1
+HCP101722,Oncology,Southwest,Medium,0
+HCP101723,Primary Care,Southeast,Medium,1
+HCP101724,Gastroenterology,Pacific Northwest,Medium,1
+HCP101725,Primary Care,Southeast,Low,0
+HCP101726,Primary Care,Southwest,Medium,1
+HCP101727,Psychiatry,Midwest,Medium,0
+HCP101728,Psychiatry,Northeast,Medium,1
+HCP101729,Cardiology,Southeast,Medium,1
+HCP101730,Endocrinology,Southeast,Medium,1
+HCP101731,Cardiology,Southeast,Low,1
+HCP101732,Cardiology,Midwest,Low,0
+HCP101733,Gastroenterology,West,Low,1
+HCP101734,Primary Care,Southeast,Medium,1
+HCP101735,Gastroenterology,West,Medium,1
+HCP101736,Psychiatry,Northeast,Low,1
+HCP101737,Psychiatry,Southeast,Low,0
+HCP101738,Dermatology,Southeast,Low,1
+HCP101739,Neurology,Midwest,High,1
+HCP101740,Psychiatry,Southeast,Medium,1
+HCP101741,Endocrinology,Southwest,Low,1
+HCP101742,Endocrinology,Southwest,Low,1
+HCP101743,Oncology,West,High,1
+HCP101744,Neurology,Northeast,Medium,1
+HCP101745,Primary Care,West,Medium,1
+HCP101746,Oncology,Southeast,High,0
+HCP101747,Oncology,West,Medium,1
+HCP101748,Neurology,West,Medium,1
+HCP101749,Cardiology,Pacific Northwest,High,1
+HCP101750,Primary Care,Midwest,Low,1
+HCP101751,Primary Care,Northeast,Medium,1
+HCP101752,Primary Care,Mountain,Medium,1
+HCP101753,Dermatology,Mountain,Low,0
+HCP101754,Primary Care,Mountain,Low,1
+HCP101755,Gastroenterology,Northeast,Low,1
+HCP101756,Dermatology,West,Low,0
+HCP101757,Cardiology,Northeast,Medium,1
+HCP101758,Psychiatry,Southwest,Medium,0
+HCP101759,Endocrinology,Northeast,Medium,1
+HCP101760,Gastroenterology,West,Low,1
+HCP101761,Primary Care,Southwest,Medium,1
+HCP101762,Cardiology,Northeast,Low,0
+HCP101763,Cardiology,West,High,1
+HCP101764,Gastroenterology,West,Medium,1
+HCP101765,Dermatology,West,Low,1
+HCP101766,Psychiatry,West,Medium,1
+HCP101767,Primary Care,Southeast,Medium,1
+HCP101768,Neurology,West,Low,1
+HCP101769,Oncology,Southeast,Medium,0
+HCP101770,Gastroenterology,Mountain,Medium,1
+HCP101771,Neurology,Southeast,Low,0
+HCP101772,Oncology,West,Low,1
+HCP101773,Dermatology,Midwest,Low,1
+HCP101774,Primary Care,Southeast,Low,1
+HCP101775,Psychiatry,Northeast,Medium,1
+HCP101776,Primary Care,Northeast,Low,1
+HCP101777,Psychiatry,West,High,1
+HCP101778,Oncology,Midwest,High,1
+HCP101779,Primary Care,Northeast,Medium,0
+HCP101780,Oncology,West,Low,1
+HCP101781,Oncology,Northeast,Medium,1
+HCP101782,Neurology,Mountain,Medium,1
+HCP101783,Cardiology,Pacific Northwest,Medium,1
+HCP101784,Psychiatry,West,Low,1
+HCP101785,Dermatology,Southeast,Low,1
+HCP101786,Primary Care,Southwest,Medium,1
+HCP101787,Endocrinology,Southwest,Medium,1
+HCP101788,Oncology,Southeast,Medium,1
+HCP101789,Dermatology,Northeast,Low,1
+HCP101790,Cardiology,West,Medium,1
+HCP101791,Psychiatry,West,Low,1
+HCP101792,Oncology,Southwest,Low,1
+HCP101793,Primary Care,Midwest,Medium,1
+HCP101794,Psychiatry,West,High,1
+HCP101795,Endocrinology,West,Low,1
+HCP101796,Primary Care,Northeast,Medium,0
+HCP101797,Primary Care,Mountain,Medium,1
+HCP101798,Dermatology,Northeast,Low,1
+HCP101799,Endocrinology,Southeast,Medium,1
+HCP101800,Endocrinology,Northeast,Medium,1
+HCP101801,Endocrinology,West,Low,1
+HCP101802,Gastroenterology,West,Low,1
+HCP101803,Oncology,West,Low,1
+HCP101804,Psychiatry,West,Low,1
+HCP101805,Primary Care,Southeast,Medium,1
+HCP101806,Psychiatry,West,Medium,0
+HCP101807,Neurology,Northeast,Medium,1
+HCP101808,Neurology,West,High,1
+HCP101809,Psychiatry,West,Low,0
+HCP101810,Primary Care,Southeast,Low,1
+HCP101811,Oncology,Southeast,Low,1
+HCP101812,Oncology,Southwest,Medium,1
+HCP101813,Gastroenterology,Midwest,Medium,0
+HCP101814,Endocrinology,Northeast,Low,1
+HCP101815,Oncology,Southeast,Medium,1
+HCP101816,Primary Care,West,Low,1
+HCP101817,Dermatology,Northeast,Low,1
+HCP101818,Psychiatry,Midwest,High,1
+HCP101819,Endocrinology,Midwest,Low,1
+HCP101820,Neurology,Southeast,Medium,1
+HCP101821,Psychiatry,Southeast,Low,1
+HCP101822,Primary Care,Northeast,Low,0
+HCP101823,Primary Care,Southeast,Low,1
+HCP101824,Gastroenterology,West,Low,1
+HCP101825,Primary Care,Mountain,Low,1
+HCP101826,Psychiatry,West,Medium,0
+HCP101827,Gastroenterology,Southeast,Medium,1
+HCP101828,Oncology,West,Medium,1
+HCP101829,Neurology,Southeast,Medium,1
+HCP101830,Psychiatry,Southeast,Medium,1
+HCP101831,Dermatology,Southwest,High,1
+HCP101832,Primary Care,Northeast,Low,1
+HCP101833,Dermatology,West,Low,1
+HCP101834,Cardiology,Northeast,Low,0
+HCP101835,Endocrinology,Midwest,Low,1
+HCP101836,Endocrinology,Midwest,Low,1
+HCP101837,Endocrinology,Midwest,High,1
+HCP101838,Neurology,Northeast,Low,1
+HCP101839,Primary Care,Midwest,Medium,1
+HCP101840,Oncology,Northeast,Medium,1
+HCP101841,Neurology,West,Medium,1
+HCP101842,Oncology,West,High,0
+HCP101843,Dermatology,Pacific Northwest,Low,1
+HCP101844,Primary Care,Midwest,High,1
+HCP101845,Primary Care,Northeast,Medium,1
+HCP101846,Gastroenterology,Southwest,High,1
+HCP101847,Gastroenterology,Pacific Northwest,Low,1
+HCP101848,Psychiatry,West,Low,1
+HCP101849,Endocrinology,Southwest,Low,1
+HCP101850,Primary Care,Midwest,Low,0
+HCP101851,Primary Care,Southeast,Medium,1
+HCP101852,Dermatology,Southwest,Low,1
+HCP101853,Primary Care,West,Low,1
+HCP101854,Primary Care,Mountain,Low,1
+HCP101855,Primary Care,Northeast,Medium,1
+HCP101856,Cardiology,Northeast,Low,1
+HCP101857,Cardiology,Southeast,Low,0
+HCP101858,Cardiology,West,Medium,1
+HCP101859,Oncology,Midwest,Low,0
+HCP101860,Cardiology,Northeast,Medium,1
+HCP101861,Endocrinology,Southeast,Low,0
+HCP101862,Neurology,Southeast,Low,1
+HCP101863,Primary Care,Southeast,Low,1
+HCP101864,Dermatology,Mountain,Low,1
+HCP101865,Cardiology,Southeast,Medium,1
+HCP101866,Endocrinology,Midwest,Medium,0
+HCP101867,Endocrinology,Southeast,High,1
+HCP101868,Endocrinology,Northeast,Medium,1
+HCP101869,Primary Care,Southwest,Low,1
+HCP101870,Gastroenterology,Midwest,Low,1
+HCP101871,Oncology,Southeast,Medium,1
+HCP101872,Endocrinology,Midwest,Medium,1
+HCP101873,Primary Care,West,Medium,1
+HCP101874,Neurology,Southwest,Low,1
+HCP101875,Oncology,Southeast,High,1
+HCP101876,Cardiology,Southwest,High,1
+HCP101877,Psychiatry,Midwest,Medium,1
+HCP101878,Gastroenterology,Southwest,Medium,1
+HCP101879,Cardiology,Midwest,Medium,1
+HCP101880,Endocrinology,Southeast,Low,1
+HCP101881,Cardiology,Southwest,Low,1
+HCP101882,Oncology,Southeast,Low,1
+HCP101883,Dermatology,West,Low,1
+HCP101884,Primary Care,Midwest,High,1
+HCP101885,Primary Care,Northeast,Medium,1
+HCP101886,Primary Care,Pacific Northwest,Medium,1
+HCP101887,Neurology,West,Medium,1
+HCP101888,Dermatology,Southeast,Low,1
+HCP101889,Neurology,Northeast,Medium,1
+HCP101890,Psychiatry,West,Medium,1
+HCP101891,Primary Care,West,Medium,1
+HCP101892,Dermatology,Midwest,Medium,1
+HCP101893,Cardiology,Southeast,Medium,0
+HCP101894,Primary Care,Midwest,Medium,1
+HCP101895,Gastroenterology,West,Medium,1
+HCP101896,Cardiology,West,Low,0
+HCP101897,Psychiatry,Northeast,Low,1
+HCP101898,Psychiatry,Southeast,Low,1
+HCP101899,Oncology,West,Low,1
+HCP101900,Cardiology,West,Low,1
+HCP101901,Primary Care,Southeast,Medium,1
+HCP101902,Endocrinology,Midwest,Low,1
+HCP101903,Primary Care,Mountain,Low,0
+HCP101904,Psychiatry,Northeast,Low,1
+HCP101905,Cardiology,West,Low,1
+HCP101906,Oncology,Northeast,High,1
+HCP101907,Oncology,Midwest,Medium,1
+HCP101908,Neurology,Midwest,Medium,1
+HCP101909,Gastroenterology,Southeast,High,1
+HCP101910,Gastroenterology,Northeast,High,1
+HCP101911,Primary Care,Mountain,Low,1
+HCP101912,Oncology,Northeast,Medium,1
+HCP101913,Primary Care,Northeast,High,1
+HCP101914,Oncology,Southeast,Low,1
+HCP101915,Dermatology,Southeast,High,1
+HCP101916,Cardiology,Southeast,Medium,1
+HCP101917,Neurology,Southeast,High,1
+HCP101918,Primary Care,Midwest,Medium,1
+HCP101919,Primary Care,Southwest,Low,1
+HCP101920,Primary Care,West,Low,1
+HCP101921,Psychiatry,Northeast,Low,0
+HCP101922,Psychiatry,Southwest,Low,1
+HCP101923,Endocrinology,West,Low,1
+HCP101924,Gastroenterology,Pacific Northwest,Low,0
+HCP101925,Cardiology,Midwest,Medium,1
+HCP101926,Primary Care,Southwest,High,1
+HCP101927,Primary Care,Southeast,Medium,1
+HCP101928,Cardiology,Southeast,Low,1
+HCP101929,Dermatology,Pacific Northwest,Low,1
+HCP101930,Cardiology,Midwest,Medium,0
+HCP101931,Cardiology,Southwest,Low,1
+HCP101932,Dermatology,Southeast,Low,0
+HCP101933,Neurology,Southeast,Low,1
+HCP101934,Psychiatry,Midwest,Low,1
+HCP101935,Gastroenterology,Southeast,Low,0
+HCP101936,Primary Care,Mountain,Medium,1
+HCP101937,Primary Care,Midwest,Low,1
+HCP101938,Neurology,West,Medium,0
+HCP101939,Primary Care,Midwest,High,1
+HCP101940,Primary Care,Midwest,High,1
+HCP101941,Cardiology,Southeast,Low,1
+HCP101942,Primary Care,Mountain,Medium,1
+HCP101943,Oncology,Northeast,Medium,1
+HCP101944,Cardiology,Southwest,Medium,1
+HCP101945,Cardiology,Southeast,Low,1
+HCP101946,Psychiatry,Midwest,Medium,1
+HCP101947,Endocrinology,Northeast,Low,1
+HCP101948,Cardiology,Southwest,Low,0
+HCP101949,Neurology,Northeast,High,1
+HCP101950,Oncology,Southeast,Low,1
+HCP101951,Primary Care,West,Medium,1
+HCP101952,Primary Care,Midwest,High,1
+HCP101953,Dermatology,Pacific Northwest,Medium,1
+HCP101954,Psychiatry,Midwest,Medium,1
+HCP101955,Cardiology,Southwest,Low,1
+HCP101956,Oncology,Southwest,Low,1
+HCP101957,Endocrinology,Southwest,Medium,0
+HCP101958,Neurology,Southeast,Low,0
+HCP101959,Cardiology,Southeast,High,1
+HCP101960,Cardiology,Midwest,High,1
+HCP101961,Primary Care,Southwest,Medium,1
+HCP101962,Oncology,Southeast,Low,1
+HCP101963,Neurology,Southeast,Medium,1
+HCP101964,Primary Care,Southwest,Low,1
+HCP101965,Psychiatry,Northeast,Low,1
+HCP101966,Oncology,Northeast,Low,1
+HCP101967,Cardiology,Northeast,Low,1
+HCP101968,Dermatology,Southeast,High,1
+HCP101969,Primary Care,Northeast,Medium,1
+HCP101970,Oncology,Southwest,Low,1
+HCP101971,Neurology,West,Low,1
+HCP101972,Dermatology,Northeast,Low,1
+HCP101973,Psychiatry,Mountain,Medium,1
+HCP101974,Dermatology,Northeast,Medium,1
+HCP101975,Psychiatry,Southeast,High,1
+HCP101976,Cardiology,West,Medium,1
+HCP101977,Cardiology,Southeast,Low,1
+HCP101978,Cardiology,Midwest,Medium,1
+HCP101979,Endocrinology,West,Low,1
+HCP101980,Endocrinology,Northeast,Medium,1
+HCP101981,Oncology,Southeast,Low,1
+HCP101982,Primary Care,Southwest,Low,1
+HCP101983,Endocrinology,Northeast,Low,1
+HCP101984,Endocrinology,Midwest,High,1
+HCP101985,Neurology,Southeast,Low,1
+HCP101986,Cardiology,West,Medium,1
+HCP101987,Primary Care,West,Low,0
+HCP101988,Primary Care,West,Low,1
+HCP101989,Cardiology,Southeast,Low,1
+HCP101990,Dermatology,Southwest,High,1
+HCP101991,Psychiatry,Northeast,Low,1
+HCP101992,Psychiatry,Northeast,Low,1
+HCP101993,Psychiatry,Northeast,Low,1
+HCP101994,Gastroenterology,Northeast,Medium,1
+HCP101995,Primary Care,Southwest,Low,1
+HCP101996,Psychiatry,Pacific Northwest,Low,1
+HCP101997,Dermatology,Northeast,Low,1
+HCP101998,Cardiology,Midwest,Low,1
+HCP101999,Oncology,Midwest,Low,0
+HCP102000,Cardiology,Southeast,Low,1
+HCP102001,Cardiology,Southeast,High,1
+HCP102002,Primary Care,Pacific Northwest,High,1
+HCP102003,Gastroenterology,Northeast,Low,1
+HCP102004,Endocrinology,Northeast,Low,1
+HCP102005,Neurology,Northeast,High,1
+HCP102006,Psychiatry,Southeast,Medium,1
+HCP102007,Primary Care,West,Low,1
+HCP102008,Cardiology,Southwest,Low,0
+HCP102009,Primary Care,West,Medium,1
+HCP102010,Endocrinology,Southwest,Low,1
+HCP102011,Cardiology,Mountain,High,1
+HCP102012,Dermatology,Mountain,Low,1
+HCP102013,Endocrinology,West,High,1
+HCP102014,Oncology,Southeast,Low,1
+HCP102015,Gastroenterology,Northeast,Low,1
+HCP102016,Primary Care,Southwest,Low,1
+HCP102017,Psychiatry,Southwest,Medium,1
+HCP102018,Cardiology,Southeast,Low,1
+HCP102019,Dermatology,Mountain,Low,0
+HCP102020,Primary Care,West,Medium,1
+HCP102021,Primary Care,Mountain,High,1
+HCP102022,Cardiology,West,Medium,1
+HCP102023,Dermatology,West,Medium,1
+HCP102024,Endocrinology,Pacific Northwest,Medium,1
+HCP102025,Psychiatry,Southeast,Medium,1
+HCP102026,Cardiology,Northeast,Low,1
+HCP102027,Cardiology,Northeast,Medium,0
+HCP102028,Oncology,Midwest,Medium,1
+HCP102029,Endocrinology,Southwest,Low,1
+HCP102030,Psychiatry,Northeast,Medium,1
+HCP102031,Primary Care,Southeast,Medium,1
+HCP102032,Oncology,Northeast,Medium,1
+HCP102033,Gastroenterology,Midwest,High,1
+HCP102034,Primary Care,Midwest,Medium,1
+HCP102035,Oncology,Midwest,Low,1
+HCP102036,Gastroenterology,Southeast,Medium,1
+HCP102037,Oncology,Southwest,High,1
+HCP102038,Primary Care,West,Medium,1
+HCP102039,Primary Care,Northeast,Low,1
+HCP102040,Dermatology,Southeast,Medium,1
+HCP102041,Endocrinology,Southeast,Low,1
+HCP102042,Oncology,West,Medium,1
+HCP102043,Neurology,Mountain,High,1
+HCP102044,Gastroenterology,Midwest,Low,1
+HCP102045,Endocrinology,Northeast,Low,1
+HCP102046,Cardiology,West,Low,0
+HCP102047,Cardiology,Northeast,Low,1
+HCP102048,Neurology,Midwest,High,1
+HCP102049,Primary Care,Northeast,Medium,1
+HCP102050,Psychiatry,Pacific Northwest,Low,1
+HCP102051,Primary Care,Midwest,High,1
+HCP102052,Primary Care,Northeast,High,1
+HCP102053,Primary Care,Southeast,Medium,1
+HCP102054,Dermatology,Pacific Northwest,Medium,1
+HCP102055,Cardiology,Southeast,High,1
+HCP102056,Psychiatry,West,Low,1
+HCP102057,Endocrinology,Southeast,Low,1
+HCP102058,Psychiatry,Southeast,Low,1
+HCP102059,Cardiology,Pacific Northwest,Low,1
+HCP102060,Primary Care,Southeast,High,1
+HCP102061,Primary Care,Midwest,High,1
+HCP102062,Cardiology,Northeast,Medium,0
+HCP102063,Endocrinology,West,Low,0
+HCP102064,Primary Care,Midwest,Low,1
+HCP102065,Oncology,Pacific Northwest,Low,1
+HCP102066,Gastroenterology,Southwest,Low,1
+HCP102067,Endocrinology,Southeast,Medium,1
+HCP102068,Gastroenterology,Southeast,High,1
+HCP102069,Psychiatry,Northeast,Low,0
+HCP102070,Primary Care,Mountain,Low,1
+HCP102071,Cardiology,Midwest,Low,1
+HCP102072,Cardiology,Northeast,High,1
+HCP102073,Cardiology,Northeast,Low,1
+HCP102074,Oncology,Mountain,High,1
+HCP102075,Cardiology,Midwest,Medium,1
+HCP102076,Dermatology,Midwest,Low,1
+HCP102077,Primary Care,Mountain,High,1
+HCP102078,Oncology,West,Low,1
+HCP102079,Psychiatry,Mountain,Medium,1
+HCP102080,Dermatology,Southeast,Low,1
+HCP102081,Cardiology,Midwest,Medium,1
+HCP102082,Primary Care,Southeast,Low,0
+HCP102083,Psychiatry,Northeast,Medium,1
+HCP102084,Oncology,Mountain,Medium,1
+HCP102085,Cardiology,Northeast,Medium,1
+HCP102086,Dermatology,Southeast,Low,1
+HCP102087,Cardiology,Midwest,Low,1
+HCP102088,Endocrinology,West,Medium,1
+HCP102089,Neurology,Northeast,Low,1
+HCP102090,Primary Care,Northeast,Low,1
+HCP102091,Psychiatry,Southeast,Low,1
+HCP102092,Primary Care,Northeast,Low,1
+HCP102093,Cardiology,Northeast,Low,1
+HCP102094,Endocrinology,Midwest,Medium,1
+HCP102095,Oncology,Southeast,Medium,1
+HCP102096,Cardiology,Northeast,Medium,1
+HCP102097,Endocrinology,Pacific Northwest,High,1
+HCP102098,Gastroenterology,Northeast,Low,1
+HCP102099,Endocrinology,Midwest,Low,1
+HCP102100,Primary Care,Northeast,Medium,1
+HCP102101,Oncology,Mountain,Low,1
+HCP102102,Cardiology,Midwest,High,1
+HCP102103,Psychiatry,West,Medium,1
+HCP102104,Primary Care,Southeast,High,1
+HCP102105,Neurology,Northeast,Low,0
+HCP102106,Primary Care,Southeast,Low,1
+HCP102107,Oncology,Southeast,Medium,1
+HCP102108,Primary Care,Pacific Northwest,Medium,1
+HCP102109,Primary Care,Southeast,Low,1
+HCP102110,Neurology,Mountain,High,1
+HCP102111,Gastroenterology,Southwest,High,1
+HCP102112,Dermatology,Midwest,Medium,1
+HCP102113,Primary Care,Southeast,Low,1
+HCP102114,Neurology,Pacific Northwest,Medium,1
+HCP102115,Oncology,Northeast,Medium,1
+HCP102116,Oncology,Southwest,Low,1
+HCP102117,Oncology,Midwest,Low,0
+HCP102118,Psychiatry,Midwest,Low,1
+HCP102119,Primary Care,West,Low,1
+HCP102120,Neurology,Midwest,Medium,1
+HCP102121,Endocrinology,Southeast,Low,1
+HCP102122,Cardiology,Mountain,Low,1
+HCP102123,Neurology,Northeast,Low,1
+HCP102124,Primary Care,Midwest,Medium,1
+HCP102125,Primary Care,Midwest,High,1
+HCP102126,Oncology,Southwest,Low,1
+HCP102127,Cardiology,Pacific Northwest,Low,1
+HCP102128,Gastroenterology,Northeast,Medium,1
+HCP102129,Primary Care,Northeast,Low,1
+HCP102130,Gastroenterology,Mountain,High,1
+HCP102131,Endocrinology,Southeast,Medium,1
+HCP102132,Primary Care,West,High,1
+HCP102133,Cardiology,Midwest,Low,1
+HCP102134,Cardiology,Midwest,High,1
+HCP102135,Cardiology,Mountain,Low,1
+HCP102136,Cardiology,Mountain,Low,1
+HCP102137,Psychiatry,West,Low,1
+HCP102138,Cardiology,Southwest,High,1
+HCP102139,Endocrinology,Midwest,Low,1
+HCP102140,Endocrinology,West,Medium,1
+HCP102141,Gastroenterology,Midwest,Low,1
+HCP102142,Oncology,Southeast,Medium,1
+HCP102143,Primary Care,Southeast,Low,1
+HCP102144,Endocrinology,Midwest,Low,1
+HCP102145,Cardiology,Northeast,Low,1
+HCP102146,Primary Care,Mountain,Low,1
+HCP102147,Gastroenterology,Southeast,Low,1
+HCP102148,Primary Care,Southeast,Medium,1
+HCP102149,Endocrinology,West,Low,1
+HCP102150,Dermatology,Northeast,Low,1
+HCP102151,Dermatology,Northeast,Medium,1
+HCP102152,Primary Care,Midwest,Low,0
+HCP102153,Primary Care,Southwest,Medium,1
+HCP102154,Psychiatry,Northeast,Medium,1
+HCP102155,Primary Care,Southeast,Medium,1
+HCP102156,Cardiology,West,Low,1
+HCP102157,Dermatology,Southeast,Low,0
+HCP102158,Psychiatry,Northeast,High,1
+HCP102159,Primary Care,Mountain,High,1
+HCP102160,Endocrinology,West,Medium,1
+HCP102161,Endocrinology,Northeast,Medium,1
+HCP102162,Gastroenterology,Midwest,High,1
+HCP102163,Primary Care,Southeast,Medium,0
+HCP102164,Neurology,Midwest,Medium,1
+HCP102165,Psychiatry,Midwest,Medium,0
+HCP102166,Psychiatry,Northeast,Medium,1
+HCP102167,Cardiology,Northeast,Low,1
+HCP102168,Oncology,Northeast,Medium,1
+HCP102169,Primary Care,West,Low,1
+HCP102170,Cardiology,Midwest,Medium,1
+HCP102171,Psychiatry,Northeast,Medium,1
+HCP102172,Oncology,Northeast,Medium,1
+HCP102173,Gastroenterology,Midwest,Low,1
+HCP102174,Endocrinology,Midwest,Medium,1
+HCP102175,Cardiology,Southeast,Medium,1
+HCP102176,Primary Care,Southwest,High,1
+HCP102177,Primary Care,West,Medium,1
+HCP102178,Endocrinology,Mountain,Medium,1
+HCP102179,Cardiology,Midwest,Medium,1
+HCP102180,Psychiatry,Northeast,Medium,1
+HCP102181,Cardiology,Pacific Northwest,Medium,1
+HCP102182,Primary Care,Southwest,Medium,1
+HCP102183,Primary Care,Southwest,Low,1
+HCP102184,Neurology,Southwest,Low,1
+HCP102185,Endocrinology,West,Medium,1
+HCP102186,Neurology,Southeast,High,1
+HCP102187,Oncology,Northeast,Low,1
+HCP102188,Dermatology,Southwest,Low,1
+HCP102189,Primary Care,Southeast,Low,1
+HCP102190,Cardiology,Northeast,Medium,1
+HCP102191,Oncology,Southwest,Low,1
+HCP102192,Neurology,Pacific Northwest,Low,1
+HCP102193,Oncology,Pacific Northwest,Medium,1
+HCP102194,Neurology,Southwest,Low,1
+HCP102195,Primary Care,Southeast,High,1
+HCP102196,Primary Care,Mountain,Low,1
+HCP102197,Endocrinology,Northeast,Low,1
+HCP102198,Endocrinology,West,Medium,1
+HCP102199,Primary Care,Midwest,High,1
+HCP102200,Endocrinology,Northeast,Low,1
+HCP102201,Cardiology,Southwest,Low,1
+HCP102202,Cardiology,West,High,1
+HCP102203,Gastroenterology,Midwest,Low,1
+HCP102204,Endocrinology,Southeast,Low,1
+HCP102205,Oncology,Northeast,Medium,0
+HCP102206,Psychiatry,Northeast,Medium,1
+HCP102207,Cardiology,Southwest,Medium,1
+HCP102208,Primary Care,Pacific Northwest,Low,1
+HCP102209,Endocrinology,Northeast,Medium,1
+HCP102210,Endocrinology,Midwest,Low,1
+HCP102211,Primary Care,Southeast,Medium,1
+HCP102212,Primary Care,Southwest,Low,0
+HCP102213,Primary Care,Southwest,Medium,1
+HCP102214,Dermatology,Southwest,Low,1
+HCP102215,Primary Care,Northeast,Medium,1
+HCP102216,Gastroenterology,Northeast,Medium,1
+HCP102217,Primary Care,West,Medium,1
+HCP102218,Primary Care,Midwest,High,1
+HCP102219,Primary Care,Southwest,Medium,1
+HCP102220,Psychiatry,Southeast,Medium,1
+HCP102221,Primary Care,Mountain,Low,1
+HCP102222,Neurology,Southwest,Low,1
+HCP102223,Endocrinology,Southeast,Low,1
+HCP102224,Primary Care,Southwest,High,1
+HCP102225,Cardiology,West,Medium,1
+HCP102226,Endocrinology,West,Low,1
+HCP102227,Gastroenterology,Midwest,Medium,1
+HCP102228,Endocrinology,Northeast,Low,1
+HCP102229,Psychiatry,Northeast,Low,1
+HCP102230,Primary Care,West,Medium,1
+HCP102231,Primary Care,Southeast,Low,1
+HCP102232,Dermatology,Midwest,Low,1
+HCP102233,Psychiatry,Southeast,Low,1
+HCP102234,Primary Care,Midwest,Medium,1
+HCP102235,Dermatology,Southeast,Low,1
+HCP102236,Oncology,Pacific Northwest,Low,1
+HCP102237,Primary Care,Southwest,Medium,1
+HCP102238,Oncology,Southeast,Low,1
+HCP102239,Cardiology,Mountain,High,1
+HCP102240,Dermatology,West,High,1
+HCP102241,Primary Care,Midwest,High,1
+HCP102242,Oncology,Southeast,Low,0
+HCP102243,Primary Care,West,Low,1
+HCP102244,Primary Care,Midwest,High,1
+HCP102245,Oncology,Northeast,Medium,1
+HCP102246,Primary Care,Southeast,High,1
+HCP102247,Endocrinology,Southwest,Low,0
+HCP102248,Cardiology,Northeast,High,1
+HCP102249,Gastroenterology,West,Medium,1
+HCP102250,Gastroenterology,West,Medium,1
+HCP102251,Cardiology,Midwest,Medium,1
+HCP102252,Psychiatry,Southeast,Medium,1
+HCP102253,Endocrinology,Northeast,High,1
+HCP102254,Gastroenterology,Midwest,Low,1
+HCP102255,Primary Care,West,Medium,1
+HCP102256,Psychiatry,West,High,0
+HCP102257,Cardiology,Northeast,Medium,0
+HCP102258,Oncology,Pacific Northwest,Low,1
+HCP102259,Primary Care,Southwest,Medium,1
+HCP102260,Oncology,Southwest,Low,0
+HCP102261,Dermatology,Northeast,Low,1
+HCP102262,Neurology,Southeast,Low,1
+HCP102263,Dermatology,Northeast,Low,1
+HCP102264,Primary Care,Northeast,Medium,1
+HCP102265,Oncology,Pacific Northwest,Medium,1
+HCP102266,Primary Care,West,High,1
+HCP102267,Endocrinology,West,Low,1
+HCP102268,Primary Care,Northeast,Low,1
+HCP102269,Dermatology,Northeast,Medium,1
+HCP102270,Endocrinology,West,Low,0
+HCP102271,Oncology,Pacific Northwest,Medium,1
+HCP102272,Primary Care,Pacific Northwest,Medium,1
+HCP102273,Endocrinology,West,Low,1
+HCP102274,Cardiology,Mountain,Medium,1
+HCP102275,Psychiatry,Mountain,Low,0
+HCP102276,Psychiatry,West,Medium,1
+HCP102277,Gastroenterology,Southwest,Low,1
+HCP102278,Neurology,West,Low,0
+HCP102279,Neurology,Midwest,Low,1
+HCP102280,Endocrinology,Southwest,Medium,1
+HCP102281,Gastroenterology,Mountain,Low,1
+HCP102282,Psychiatry,Mountain,Low,1
+HCP102283,Primary Care,Mountain,Low,1
+HCP102284,Cardiology,Southeast,Medium,1
+HCP102285,Endocrinology,Northeast,High,1
+HCP102286,Gastroenterology,Northeast,Low,0
+HCP102287,Neurology,Southwest,Low,1
+HCP102288,Dermatology,West,Low,1
+HCP102289,Cardiology,Northeast,Medium,0
+HCP102290,Primary Care,Midwest,Medium,1
+HCP102291,Dermatology,Northeast,Low,1
+HCP102292,Primary Care,West,Low,1
+HCP102293,Gastroenterology,Midwest,Medium,1
+HCP102294,Cardiology,Southeast,Medium,1
+HCP102295,Psychiatry,Southwest,Medium,0
+HCP102296,Dermatology,Southwest,Low,1
+HCP102297,Endocrinology,Midwest,Medium,0
+HCP102298,Cardiology,Southwest,Medium,1
+HCP102299,Oncology,West,Medium,1
+HCP102300,Endocrinology,Southeast,Low,1
+HCP102301,Primary Care,Northeast,Low,0
+HCP102302,Primary Care,Northeast,Low,1
+HCP102303,Neurology,Midwest,Medium,1
+HCP102304,Cardiology,West,Medium,1
+HCP102305,Primary Care,West,Medium,1
+HCP102306,Gastroenterology,Mountain,High,1
+HCP102307,Endocrinology,Southeast,Medium,1
+HCP102308,Psychiatry,West,Low,1
+HCP102309,Gastroenterology,Northeast,Medium,1
+HCP102310,Oncology,Northeast,Low,1
+HCP102311,Endocrinology,Southeast,Medium,1
+HCP102312,Cardiology,Northeast,Medium,1
+HCP102313,Neurology,West,High,1
+HCP102314,Neurology,Southeast,Medium,1
+HCP102315,Psychiatry,Southwest,Medium,1
+HCP102316,Endocrinology,Southwest,Low,0
+HCP102317,Primary Care,Northeast,Low,1
+HCP102318,Gastroenterology,Midwest,Low,1
+HCP102319,Cardiology,Northeast,Medium,1
+HCP102320,Endocrinology,Southeast,High,1
+HCP102321,Endocrinology,Midwest,High,1
+HCP102322,Neurology,Mountain,Low,1
+HCP102323,Cardiology,Southwest,Low,1
+HCP102324,Psychiatry,Pacific Northwest,Low,1
+HCP102325,Gastroenterology,Northeast,Low,0
+HCP102326,Psychiatry,Southeast,High,1
+HCP102327,Primary Care,Southwest,Medium,1
+HCP102328,Endocrinology,Midwest,Low,1
+HCP102329,Endocrinology,Southeast,High,1
+HCP102330,Neurology,Southwest,High,1
+HCP102331,Dermatology,West,Medium,1
+HCP102332,Primary Care,Midwest,Medium,1
+HCP102333,Psychiatry,Northeast,Low,0
+HCP102334,Psychiatry,Southeast,Low,1
+HCP102335,Gastroenterology,Pacific Northwest,High,0
+HCP102336,Primary Care,Southeast,High,1
+HCP102337,Psychiatry,Pacific Northwest,Low,1
+HCP102338,Psychiatry,West,Low,1
+HCP102339,Neurology,Southeast,Low,1
+HCP102340,Primary Care,Northeast,Low,1
+HCP102341,Primary Care,Northeast,High,1
+HCP102342,Primary Care,Southwest,Medium,1
+HCP102343,Neurology,Midwest,Medium,1
+HCP102344,Primary Care,Southwest,Medium,1
+HCP102345,Endocrinology,Northeast,Medium,1
+HCP102346,Cardiology,Pacific Northwest,Low,1
+HCP102347,Primary Care,Northeast,Medium,1
+HCP102348,Cardiology,Mountain,Low,0
+HCP102349,Primary Care,Southeast,Low,1
+HCP102350,Primary Care,Northeast,Medium,1
+HCP102351,Endocrinology,West,Medium,1
+HCP102352,Neurology,Mountain,Low,1
+HCP102353,Oncology,Northeast,High,1
+HCP102354,Primary Care,Northeast,Low,1
+HCP102355,Cardiology,West,High,1
+HCP102356,Oncology,Pacific Northwest,Medium,1
+HCP102357,Neurology,Northeast,Medium,1
+HCP102358,Neurology,Midwest,High,1
+HCP102359,Neurology,Southeast,High,1
+HCP102360,Primary Care,Northeast,Medium,1
+HCP102361,Primary Care,Northeast,Medium,1
+HCP102362,Cardiology,Northeast,Low,1
+HCP102363,Cardiology,Pacific Northwest,Medium,1
+HCP102364,Psychiatry,West,Low,0
+HCP102365,Primary Care,Pacific Northwest,Low,1
+HCP102366,Psychiatry,Northeast,Medium,1
+HCP102367,Primary Care,Southeast,Medium,1
+HCP102368,Endocrinology,West,Medium,1
+HCP102369,Endocrinology,Southwest,Low,0
+HCP102370,Neurology,Midwest,Low,1
+HCP102371,Psychiatry,Southeast,Low,1
+HCP102372,Gastroenterology,Mountain,Medium,0
+HCP102373,Primary Care,Pacific Northwest,Medium,1
+HCP102374,Primary Care,West,High,1
+HCP102375,Cardiology,Midwest,High,1
+HCP102376,Neurology,Northeast,Medium,1
+HCP102377,Neurology,Northeast,Medium,1
+HCP102378,Neurology,Midwest,Low,1
+HCP102379,Psychiatry,West,Medium,1
+HCP102380,Primary Care,Southwest,Low,1
+HCP102381,Cardiology,Midwest,High,1
+HCP102382,Gastroenterology,West,Medium,1
+HCP102383,Oncology,Southwest,Low,1
+HCP102384,Dermatology,Southwest,Low,1
+HCP102385,Primary Care,Southeast,High,1
+HCP102386,Cardiology,Northeast,Medium,1
+HCP102387,Gastroenterology,Northeast,Low,0
+HCP102388,Neurology,Southwest,Low,1
+HCP102389,Primary Care,Midwest,High,1
+HCP102390,Cardiology,Southeast,Low,1
+HCP102391,Endocrinology,Northeast,High,1
+HCP102392,Primary Care,Southeast,Medium,1
+HCP102393,Neurology,West,Low,1
+HCP102394,Endocrinology,Northeast,Low,1
+HCP102395,Neurology,Midwest,Medium,1
+HCP102396,Gastroenterology,Northeast,Low,1
+HCP102397,Endocrinology,Northeast,High,1
+HCP102398,Primary Care,Mountain,Medium,1
+HCP102399,Endocrinology,Mountain,Medium,1
+HCP102400,Dermatology,Midwest,Low,1
+HCP102401,Primary Care,Southwest,Medium,1
+HCP102402,Psychiatry,West,Low,1
+HCP102403,Endocrinology,Midwest,High,1
+HCP102404,Oncology,Midwest,Low,1
+HCP102405,Neurology,Northeast,Low,1
+HCP102406,Primary Care,West,Low,0
+HCP102407,Primary Care,West,Medium,1
+HCP102408,Cardiology,Pacific Northwest,Low,1
+HCP102409,Psychiatry,West,Low,1
+HCP102410,Oncology,West,High,1
+HCP102411,Neurology,Southeast,High,1
+HCP102412,Psychiatry,Southeast,Low,1
+HCP102413,Gastroenterology,Mountain,Medium,1
+HCP102414,Dermatology,Southwest,Medium,1
+HCP102415,Oncology,Midwest,High,1
+HCP102416,Neurology,Mountain,Low,1
+HCP102417,Oncology,West,High,1
+HCP102418,Psychiatry,Midwest,Low,1
+HCP102419,Psychiatry,Southwest,Low,0
+HCP102420,Primary Care,Midwest,Medium,0
+HCP102421,Endocrinology,Southeast,Medium,0
+HCP102422,Endocrinology,West,Medium,1
+HCP102423,Primary Care,West,High,1
+HCP102424,Primary Care,Northeast,High,1
+HCP102425,Oncology,Northeast,High,1
+HCP102426,Neurology,Southeast,Medium,1
+HCP102427,Endocrinology,Mountain,Medium,0
+HCP102428,Dermatology,Northeast,Low,0
+HCP102429,Endocrinology,West,Medium,1
+HCP102430,Endocrinology,Midwest,Medium,1
+HCP102431,Primary Care,Midwest,Medium,1
+HCP102432,Psychiatry,Northeast,Low,0
+HCP102433,Primary Care,Midwest,High,1
+HCP102434,Dermatology,Northeast,Medium,1
+HCP102435,Neurology,Southeast,Low,1
+HCP102436,Endocrinology,Pacific Northwest,Low,1
+HCP102437,Oncology,Midwest,Medium,1
+HCP102438,Primary Care,Southeast,Medium,1
+HCP102439,Cardiology,West,Medium,1
+HCP102440,Psychiatry,West,Low,0
+HCP102441,Endocrinology,Southwest,Low,1
+HCP102442,Oncology,Southeast,High,1
+HCP102443,Primary Care,Southeast,Medium,1
+HCP102444,Dermatology,Northeast,Medium,1
+HCP102445,Psychiatry,Northeast,Low,1
+HCP102446,Gastroenterology,Southeast,Medium,1
+HCP102447,Oncology,Northeast,High,1
+HCP102448,Primary Care,Northeast,High,1
+HCP102449,Endocrinology,Mountain,High,1
+HCP102450,Primary Care,West,High,1
+HCP102451,Oncology,West,Low,1
+HCP102452,Primary Care,Northeast,Medium,1
+HCP102453,Psychiatry,Pacific Northwest,Medium,1
+HCP102454,Primary Care,Southwest,Low,0
+HCP102455,Primary Care,Southwest,Medium,1
+HCP102456,Neurology,West,High,1
+HCP102457,Cardiology,Southeast,Medium,1
+HCP102458,Psychiatry,West,Medium,1
+HCP102459,Oncology,Southwest,Low,1
+HCP102460,Psychiatry,Southeast,Medium,0
+HCP102461,Cardiology,Northeast,Low,1
+HCP102462,Cardiology,Midwest,Low,1
+HCP102463,Oncology,Northeast,Low,1
+HCP102464,Endocrinology,Pacific Northwest,Low,1
+HCP102465,Neurology,Southeast,Low,1
+HCP102466,Cardiology,Southeast,High,1
+HCP102467,Neurology,Southeast,Low,1
+HCP102468,Endocrinology,Southeast,Low,1
+HCP102469,Primary Care,Midwest,Medium,1
+HCP102470,Cardiology,Northeast,Low,1
+HCP102471,Cardiology,Northeast,Low,1
+HCP102472,Psychiatry,West,High,1
+HCP102473,Primary Care,Midwest,Medium,1
+HCP102474,Oncology,Southeast,Medium,1
+HCP102475,Cardiology,West,High,1
+HCP102476,Primary Care,Mountain,Low,1
+HCP102477,Oncology,Northeast,Medium,1
+HCP102478,Neurology,Pacific Northwest,Low,1
+HCP102479,Gastroenterology,Midwest,Low,1
+HCP102480,Primary Care,Northeast,High,1
+HCP102481,Neurology,West,Low,1
+HCP102482,Gastroenterology,Pacific Northwest,Low,1
+HCP102483,Psychiatry,Midwest,Low,1
+HCP102484,Endocrinology,West,Low,1
+HCP102485,Cardiology,West,Medium,1
+HCP102486,Gastroenterology,West,Medium,1
+HCP102487,Primary Care,Northeast,Medium,1
+HCP102488,Neurology,Midwest,High,1
+HCP102489,Cardiology,Northeast,High,1
+HCP102490,Neurology,Southwest,Low,1
+HCP102491,Primary Care,Northeast,High,1
+HCP102492,Cardiology,Pacific Northwest,High,1
+HCP102493,Psychiatry,Southeast,Medium,1
+HCP102494,Dermatology,Southeast,Medium,0
+HCP102495,Cardiology,West,Low,1
+HCP102496,Primary Care,Southwest,High,1
+HCP102497,Neurology,Midwest,Low,1
+HCP102498,Gastroenterology,Southwest,Low,1
+HCP102499,Neurology,Midwest,Medium,1
+HCP102500,Primary Care,Southeast,Medium,1

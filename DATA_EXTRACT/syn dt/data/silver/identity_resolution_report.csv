@@ -1,0 +1,6 @@
+file,hcp_column,total_rows,resolved_rows,quarantined_rows,pct_quarantined
+hcp_master.csv,hcp_id,2500,2375,125,5.0
+event_invitations.csv,hcp_id,24365,23137,1228,5.04
+event_attendance.csv,hcp_id,9422,8941,481,5.11
+hcp_rx_monthly.csv,hcp_id,207596,197492,10104,4.87
+marketing_activity.csv,hcp_id,80000,76000,4000,5.0

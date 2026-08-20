@@ -1,0 +1,12 @@
+file,rows_in,rows_out,rows_quarantined,reason
+event_attendance.csv,9926,9828,98,duplicate_signin
+event_attendance.csv,9828,9422,406,cancelled_or_planned_event_residual
+event_invitations.csv,28331,24365,3966,non_completed_event
+event_cost.csv,300,300,5,outlier_cost_flagged_not_removed
+hcp_rx_monthly.csv,207596,207596,6420,missing_rx_months_flagged
+hcp_master.csv,2500,2500,0,none
+events.csv,300,300,0,none
+marketing_activity.csv,80000,80000,0,none
+market_factors.csv,224,224,0,none
+identity_crosswalk.csv,2500,2500,0,none_yet_step2
+business_assumptions.csv,12,12,0,none

@@ -1,0 +1,6 @@
+event_id,honorarium,venue,meal,travel,agency,total,finance_review_flag,reason
+EV2021,11198.36,2829.6,2855.56,4545.64,12836.55,34265.71,1,outlier_cost_finance_review
+EV2065,11956.97,3898.95,6823.65,5956.48,8685.09,37321.14,1,outlier_cost_finance_review
+EV2186,6415.94,1311.19,133.28,314.28,6011.09,14185.78,1,outlier_cost_finance_review
+EV2228,16551.54,4703.09,4834.6,8270.05,6619.67,40978.95,1,outlier_cost_finance_review
+EV2293,14025.31,4429.94,5565.67,9655.14,10590.33,44266.39,1,outlier_cost_finance_review

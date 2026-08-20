@@ -1,0 +1,301 @@
+event_id,date,topic,format,speaker,status
+EV2001,2024-09-01,Type 2 Diabetes Intensification,Virtual,SPK-1210,Completed
+EV2002,2024-09-02,Advanced Solid Tumor Therapy,In-person,SPK-1108,Completed
+EV2003,2024-09-03,Neuroinflammation Update,Virtual,SPK-1300,Completed
+EV2004,2024-09-05,Heart Failure Management,In-person,SPK-1000,Completed
+EV2005,2024-09-07,Migraine Prophylaxis,Virtual,SPK-1310,Completed
+EV2006,2024-09-09,Lipid Management & CV Risk,Virtual,SPK-1010,Completed
+EV2007,2024-09-09,Migraine Prophylaxis,In-person,SPK-1306,Completed
+EV2008,2024-09-10,Neuroinflammation Update,In-person,SPK-1303,Completed
+EV2009,2024-09-15,Lipid Management & CV Risk,In-person,SPK-1000,Completed
+EV2010,2024-09-15,Immuno-Oncology Sequencing,In-person,SPK-1102,Completed
+EV2011,2024-09-16,Lipid Management & CV Risk,In-person,SPK-1005,Completed
+EV2012,2024-09-20,Obesity & Metabolic Health,Virtual,SPK-1204,Completed
+EV2013,2024-09-20,Neuroinflammation Update,In-person,SPK-1307,Cancelled
+EV2014,2024-09-25,Lipid Management & CV Risk,In-person,SPK-1006,Completed
+EV2015,2024-09-25,Neuroinflammation Update,In-person,SPK-1304,Completed
+EV2016,2024-09-28,Neuroinflammation Update,In-person,SPK-1310,Completed
+EV2017,2024-09-29,Neuroinflammation Update,Hybrid,SPK-1304,Completed
+EV2018,2024-09-29,Immuno-Oncology Sequencing,In-person,SPK-1105,Completed
+EV2019,2024-09-29,Type 2 Diabetes Intensification,Virtual,SPK-1210,Completed
+EV2020,2024-09-30,Type 2 Diabetes Intensification,In-person,SPK-1204,Completed
+EV2021,2024-10-01,Heart Failure Management,Hybrid,SPK-1003,Completed
+EV2022,2024-10-03,Type 2 Diabetes Intensification,In-person,SPK-1205,Completed
+EV2023,2024-10-06,Type 2 Diabetes Intensification,In-person,SPK-1203,Completed
+EV2024,2024-10-07,Migraine Prophylaxis,Hybrid,SPK-1307,Completed
+EV2025,2024-10-07,Heart Failure Management,In-person,SPK-1003,Completed
+EV2026,2024-10-08,Obesity & Metabolic Health,Hybrid,SPK-1203,Completed
+EV2027,2024-10-13,Immuno-Oncology Sequencing,In-person,SPK-1108,Completed
+EV2028,2024-10-15,Immuno-Oncology Sequencing,Virtual,SPK-1100,Completed
+EV2029,2024-10-16,Advanced Solid Tumor Therapy,Virtual,SPK-1105,Completed
+EV2030,2024-10-18,Advanced Solid Tumor Therapy,In-person,SPK-1105,Completed
+EV2031,2024-10-25,Migraine Prophylaxis,Virtual,SPK-1304,Completed
+EV2032,2024-10-26,Neuroinflammation Update,Virtual,SPK-1309,Completed
+EV2033,2024-10-27,Lipid Management & CV Risk,Virtual,SPK-1009,Completed
+EV2034,2024-10-29,Heart Failure Management,Virtual,SPK-1008,Completed
+EV2035,2024-10-30,Obesity & Metabolic Health,Virtual,SPK-1210,Completed
+EV2036,2024-11-04,Lipid Management & CV Risk,Hybrid,SPK-1003,Completed
+EV2037,2024-11-04,Obesity & Metabolic Health,In-person,SPK-1203,Completed
+EV2038,2024-11-06,Obesity & Metabolic Health,Hybrid,SPK-1201,Completed
+EV2039,2024-11-06,Migraine Prophylaxis,Hybrid,SPK-1306,Completed
+EV2040,2024-11-19,Immuno-Oncology Sequencing,Hybrid,SPK-1106,Completed
+EV2041,2024-11-21,Obesity & Metabolic Health,In-person,SPK-1210,Completed
+EV2042,2024-11-21,Type 2 Diabetes Intensification,Virtual,SPK-1209,Completed
+EV2043,2024-11-22,Obesity & Metabolic Health,Hybrid,SPK-1207,Completed
+EV2044,2024-11-22,Heart Failure Management,In-person,SPK-1000,Completed
+EV2045,2024-11-30,Neuroinflammation Update,In-person,SPK-1309,Completed
+EV2046,2024-12-01,Obesity & Metabolic Health,In-person,SPK-1204,Completed
+EV2047,2024-12-10,Neuroinflammation Update,Hybrid,SPK-1310,Completed
+EV2048,2024-12-11,Type 2 Diabetes Intensification,Hybrid,SPK-1200,Completed
+EV2049,2024-12-17,Heart Failure Management,In-person,SPK-1004,Completed
+EV2050,2024-12-18,Lipid Management & CV Risk,In-person,SPK-1003,Completed
+EV2051,2024-12-22,Advanced Solid Tumor Therapy,In-person,SPK-1102,Completed
+EV2052,2024-12-26,Type 2 Diabetes Intensification,Virtual,SPK-1202,Completed
+EV2053,2025-01-05,Type 2 Diabetes Intensification,Virtual,SPK-1205,Cancelled
+EV2054,2025-01-09,Advanced Solid Tumor Therapy,In-person,SPK-1108,Completed
+EV2055,2025-01-09,Obesity & Metabolic Health,Virtual,SPK-1205,Completed
+EV2056,2025-01-09,Neuroinflammation Update,In-person,SPK-1304,Completed
+EV2057,2025-01-12,Advanced Solid Tumor Therapy,In-person,SPK-1109,Completed
+EV2058,2025-01-13,Immuno-Oncology Sequencing,Virtual,SPK-1108,Completed
+EV2059,2025-01-13,Lipid Management & CV Risk,Virtual,SPK-1002,Completed
+EV2060,2025-01-14,Advanced Solid Tumor Therapy,Hybrid,SPK-1109,Completed
+EV2061,2025-01-14,Immuno-Oncology Sequencing,Virtual,SPK-1104,Completed
+EV2062,2025-01-15,Immuno-Oncology Sequencing,Virtual,SPK-1107,Completed
+EV2063,2025-01-23,Type 2 Diabetes Intensification,In-person,SPK-1202,Completed
+EV2064,2025-01-23,Migraine Prophylaxis,Virtual,SPK-1305,Completed
+EV2065,2025-01-24,Heart Failure Management,Hybrid,SPK-1004,Completed
+EV2066,2025-01-28,Advanced Solid Tumor Therapy,In-person,SPK-1104,Completed
+EV2067,2025-01-28,Advanced Solid Tumor Therapy,Hybrid,SPK-1102,Completed
+EV2068,2025-01-30,Type 2 Diabetes Intensification,Hybrid,SPK-1205,Completed
+EV2069,2025-02-01,Lipid Management & CV Risk,Virtual,SPK-1005,Completed
+EV2070,2025-02-01,Neuroinflammation Update,In-person,SPK-1306,Completed
+EV2071,2025-02-02,Migraine Prophylaxis,Virtual,SPK-1308,Completed
+EV2072,2025-02-02,Advanced Solid Tumor Therapy,Hybrid,SPK-1108,Cancelled
+EV2073,2025-02-07,Heart Failure Management,In-person,SPK-1010,Completed
+EV2074,2025-02-10,Neuroinflammation Update,In-person,SPK-1305,Completed
+EV2075,2025-02-11,Lipid Management & CV Risk,In-person,SPK-1008,Completed
+EV2076,2025-02-18,Advanced Solid Tumor Therapy,Virtual,SPK-1100,Completed
+EV2077,2025-02-19,Lipid Management & CV Risk,Virtual,SPK-1008,Completed
+EV2078,2025-02-19,Lipid Management & CV Risk,Hybrid,SPK-1006,Completed
+EV2079,2025-02-21,Lipid Management & CV Risk,In-person,SPK-1006,Completed
+EV2080,2025-02-23,Type 2 Diabetes Intensification,Virtual,SPK-1210,Completed
+EV2081,2025-03-01,Migraine Prophylaxis,Virtual,SPK-1306,Completed
+EV2082,2025-03-02,Migraine Prophylaxis,In-person,SPK-1302,Completed
+EV2083,2025-03-04,Migraine Prophylaxis,Virtual,SPK-1308,Completed
+EV2084,2025-03-04,Neuroinflammation Update,In-person,SPK-1310,Completed
+EV2085,2025-03-05,Lipid Management & CV Risk,In-person,SPK-1005,Completed
+EV2086,2025-03-06,Lipid Management & CV Risk,Virtual,SPK-1000,Completed
+EV2087,2025-03-08,Lipid Management & CV Risk,Hybrid,SPK-1006,Completed
+EV2088,2025-03-11,Heart Failure Management,Hybrid,SPK-1001,Completed
+EV2089,2025-03-12,Type 2 Diabetes Intensification,Virtual,SPK-1206,Completed
+EV2090,2025-03-14,Immuno-Oncology Sequencing,Virtual,SPK-1102,Completed
+EV2091,2025-03-14,Immuno-Oncology Sequencing,Virtual,SPK-1104,Completed
+EV2092,2025-03-15,Type 2 Diabetes Intensification,Virtual,SPK-1209,Completed
+EV2093,2025-03-15,Obesity & Metabolic Health,Virtual,SPK-1203,Completed
+EV2094,2025-03-16,Lipid Management & CV Risk,Hybrid,SPK-1008,Completed
+EV2095,2025-03-16,Type 2 Diabetes Intensification,Virtual,SPK-1201,Completed
+EV2096,2025-03-17,Immuno-Oncology Sequencing,Hybrid,SPK-1105,Completed
+EV2097,2025-03-21,Immuno-Oncology Sequencing,In-person,SPK-1106,Completed
+EV2098,2025-03-25,Heart Failure Management,In-person,SPK-1008,Completed
+EV2099,2025-04-09,Neuroinflammation Update,Hybrid,SPK-1309,Completed
+EV2100,2025-04-12,Lipid Management & CV Risk,Hybrid,SPK-1005,Completed
+EV2101,2025-04-13,Migraine Prophylaxis,In-person,SPK-1301,Completed
+EV2102,2025-04-15,Advanced Solid Tumor Therapy,In-person,SPK-1106,Completed
+EV2103,2025-04-16,Immuno-Oncology Sequencing,In-person,SPK-1105,Completed
+EV2104,2025-04-16,Advanced Solid Tumor Therapy,Hybrid,SPK-1100,Completed
+EV2105,2025-04-18,Advanced Solid Tumor Therapy,In-person,SPK-1103,Completed
+EV2106,2025-04-21,Obesity & Metabolic Health,In-person,SPK-1204,Completed
+EV2107,2025-04-21,Neuroinflammation Update,Hybrid,SPK-1309,Completed
+EV2108,2025-04-24,Heart Failure Management,Hybrid,SPK-1002,Completed
+EV2109,2025-04-26,Neuroinflammation Update,Virtual,SPK-1306,Completed
+EV2110,2025-04-27,Type 2 Diabetes Intensification,In-person,SPK-1206,Completed
+EV2111,2025-04-30,Lipid Management & CV Risk,Hybrid,SPK-1008,Completed
+EV2112,2025-05-01,Migraine Prophylaxis,Virtual,SPK-1310,Completed
+EV2113,2025-05-02,Neuroinflammation Update,Hybrid,SPK-1309,Completed
+EV2114,2025-05-08,Neuroinflammation Update,In-person,SPK-1306,Completed
+EV2115,2025-05-09,Neuroinflammation Update,In-person,SPK-1306,Cancelled
+EV2116,2025-05-09,Migraine Prophylaxis,In-person,SPK-1310,Completed
+EV2117,2025-05-09,Type 2 Diabetes Intensification,Virtual,SPK-1208,Completed
+EV2118,2025-05-10,Advanced Solid Tumor Therapy,Virtual,SPK-1109,Completed
+EV2119,2025-05-11,Migraine Prophylaxis,Hybrid,SPK-1302,Completed
+EV2120,2025-05-11,Type 2 Diabetes Intensification,In-person,SPK-1207,Completed
+EV2121,2025-05-11,Lipid Management & CV Risk,Hybrid,SPK-1001,Completed
+EV2122,2025-05-19,Type 2 Diabetes Intensification,In-person,SPK-1201,Completed
+EV2123,2025-05-21,Advanced Solid Tumor Therapy,Hybrid,SPK-1109,Completed
+EV2124,2025-05-30,Migraine Prophylaxis,In-person,SPK-1309,Completed
+EV2125,2025-06-05,Immuno-Oncology Sequencing,Hybrid,SPK-1107,Completed
+EV2126,2025-06-07,Migraine Prophylaxis,In-person,SPK-1308,Completed
+EV2127,2025-06-08,Advanced Solid Tumor Therapy,In-person,SPK-1104,Completed
+EV2128,2025-06-10,Advanced Solid Tumor Therapy,In-person,SPK-1106,Completed
+EV2129,2025-06-14,Type 2 Diabetes Intensification,In-person,SPK-1200,Cancelled
+EV2130,2025-06-18,Immuno-Oncology Sequencing,Virtual,SPK-1103,Completed
+EV2131,2025-06-20,Immuno-Oncology Sequencing,Virtual,SPK-1102,Completed
+EV2132,2025-06-25,Immuno-Oncology Sequencing,Virtual,SPK-1109,Completed
+EV2133,2025-06-28,Neuroinflammation Update,In-person,SPK-1309,Completed
+EV2134,2025-07-04,Type 2 Diabetes Intensification,Virtual,SPK-1202,Completed
+EV2135,2025-07-04,Migraine Prophylaxis,Virtual,SPK-1306,Completed
+EV2136,2025-07-13,Immuno-Oncology Sequencing,In-person,SPK-1104,Completed
+EV2137,2025-07-20,Heart Failure Management,In-person,SPK-1004,Completed
+EV2138,2025-07-21,Heart Failure Management,Virtual,SPK-1002,Cancelled
+EV2139,2025-07-21,Heart Failure Management,Hybrid,SPK-1010,Completed
+EV2140,2025-07-30,Heart Failure Management,Hybrid,SPK-1006,Cancelled
+EV2141,2025-07-30,Lipid Management & CV Risk,Virtual,SPK-1000,Completed
+EV2142,2025-07-31,Type 2 Diabetes Intensification,In-person,SPK-1210,Completed
+EV2143,2025-08-02,Obesity & Metabolic Health,Virtual,SPK-1208,Completed
+EV2144,2025-08-04,Migraine Prophylaxis,In-person,SPK-1303,Completed
+EV2145,2025-08-04,Lipid Management & CV Risk,In-person,SPK-1001,Completed
+EV2146,2025-08-15,Migraine Prophylaxis,In-person,SPK-1304,Completed
+EV2147,2025-08-17,Heart Failure Management,In-person,SPK-1009,Completed
+EV2148,2025-08-18,Heart Failure Management,In-person,SPK-1000,Completed
+EV2149,2025-08-18,Obesity & Metabolic Health,In-person,SPK-1210,Completed
+EV2150,2025-08-18,Obesity & Metabolic Health,Virtual,SPK-1206,Completed
+EV2151,2025-08-21,Migraine Prophylaxis,Hybrid,SPK-1307,Completed
+EV2152,2025-08-25,Advanced Solid Tumor Therapy,Hybrid,SPK-1110,Completed
+EV2153,2025-08-29,Type 2 Diabetes Intensification,Virtual,SPK-1210,Completed
+EV2154,2025-09-02,Type 2 Diabetes Intensification,Hybrid,SPK-1207,Completed
+EV2155,2025-09-03,Neuroinflammation Update,Virtual,SPK-1308,Completed
+EV2156,2025-09-03,Advanced Solid Tumor Therapy,Hybrid,SPK-1110,Completed
+EV2157,2025-09-03,Immuno-Oncology Sequencing,Hybrid,SPK-1102,Completed
+EV2158,2025-09-04,Neuroinflammation Update,In-person,SPK-1301,Completed
+EV2159,2025-09-05,Neuroinflammation Update,In-person,SPK-1307,Completed
+EV2160,2025-09-05,Migraine Prophylaxis,Hybrid,SPK-1306,Completed
+EV2161,2025-09-05,Advanced Solid Tumor Therapy,In-person,SPK-1104,Completed
+EV2162,2025-09-06,Heart Failure Management,Virtual,SPK-1002,Completed
+EV2163,2025-09-06,Immuno-Oncology Sequencing,Hybrid,SPK-1108,Completed
+EV2164,2025-09-07,Type 2 Diabetes Intensification,In-person,SPK-1209,Completed
+EV2165,2025-09-09,Heart Failure Management,In-person,SPK-1002,Cancelled
+EV2166,2025-09-10,Heart Failure Management,Virtual,SPK-1000,Completed
+EV2167,2025-09-23,Lipid Management & CV Risk,Virtual,SPK-1009,Completed
+EV2168,2025-09-24,Obesity & Metabolic Health,Virtual,SPK-1207,Completed
+EV2169,2025-09-25,Advanced Solid Tumor Therapy,In-person,SPK-1107,Completed
+EV2170,2025-09-27,Migraine Prophylaxis,In-person,SPK-1308,Completed
+EV2171,2025-09-28,Type 2 Diabetes Intensification,Hybrid,SPK-1201,Cancelled
+EV2172,2025-09-29,Type 2 Diabetes Intensification,Virtual,SPK-1202,Completed
+EV2173,2025-09-30,Type 2 Diabetes Intensification,Hybrid,SPK-1201,Completed
+EV2174,2025-09-30,Advanced Solid Tumor Therapy,Virtual,SPK-1110,Cancelled
+EV2175,2025-10-06,Advanced Solid Tumor Therapy,In-person,SPK-1103,Completed
+EV2176,2025-10-10,Migraine Prophylaxis,Hybrid,SPK-1307,Completed
+EV2177,2025-10-14,Immuno-Oncology Sequencing,Virtual,SPK-1106,Cancelled
+EV2178,2025-10-17,Lipid Management & CV Risk,Hybrid,SPK-1003,Completed
+EV2179,2025-10-17,Migraine Prophylaxis,In-person,SPK-1310,Completed
+EV2180,2025-10-23,Immuno-Oncology Sequencing,Virtual,SPK-1101,Completed
+EV2181,2025-10-23,Lipid Management & CV Risk,In-person,SPK-1008,Completed
+EV2182,2025-10-26,Obesity & Metabolic Health,Virtual,SPK-1207,Completed
+EV2183,2025-10-31,Heart Failure Management,Hybrid,SPK-1000,Completed
+EV2184,2025-11-01,Lipid Management & CV Risk,Virtual,SPK-1006,Completed
+EV2185,2025-11-03,Heart Failure Management,In-person,SPK-1009,Completed
+EV2186,2025-11-04,Type 2 Diabetes Intensification,Virtual,SPK-1209,Completed
+EV2187,2025-11-04,Immuno-Oncology Sequencing,Virtual,SPK-1101,Completed
+EV2188,2025-11-04,Type 2 Diabetes Intensification,In-person,SPK-1201,Completed
+EV2189,2025-11-07,Type 2 Diabetes Intensification,In-person,SPK-1200,Completed
+EV2190,2025-11-10,Type 2 Diabetes Intensification,Virtual,SPK-1200,Completed
+EV2191,2025-11-13,Advanced Solid Tumor Therapy,In-person,SPK-1103,Cancelled
+EV2192,2025-11-14,Immuno-Oncology Sequencing,In-person,SPK-1108,Completed
+EV2193,2025-11-16,Immuno-Oncology Sequencing,Hybrid,SPK-1106,Completed
+EV2194,2025-11-19,Neuroinflammation Update,In-person,SPK-1300,Completed
+EV2195,2025-11-20,Migraine Prophylaxis,In-person,SPK-1306,Completed
+EV2196,2025-11-28,Type 2 Diabetes Intensification,In-person,SPK-1206,Completed
+EV2197,2025-11-29,Heart Failure Management,In-person,SPK-1008,Completed
+EV2198,2025-12-05,Type 2 Diabetes Intensification,In-person,SPK-1200,Completed
+EV2199,2025-12-06,Heart Failure Management,Virtual,SPK-1000,Completed
+EV2200,2025-12-06,Immuno-Oncology Sequencing,In-person,SPK-1108,Completed
+EV2201,2025-12-06,Obesity & Metabolic Health,Virtual,SPK-1209,Completed
+EV2202,2025-12-11,Heart Failure Management,In-person,SPK-1002,Completed
+EV2203,2025-12-14,Obesity & Metabolic Health,In-person,SPK-1200,Completed
+EV2204,2025-12-14,Advanced Solid Tumor Therapy,In-person,SPK-1105,Completed
+EV2205,2025-12-17,Heart Failure Management,In-person,SPK-1009,Completed
+EV2206,2025-12-19,Obesity & Metabolic Health,Hybrid,SPK-1204,Completed
+EV2207,2025-12-20,Immuno-Oncology Sequencing,In-person,SPK-1100,Completed
+EV2208,2025-12-24,Neuroinflammation Update,In-person,SPK-1304,Completed
+EV2209,2025-12-29,Heart Failure Management,In-person,SPK-1003,Completed
+EV2210,2025-12-30,Migraine Prophylaxis,Virtual,SPK-1301,Completed
+EV2211,2025-12-31,Heart Failure Management,In-person,SPK-1002,Completed
+EV2212,2025-12-31,Immuno-Oncology Sequencing,Virtual,SPK-1108,Completed
+EV2213,2026-01-03,Heart Failure Management,Virtual,SPK-1008,Completed
+EV2214,2026-01-07,Neuroinflammation Update,Hybrid,SPK-1304,Completed
+EV2215,2026-01-10,Advanced Solid Tumor Therapy,In-person,SPK-1110,Completed
+EV2216,2026-01-12,Lipid Management & CV Risk,In-person,SPK-1007,Completed
+EV2217,2026-01-13,Immuno-Oncology Sequencing,Hybrid,SPK-1108,Completed
+EV2218,2026-01-19,Obesity & Metabolic Health,In-person,SPK-1205,Completed
+EV2219,2026-01-22,Heart Failure Management,Virtual,SPK-1008,Completed
+EV2220,2026-01-24,Heart Failure Management,In-person,SPK-1003,Completed
+EV2221,2026-01-25,Obesity & Metabolic Health,Virtual,SPK-1209,Completed
+EV2222,2026-01-26,Heart Failure Management,In-person,SPK-1001,Completed
+EV2223,2026-01-28,Type 2 Diabetes Intensification,In-person,SPK-1202,Completed
+EV2224,2026-01-28,Heart Failure Management,Virtual,SPK-1001,Completed
+EV2225,2026-02-03,Obesity & Metabolic Health,In-person,SPK-1208,Completed
+EV2226,2026-02-06,Heart Failure Management,Virtual,SPK-1002,Completed
+EV2227,2026-02-10,Lipid Management & CV Risk,In-person,SPK-1006,Completed
+EV2228,2026-02-11,Neuroinflammation Update,In-person,SPK-1304,Completed
+EV2229,2026-02-13,Immuno-Oncology Sequencing,In-person,SPK-1105,Completed
+EV2230,2026-02-16,Immuno-Oncology Sequencing,In-person,SPK-1108,Completed
+EV2231,2026-02-17,Migraine Prophylaxis,In-person,SPK-1306,Completed
+EV2232,2026-02-17,Immuno-Oncology Sequencing,Virtual,SPK-1109,Completed
+EV2233,2026-02-17,Neuroinflammation Update,In-person,SPK-1305,Completed
+EV2234,2026-02-21,Neuroinflammation Update,In-person,SPK-1304,Completed
+EV2235,2026-02-22,Neuroinflammation Update,In-person,SPK-1307,Completed
+EV2236,2026-02-22,Type 2 Diabetes Intensification,Hybrid,SPK-1206,Completed
+EV2237,2026-02-23,Neuroinflammation Update,In-person,SPK-1305,Cancelled
+EV2238,2026-02-23,Immuno-Oncology Sequencing,In-person,SPK-1103,Cancelled
+EV2239,2026-02-23,Type 2 Diabetes Intensification,Virtual,SPK-1210,Completed
+EV2240,2026-02-26,Type 2 Diabetes Intensification,Virtual,SPK-1207,Completed
+EV2241,2026-03-04,Neuroinflammation Update,In-person,SPK-1301,Completed
+EV2242,2026-03-06,Migraine Prophylaxis,In-person,SPK-1302,Completed
+EV2243,2026-03-09,Advanced Solid Tumor Therapy,Virtual,SPK-1105,Completed
+EV2244,2026-03-09,Advanced Solid Tumor Therapy,Virtual,SPK-1106,Completed
+EV2245,2026-03-16,Obesity & Metabolic Health,Virtual,SPK-1208,Completed
+EV2246,2026-03-17,Migraine Prophylaxis,Virtual,SPK-1300,Completed
+EV2247,2026-03-19,Lipid Management & CV Risk,In-person,SPK-1007,Completed
+EV2248,2026-03-21,Type 2 Diabetes Intensification,In-person,SPK-1207,Completed
+EV2249,2026-03-21,Lipid Management & CV Risk,Hybrid,SPK-1010,Completed
+EV2250,2026-03-23,Heart Failure Management,In-person,SPK-1005,Completed
+EV2251,2026-03-27,Lipid Management & CV Risk,Virtual,SPK-1002,Completed
+EV2252,2026-03-27,Immuno-Oncology Sequencing,In-person,SPK-1100,Completed
+EV2253,2026-03-27,Migraine Prophylaxis,Virtual,SPK-1305,Completed
+EV2254,2026-03-28,Neuroinflammation Update,In-person,SPK-1300,Completed
+EV2255,2026-03-29,Advanced Solid Tumor Therapy,Hybrid,SPK-1105,Completed
+EV2256,2026-03-29,Immuno-Oncology Sequencing,Virtual,SPK-1103,Completed
+EV2257,2026-03-31,Lipid Management & CV Risk,Virtual,SPK-1002,Completed
+EV2258,2026-04-05,Type 2 Diabetes Intensification,In-person,SPK-1201,Completed
+EV2259,2026-04-08,Migraine Prophylaxis,Virtual,SPK-1309,Completed
+EV2260,2026-04-16,Type 2 Diabetes Intensification,In-person,SPK-1200,Completed
+EV2261,2026-04-16,Advanced Solid Tumor Therapy,In-person,SPK-1106,Completed
+EV2262,2026-04-17,Lipid Management & CV Risk,Hybrid,SPK-1002,Completed
+EV2263,2026-04-18,Lipid Management & CV Risk,Virtual,SPK-1003,Completed
+EV2264,2026-04-19,Type 2 Diabetes Intensification,Hybrid,SPK-1202,Completed
+EV2265,2026-04-21,Type 2 Diabetes Intensification,In-person,SPK-1203,Completed
+EV2266,2026-04-21,Type 2 Diabetes Intensification,Virtual,SPK-1206,Completed
+EV2267,2026-04-26,Heart Failure Management,Hybrid,SPK-1004,Completed
+EV2268,2026-04-26,Obesity & Metabolic Health,Hybrid,SPK-1200,Completed
+EV2269,2026-05-08,Type 2 Diabetes Intensification,In-person,SPK-1200,Completed
+EV2270,2026-05-09,Heart Failure Management,Hybrid,SPK-1007,Completed
+EV2271,2026-05-14,Heart Failure Management,In-person,SPK-1000,Completed
+EV2272,2026-05-18,Migraine Prophylaxis,Virtual,SPK-1300,Completed
+EV2273,2026-05-23,Migraine Prophylaxis,In-person,SPK-1305,Completed
+EV2274,2026-05-24,Advanced Solid Tumor Therapy,In-person,SPK-1103,Completed
+EV2275,2026-05-24,Advanced Solid Tumor Therapy,Hybrid,SPK-1107,Completed
+EV2276,2026-05-30,Advanced Solid Tumor Therapy,In-person,SPK-1101,Cancelled
+EV2277,2026-09-03,Advanced Solid Tumor Therapy,In-person,SPK-1103,Planned
+EV2278,2026-09-07,Migraine Prophylaxis,Virtual,SPK-1301,Planned
+EV2279,2026-09-15,Obesity & Metabolic Health,Virtual,SPK-1201,Planned
+EV2280,2026-09-15,Lipid Management & CV Risk,Virtual,SPK-1006,Planned
+EV2281,2026-09-17,Heart Failure Management,In-person,SPK-1009,Planned
+EV2282,2026-09-27,Heart Failure Management,Hybrid,SPK-1008,Planned
+EV2283,2026-10-04,Type 2 Diabetes Intensification,In-person,SPK-1200,Planned
+EV2284,2026-10-11,Advanced Solid Tumor Therapy,Virtual,SPK-1109,Planned
+EV2285,2026-10-14,Type 2 Diabetes Intensification,In-person,SPK-1205,Planned
+EV2286,2026-10-20,Type 2 Diabetes Intensification,Virtual,SPK-1204,Planned
+EV2287,2026-11-07,Advanced Solid Tumor Therapy,Virtual,SPK-1101,Planned
+EV2288,2026-11-10,Type 2 Diabetes Intensification,In-person,SPK-1208,Planned
+EV2289,2026-11-19,Type 2 Diabetes Intensification,Virtual,SPK-1208,Planned
+EV2290,2026-11-20,Migraine Prophylaxis,In-person,SPK-1300,Planned
+EV2291,2026-11-25,Migraine Prophylaxis,In-person,SPK-1306,Planned
+EV2292,2026-11-28,Advanced Solid Tumor Therapy,In-person,SPK-1103,Planned
+EV2293,2026-12-11,Heart Failure Management,In-person,SPK-1001,Planned
+EV2294,2026-12-13,Neuroinflammation Update,In-person,SPK-1306,Planned
+EV2295,2027-01-13,Migraine Prophylaxis,In-person,SPK-1303,Planned
+EV2296,2027-02-05,Neuroinflammation Update,In-person,SPK-1307,Planned
+EV2297,2027-02-12,Type 2 Diabetes Intensification,Hybrid,SPK-1205,Planned
+EV2298,2027-02-13,Type 2 Diabetes Intensification,In-person,SPK-1200,Planned
+EV2299,2027-02-18,Obesity & Metabolic Health,In-person,SPK-1200,Planned
+EV2300,2027-02-23,Advanced Solid Tumor Therapy,In-person,SPK-1110,Planned

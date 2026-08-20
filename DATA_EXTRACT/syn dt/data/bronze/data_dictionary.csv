@@ -1,0 +1,76 @@
+dataset,column,data_type,description,example_value,constraints
+hcp_master.csv,hcp_id,string,Master (golden) HCP identifier; primary key used by every other bronze file.,HCP100001,PK; unique; not null; pattern HCP[0-9]{6}
+hcp_master.csv,specialty,string,Primary practice specialty; drives topic relevance and product affinity.,Cardiology,Enum(8): Cardiology|Oncology|Endocrinology|Neurology|Dermatology|Primary Care|Psychiatry|Gastroenterology; uneven distribution
+hcp_master.csv,region,string,Sales region of record; joins to market_factors.region.,Northeast,Enum(7); FK -> market_factors.region; not null
+hcp_master.csv,segment,string,"Commercial value segment derived from latent patient opportunity (noisy, not deterministic).",High,Enum(3): High|Medium|Low; ~18/37/45 split
+hcp_master.csv,active_flag,integer,"1 = actively targeted/prescribing, 0 = inactive. Inactive HCPs show materially lower activity and Rx.",1,"Domain {0,1}; ~88% = 1"
+events.csv,event_id,string,Speaker program identifier.,EV2001,PK; unique; not null; pattern EV[0-9]{4}
+events.csv,date,date,Scheduled event date (ISO-8601). Historical events 2024-09..2026-05; Planned events are future-dated.,2025-03-14,YYYY-MM-DD; not null; Planned rows > run date
+events.csv,topic,string,Therapeutic topic; maps 1:1 to the promoted product (mapping is NOT exposed in bronze).,Heart Failure Management,Enum(8) tied to the 4-product portfolio
+events.csv,format,string,"Delivery format; drives cost, travel friction and effect size.",In-person,Enum(3): In-person|Virtual|Hybrid
+events.csv,speaker,string,Synthetic speaker identifier; speakers specialise by therapeutic area.,SPK-1004,Not null; pattern SPK-[0-9]{4}; 44 distinct
+events.csv,status,string,Lifecycle status. ONLY 'Completed' constitutes treatment exposure.,Completed,Enum(3): Completed(~87%)|Cancelled(~5%)|Planned(~8%)
+event_invitations.csv,event_id,string,Invited-to event.,EV2001,FK -> events.event_id; PK part 1
+event_invitations.csv,hcp_id,string,Invited HCP.,HCP100742,FK -> hcp_master.hcp_id; PK part 2
+event_invitations.csv,invited_at,date,Date the invitation was issued.,2025-02-11,YYYY-MM-DD; must be <= events.date for the same event_id
+event_invitations.csv,channel,string,Channel the invitation was delivered through; sets the invite lead time.,Email,Enum(4): Email|Rep|Phone|Portal
+event_invitations.csv,eligible_reason,string,Dominant targeting driver recorded by the invitation engine.,Specialty match,Enum(6): Specialty match|Product affinity|Geographic proximity|Prior engagement|Patient-volume threshold|Combination of factors
+event_attendance.csv,event_id,string,Event the sign-in record belongs to.,EV2001,"FK -> events.event_id; (event_id,hcp_id) must exist in event_invitations"
+event_attendance.csv,hcp_id,string,HCP the sign-in record belongs to.,HCP100742,FK -> hcp_master.hcp_id
+event_attendance.csv,registered,integer,"1 = HCP registered for the program, 0 = tracked response without registration (declined/no action).",1,"Domain {0,1}; verified_attended=1 implies registered=1"
+event_attendance.csv,verified_attended,integer,"1 = attendance verified at the event, 0 = registered but did not attend.",1,"Domain {0,1}"
+event_attendance.csv,duration,integer,Verified minutes present. 0 when verified_attended = 0.,78,Integer >= 0; >0 iff verified_attended=1
+event_attendance.csv,engagement,integer,Engagement score for the session. 0 when verified_attended = 0.,61,Integer 0..100; 5..100 iff verified_attended=1
+hcp_rx_monthly.csv,hcp_id,string,Prescribing HCP.,HCP100001,FK -> hcp_master.hcp_id; PK part 1
+hcp_rx_monthly.csv,month,string,Calendar month of the prescription counts.,2025-03,YYYY-MM; FK -> market_factors.month; PK part 2
+hcp_rx_monthly.csv,product,string,Portfolio product.,CARDIVEX,Enum(4); FK -> business_assumptions.product; PK part 3
+hcp_rx_monthly.csv,nrx,integer,New prescriptions written in the month (NegativeBinomial draw).,9,Integer >= 0
+hcp_rx_monthly.csv,trx,integer,Total prescriptions (new + refills) in the month.,23,Integer >= 0; trx >= nrx always
+hcp_rx_monthly.csv,competitor_trx,integer,Total prescriptions for competing molecules in the class.,31,Integer >= 0
+marketing_activity.csv,hcp_id,string,Targeted HCP.,HCP100001,FK -> hcp_master.hcp_id; PK part 1
+marketing_activity.csv,date,date,"Month of activity, stamped to the first of the month (monthly aggregate grain).",2025-03-01,YYYY-MM-01; PK part 2
+marketing_activity.csv,rep_calls,integer,Sales-rep detail calls in the month. Confounds both Rx and attendance.,4,Integer >= 0
+marketing_activity.csv,emails,integer,Marketing emails delivered in the month.,6,Integer >= 0
+marketing_activity.csv,samples,integer,Sample units dropped in the month.,9,Integer >= 0
+marketing_activity.csv,other_events,integer,"Non-speaker-program touchpoints (congresses, advisory boards) in the month.",1,Integer >= 0
+event_cost.csv,event_id,string,Costed event.,EV2001,PK; unique; FK -> events.event_id; one row per event
+event_cost.csv,honorarium,"numeric(12,2)",Speaker honorarium paid.,3412.55,USD >= 0
+event_cost.csv,venue,"numeric(12,2)",Venue / streaming-platform cost.,2760.40,USD >= 0; In-person >> Virtual
+event_cost.csv,meal,"numeric(12,2)",Compliant meal spend.,1884.20,USD >= 0; ~0 for Virtual
+event_cost.csv,travel,"numeric(12,2)",Speaker and attendee travel/lodging.,2105.90,USD >= 0; ~0 for Virtual
+event_cost.csv,agency,"numeric(12,2)",Agency/logistics fees.,2488.10,USD >= 0
+event_cost.csv,total,"numeric(12,2)",Total program cost. Sole cost input to the downstream ROI denominator.,12651.15,= honorarium+venue+meal+travel+agency (exact); ~2% of rows are 3-5x format norm
+market_factors.csv,region,string,Sales region.,Northeast,Enum(7); FK <- hcp_master.region; PK part 1
+market_factors.csv,month,string,Calendar month.,2025-03,YYYY-MM; PK part 2; spans the full Rx panel
+market_factors.csv,access,"numeric(6,4)",Formulary/payer access index for the region-month.,0.7431,0.52 .. 0.98
+market_factors.csv,seasonality,"numeric(6,4)",Multiplicative seasonality index centred on 1.0.,1.0482,~0.90 .. 1.10
+market_factors.csv,competitor_index,"numeric(6,4)",Competitive pressure index; >1 = above-normal pressure (staggered competitor entry).,1.1205,0.70 .. 1.75
+identity_crosswalk.csv,master_hcp_id,string,Golden record ID; equals hcp_master.hcp_id.,HCP100001,PK; unique; FK -> hcp_master.hcp_id; one row per HCP
+identity_crosswalk.csv,crm_hcp_id,string,CRM system identifier (independent numbering).,CRM-4820193,Unique; not null; pattern CRM-[0-9]{7}
+identity_crosswalk.csv,event_hcp_id,string,Event/meeting-management system identifier.,EVT03918442,Unique when present; NULL for ~2% of rows (unresolved event identity)
+identity_crosswalk.csv,rx_vendor_hcp_id,string,Prescription data vendor identifier.,RXV_2910744X,Unique when present; NULL for ~3% of rows (unresolved Rx identity)
+identity_crosswalk.csv,match_status,string,Identity resolution outcome. 'review' rows must be QUARANTINED downstream - never silently treated as non-attendees.,verified,Enum(2): verified(~95%)|review(~5%); 'review' iff an ID is NULL
+business_assumptions.csv,product,string,Portfolio product.,CARDIVEX,Enum(4); PK part 1; FK <- hcp_rx_monthly.product
+business_assumptions.csv,scenario,string,Financial scenario.,Base,Enum(3): Conservative|Base|Optimistic; PK part 2
+business_assumptions.csv,expected_fills_per_new_rx,"numeric(6,2)",Expected number of dispensed fills generated by one new Rx.,6.20,> 0; Optimistic > Base > Conservative
+business_assumptions.csv,net_contribution_per_fill,"numeric(12,2)",Net contribution (USD) per dispensed fill.,92.00,> 0; varies by product margin
+business_assumptions.csv,net_contribution_per_incremental_nrx,"numeric(14,2)",Net contribution per incremental NRx. THE ONLY financial multiplier permitted downstream.,570.40,= expected_fills_per_new_rx * net_contribution_per_fill (exact)
+ground_truth.csv,event_id,string,Completed event that generated the exposure.,EV2001,FK -> events.event_id (status='Completed'); PK part 1
+ground_truth.csv,hcp_id,string,Verified attendee.,HCP100742,FK -> hcp_master.hcp_id; PK part 2
+ground_truth.csv,true_event_effect_nrx,"numeric(12,4)","HIDDEN TRUTH: total incremental NRx caused by this event for this HCP, summed over post-months +1..+3 (weights 0.45/0.33/0.22). Can be negative.",4.8312,Real; NEVER a model input; absent rows = zero true effect
+ground_truth.csv,true_event_effect_trx,"numeric(12,4)",HIDDEN TRUTH: matching total incremental TRx over post-months +1..+3.,11.9044,Real; NEVER a model input
+data_dictionary.csv,dataset,string,Bronze file the column belongs to.,hcp_master.csv,Not null
+data_dictionary.csv,column,string,Column name.,hcp_id,"Not null; (dataset,column) unique"
+data_dictionary.csv,data_type,string,Logical data type.,string,Not null
+data_dictionary.csv,description,string,Business meaning of the column.,Master HCP identifier.,Not null
+data_dictionary.csv,example_value,string,Representative value.,HCP100001,Free text
+data_dictionary.csv,constraints,string,"Keys, domains, ranges and injected-defect notes.",PK; unique; not null,Free text
+data_quality_report.csv,check_name,string,Stable machine-readable check identifier.,imperfection_duplicate_signin_injected,Not null; unique
+data_quality_report.csv,dataset,string,Bronze file(s) the check was executed against.,event_attendance.csv,Not null
+data_quality_report.csv,expected,string,The rule or target the check asserts.,~1.0% of attendance rows duplicated,Not null
+data_quality_report.csv,observed,string,Value measured from the written CSV.,1.00% (102/10214),Not null
+data_quality_report.csv,status,string,pass = bronze satisfies the rule. fail = an intentional defect is present and the downstream layer must handle it.,pass,Enum(2): pass|fail
+_checksums.csv,filename,string,Bronze file name.,hcp_master.csv,PK; unique
+_checksums.csv,row_count,integer,Data rows in the file (header excluded).,2500,Integer >= 0
+_checksums.csv,sha256,string,SHA-256 of the file bytes; reproducible from data/seed.txt.,9f1c...,64 hex chars
+_checksums.csv,generated_at,string,UTC generation timestamp of the batch (audit metadata only).,2026-08-19T00:00:00Z,ISO-8601 UTC
