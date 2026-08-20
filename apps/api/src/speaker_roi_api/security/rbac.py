@@ -258,6 +258,7 @@ ROLE_PERMISSIONS: dict[Role, frozenset[Permission]] = {
     Role.BRAND_MANAGER: _ANALYTICAL_READ
     | frozenset(
         {
+            P.HCP_READ,
             P.EVENT_WRITE,
             P.CAMPAIGN_WRITE,
             P.SCENARIO_WRITE,
