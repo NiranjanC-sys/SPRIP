@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-bg-primary: hsl(0 0% 100%);
+  --color-bg-secondary: hsl(220 14% 96%);
+  --color-bg-tertiary: hsl(220 13% 91%);
+  --color-bg-card: hsl(0 0% 100%);
+  --color-bg-sidebar: hsl(220 14% 96%);
+  --color-bg-input: hsl(0 0% 100%);
+
+  --color-text-primary: hsl(224 71% 4%);
+  --color-text-secondary: hsl(220 9% 43%);
+  --color-text-tertiary: hsl(220 9% 58%);
+  --color-text-inverse: hsl(0 0% 100%);
+
+  --color-border-default: hsl(220 13% 91%);
+  --color-border-hover: hsl(220 9% 76%);
+  --color-border-focus: hsl(245 58% 51%);
+
+  --color-accent: hsl(245 58% 51%);
+  --color-accent-hover: hsl(245 58% 44%);
+  --color-accent-soft: hsl(245 58% 95%);
+
+  --color-success: hsl(142 71% 45%);
+  --color-warning: hsl(38 92% 50%);
+  --color-danger: hsl(0 84% 60%);
+
+  --color-chart-1: hsl(245 58% 51%);
+  --color-chart-2: hsl(199 89% 48%);
+  --color-chart-3: hsl(142 71% 45%);
+  --color-chart-4: hsl(38 92% 50%);
+  --color-chart-5: hsl(0 84% 60%);
+}
+
+:root.dark {
+  --color-bg-primary: hsl(224 71% 4%);
+  --color-bg-secondary: hsl(222 47% 8%);
+  --color-bg-tertiary: hsl(217 33% 14%);
+  --color-bg-card: hsl(222 47% 8%);
+  --color-bg-sidebar: hsl(222 47% 6%);
+  --color-bg-input: hsl(217 33% 14%);
+
+  --color-text-primary: hsl(210 40% 98%);
+  --color-text-secondary: hsl(215 16% 57%);
+  --color-text-tertiary: hsl(217 10% 42%);
+  --color-text-inverse: hsl(224 71% 4%);
+
+  --color-border-default: hsl(217 33% 17%);
+  --color-border-hover: hsl(215 16% 30%);
+  --color-border-focus: hsl(245 58% 55%);
+
+  --color-accent: hsl(245 58% 55%);
+  --color-accent-hover: hsl(245 58% 62%);
+  --color-accent-soft: hsl(245 40% 15%);
+
+  --color-success: hsl(142 71% 45%);
+  --color-warning: hsl(38 92% 50%);
+  --color-danger: hsl(0 84% 60%);
+
+  --color-chart-1: hsl(245 58% 60%);
+  --color-chart-2: hsl(199 89% 55%);
+  --color-chart-3: hsl(142 71% 50%);
+  --color-chart-4: hsl(38 92% 55%);
+  --color-chart-5: hsl(0 84% 65%);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border-default); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-border-hover); }

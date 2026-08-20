@@ -1,0 +1,73 @@
+# ---------------------------------------------------------------------------
+# Secrets. Nothing in this block may ever reach a commit.
+# ---------------------------------------------------------------------------
+key.txt
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+!**/public/**/*.key
+secrets/
+.secrets/
+
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.hypothesis/
+
+# ---------------------------------------------------------------------------
+# Node / Next.js
+# ---------------------------------------------------------------------------
+node_modules/
+.next/
+out/
+.turbo/
+*.tsbuildinfo
+.eslintcache
+
+# ---------------------------------------------------------------------------
+# Local tooling installed by scripts/devtools (portable Node, embedded Postgres)
+# ---------------------------------------------------------------------------
+.tools/
+
+# ---------------------------------------------------------------------------
+# Runtime artifacts. Model binaries and generated datasets are reproducible from
+# a seed and a spec; committing them would put multi-megabyte blobs in history
+# for no gain.
+# ---------------------------------------------------------------------------
+artifacts/
+var/
+tmp/
+*.log
+data/synthetic/
+data/local/
+minio-data/
+pgdata/
+
+# ---------------------------------------------------------------------------
+# Editors and OS
+# ---------------------------------------------------------------------------
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.shared.json
+.DS_Store
+Thumbs.db
+desktop.ini
+.scratch/

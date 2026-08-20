@@ -1,0 +1,199 @@
+import { Tag, Users, Megaphone, CalendarDays, TrendingUp, DollarSign } from "lucide-react";
+import { MetricCard } from "@/components/MetricCard";
+import { PageHeader } from "@/components/PageHeader";
+import { useApi } from "@/hooks/useApi";
+import { api } from "@/lib/api";
+import { useAuth } from "@/context/AuthContext";
+
+export function DashboardPage() {
+  const { user } = useAuth();
+  const brands = useApi(() => api.brands(), []);
+  const hcps = useApi(() => api.hcps(), []);
+  const campaigns = useApi(() => api.campaigns(), []);
+  const events = useApi(() => api.events(), []);
+
+  const brandCount = brands.data?.items.length ?? 0;
+  const hcpCount = hcps.data?.items.length ?? 0;
+  const campaignCount = campaigns.data?.items.length ?? 0;
+  const eventCount = events.data?.items.length ?? 0;
+
+  return (
+    <div>
+      <PageHeader
+        title={`Welcome, ${user?.user.displayName ?? "User"}`}
+        description={
+          user?.activeTenant
+            ? `${user.activeTenant.name} — ${user.roles.join(", ")}`
+            : "Platform overview"
+        }
+      />
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mb-8">
+        <MetricCard label="Brands" value={brandCount} icon={Tag} />
+        <MetricCard label="HCPs" value={hcpCount} icon={Users} />
+        <MetricCard
+          label="Campaigns"
+          value={campaignCount}
+          icon={Megaphone}
+        />
+        <MetricCard label="Events" value={eventCount} icon={CalendarDays} />
+        <MetricCard
+          label="Total Budget"
+          value={formatCurrency(
+            campaigns.data?.items.reduce(
+              (sum, c) => sum + (Number(c.budget) || 0),
+              0
+            ) ?? 0
+          )}
+          icon={DollarSign}
+        />
+        <MetricCard
+          label="Avg ROI"
+          value={
+            events.data?.items.length
+              ? `${(
+                  events.data.items.reduce(
+                    (s, e) => s + (Number(e.roi) || 0),
+                    0
+                  ) / events.data.items.length
+                ).toFixed(1)}x`
+              : "N/A"
+          }
+          icon={TrendingUp}
+        />
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <RecentSection title="Recent Brands">
+          {brands.status === "loading" ? (
+            <SkeletonRows />
+          ) : (
+            (brands.data?.items ?? []).slice(0, 5).map((b) => (
+              <Row key={b.id} primary={b.name} secondary={String(b.code ?? "")} />
+            ))
+          )}
+          {brands.status === "success" && brandCount === 0 && (
+            <EmptyHint text="No brands yet. Create one to get started." />
+          )}
+        </RecentSection>
+
+        <RecentSection title="Recent Events">
+          {events.status === "loading" ? (
+            <SkeletonRows />
+          ) : (
+            (events.data?.items ?? []).slice(0, 5).map((e) => (
+              <Row
+                key={e.id}
+                primary={e.name}
+                secondary={e.date ? new Date(e.date).toLocaleDateString() : ""}
+                badge={e.status}
+              />
+            ))
+          )}
+          {events.status === "success" && eventCount === 0 && (
+            <EmptyHint text="No events scheduled." />
+          )}
+        </RecentSection>
+      </div>
+    </div>
+  );
+}
+
+function RecentSection({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div
+      className="rounded-xl border"
+      style={{
+        backgroundColor: "var(--color-bg-card)",
+        borderColor: "var(--color-border-default)",
+      }}
+    >
+      <div
+        className="px-5 py-3 border-b font-medium text-sm"
+        style={{ borderColor: "var(--color-border-default)" }}
+      >
+        {title}
+      </div>
+      <div className="divide-y" style={{ borderColor: "var(--color-border-default)" }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function Row({
+  primary,
+  secondary,
+  badge,
+}: {
+  primary: string;
+  secondary: string;
+  badge?: string;
+}) {
+  return (
+    <div className="flex items-center justify-between px-5 py-3">
+      <div>
+        <div className="text-sm font-medium">{primary}</div>
+        <div
+          className="text-xs"
+          style={{ color: "var(--color-text-tertiary)" }}
+        >
+          {secondary}
+        </div>
+      </div>
+      {badge && (
+        <span
+          className="text-xs px-2 py-0.5 rounded-full"
+          style={{
+            backgroundColor: "var(--color-accent-soft)",
+            color: "var(--color-accent)",
+          }}
+        >
+          {badge}
+        </span>
+      )}
+    </div>
+  );
+}
+
+function SkeletonRows() {
+  return (
+    <>
+      {[1, 2, 3].map((i) => (
+        <div key={i} className="px-5 py-4">
+          <div
+            className="h-3 rounded w-1/2 mb-2 animate-pulse"
+            style={{ backgroundColor: "var(--color-bg-tertiary)" }}
+          />
+          <div
+            className="h-2 rounded w-1/4 animate-pulse"
+            style={{ backgroundColor: "var(--color-bg-tertiary)" }}
+          />
+        </div>
+      ))}
+    </>
+  );
+}
+
+function EmptyHint({ text }: { text: string }) {
+  return (
+    <div
+      className="px-5 py-8 text-center text-sm"
+      style={{ color: "var(--color-text-tertiary)" }}
+    >
+      {text}
+    </div>
+  );
+}
+
+function formatCurrency(n: number): string {
+  if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`;
+  if (n >= 1_000) return `$${(n / 1_000).toFixed(0)}K`;
+  return `$${n.toFixed(0)}`;
+}

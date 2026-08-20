@@ -1,0 +1,479 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   Design tokens.
+
+   This file is the ONLY place in apps/web allowed to contain a raw colour
+   literal. Everything downstream refers to a token, which is what lets the
+   theme toggle repaint the whole product — charts included — without a reload.
+
+   Three theme states must all resolve, in this order of authority:
+     1. :root[data-theme="dark"]                     explicit user choice
+     2. :root[data-theme="light"]                    explicit user choice (bare :root)
+     3. @media (prefers-color-scheme: dark)          OS default, when unchosen
+   State 3 is guarded by :not([data-theme="light"]) so a user who explicitly
+   picked light is not overridden by their OS at 6pm. State 3 also carries the
+   pre-hydration render: next-themes writes the attribute in a blocking script,
+   but the media query is what keeps a JS-disabled or slow first paint correct.
+   ========================================================================== */
+
+:root {
+  /* --- surfaces ------------------------------------------------------- */
+  --canvas: #f6f8fb;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --surface-sunken: #f0f3f8;
+  --border: #e2e7ef;
+  --border-strong: #cbd3e1;
+
+  /* --- text ----------------------------------------------------------- */
+  --text: #0e1729;
+  --text-muted: #57637a;
+  --text-subtle: #7d8899;
+
+  /* --- navigation ------------------------------------------------------
+     Deliberately dark navy in BOTH themes (plan.md §7.0). The nav is a
+     constant frame; re-tinting it on every theme switch makes the product
+     feel like two different applications. */
+  --nav-bg: #0e1b31;
+  --nav-fg: #c7d3e6;
+  --nav-fg-active: #ffffff;
+  --nav-active-bg: #1b2c4d;
+
+  /* --- intent --------------------------------------------------------- */
+  --primary: #1b5fe3;
+  --primary-fg: #ffffff;
+  --primary-hover: #1750c4;
+  --positive: #0c8c7e;
+  --positive-soft: #e6f6f4;
+  --warning: #a65a06;
+  --warning-soft: #fdf3e6;
+  --danger: #b4221a;
+  --danger-soft: #fdedec;
+  --info: #2563a8;
+  --info-soft: #eaf1fa;
+  --focus: #2c7df0;
+
+  /* --- charts ---------------------------------------------------------
+     attendee/control is a fixed pair across every chart in the product
+     (plan.md §7.0): the reader must never have to re-learn which line is
+     the counterfactual. */
+  --chart-attendee: #1b5fe3;
+  --chart-control: #64748b;
+  --chart-cat-1: #1b5fe3;
+  --chart-cat-2: #0c8c7e;
+  --chart-cat-3: #7c5cd6;
+  --chart-cat-4: #c2410c;
+  --chart-cat-5: #0891b2;
+  --chart-cat-6: #b4227a;
+  --chart-cat-7: #4d7c0f;
+  --chart-cat-8: #a65a06;
+
+  /* Sequential ramp, low -> high. Used by region heat maps. */
+  --chart-seq-1: #e8f0fe;
+  --chart-seq-2: #b9d2f8;
+  --chart-seq-3: #7ba8ee;
+  --chart-seq-4: #3d7ae0;
+  --chart-seq-5: #14449c;
+
+  /* Diverging ramp, teal (favourable) -> neutral -> red (unfavourable).
+     Seven stops so the midpoint is a real colour, not an interpolation. */
+  --chart-div-1: #0c8c7e;
+  --chart-div-2: #5fbbae;
+  --chart-div-3: #b3ded8;
+  --chart-div-4: #eef1f5;
+  --chart-div-5: #f3b9b5;
+  --chart-div-6: #dc6d65;
+  --chart-div-7: #b4221a;
+
+  /* Chart chrome. Kept separate from --border so grid lines can be lighter
+     than component borders without a magic opacity in the chart code. */
+  --chart-grid: #e6ebf3;
+  --chart-axis: #94a1b5;
+  --chart-band: #1b5fe3;
+  --chart-band-opacity: 0.14;
+
+  /* --- elevation -------------------------------------------------------
+     Near-invisible in dark; that theme separates planes with --border
+     contrast instead, because a glow on a dark surface reads as a bug. */
+  --shadow-sm: 0 1px 2px 0 rgb(15 23 42 / 0.05);
+  --shadow-md: 0 2px 4px -1px rgb(15 23 42 / 0.07), 0 4px 12px -2px rgb(15 23 42 / 0.06);
+  --shadow-lg: 0 8px 24px -6px rgb(15 23 42 / 0.12), 0 2px 6px -2px rgb(15 23 42 / 0.06);
+
+  /* --- overlays -------------------------------------------------------- */
+  --overlay: rgb(9 15 30 / 0.42);
+  --skeleton: #e8ecf3;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --canvas: #0a1020;
+    --surface: #121b2e;
+    --surface-raised: #18243c;
+    --surface-sunken: #0d1526;
+    --border: #24314c;
+    --border-strong: #33436a;
+
+    --text: #e8edf5;
+    --text-muted: #93a2ba;
+    --text-subtle: #6c7c96;
+
+    --nav-bg: #080e1b;
+    --nav-fg: #aebcd4;
+    --nav-fg-active: #ffffff;
+    --nav-active-bg: #16233d;
+
+    --primary: #5691ff;
+    --primary-fg: #061024;
+    --primary-hover: #6e9eff;
+    --positive: #2fd4c0;
+    --positive-soft: #10312d;
+    --warning: #f0a22e;
+    --warning-soft: #33230a;
+    --danger: #fb7970;
+    --danger-soft: #341412;
+    --info: #6fb3f0;
+    --info-soft: #0f2438;
+    --focus: #7fb2ff;
+
+    --chart-attendee: #5691ff;
+    --chart-control: #94a3b8;
+    --chart-cat-1: #5691ff;
+    --chart-cat-2: #2fd4c0;
+    --chart-cat-3: #a78bfa;
+    --chart-cat-4: #fb923c;
+    --chart-cat-5: #22d3ee;
+    --chart-cat-6: #f472b6;
+    --chart-cat-7: #a3e635;
+    --chart-cat-8: #f0a22e;
+
+    --chart-seq-1: #16233d;
+    --chart-seq-2: #1e3a6b;
+    --chart-seq-3: #2e5ca8;
+    --chart-seq-4: #4a85dc;
+    --chart-seq-5: #8fb8ff;
+
+    --chart-div-1: #2fd4c0;
+    --chart-div-2: #23a594;
+    --chart-div-3: #1a6e64;
+    --chart-div-4: #2a3550;
+    --chart-div-5: #7e332e;
+    --chart-div-6: #c1483f;
+    --chart-div-7: #fb7970;
+
+    --chart-grid: #1e2a42;
+    --chart-axis: #64748b;
+    --chart-band: #5691ff;
+    --chart-band-opacity: 0.2;
+
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --shadow-md: 0 2px 6px -1px rgb(0 0 0 / 0.4);
+    --shadow-lg: 0 12px 32px -8px rgb(0 0 0 / 0.55);
+
+    --overlay: rgb(3 7 16 / 0.66);
+    --skeleton: #1c2740;
+  }
+}
+
+:root[data-theme='dark'] {
+  --canvas: #0a1020;
+  --surface: #121b2e;
+  --surface-raised: #18243c;
+  --surface-sunken: #0d1526;
+  --border: #24314c;
+  --border-strong: #33436a;
+
+  --text: #e8edf5;
+  --text-muted: #93a2ba;
+  --text-subtle: #6c7c96;
+
+  --nav-bg: #080e1b;
+  --nav-fg: #aebcd4;
+  --nav-fg-active: #ffffff;
+  --nav-active-bg: #16233d;
+
+  --primary: #5691ff;
+  --primary-fg: #061024;
+  --primary-hover: #6e9eff;
+  --positive: #2fd4c0;
+  --positive-soft: #10312d;
+  --warning: #f0a22e;
+  --warning-soft: #33230a;
+  --danger: #fb7970;
+  --danger-soft: #341412;
+  --info: #6fb3f0;
+  --info-soft: #0f2438;
+  --focus: #7fb2ff;
+
+  --chart-attendee: #5691ff;
+  --chart-control: #94a3b8;
+  --chart-cat-1: #5691ff;
+  --chart-cat-2: #2fd4c0;
+  --chart-cat-3: #a78bfa;
+  --chart-cat-4: #fb923c;
+  --chart-cat-5: #22d3ee;
+  --chart-cat-6: #f472b6;
+  --chart-cat-7: #a3e635;
+  --chart-cat-8: #f0a22e;
+
+  --chart-seq-1: #16233d;
+  --chart-seq-2: #1e3a6b;
+  --chart-seq-3: #2e5ca8;
+  --chart-seq-4: #4a85dc;
+  --chart-seq-5: #8fb8ff;
+
+  --chart-div-1: #2fd4c0;
+  --chart-div-2: #23a594;
+  --chart-div-3: #1a6e64;
+  --chart-div-4: #2a3550;
+  --chart-div-5: #7e332e;
+  --chart-div-6: #c1483f;
+  --chart-div-7: #fb7970;
+
+  --chart-grid: #1e2a42;
+  --chart-axis: #64748b;
+  --chart-band: #5691ff;
+  --chart-band-opacity: 0.2;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 2px 6px -1px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 12px 32px -8px rgb(0 0 0 / 0.55);
+
+  --overlay: rgb(3 7 16 / 0.66);
+  --skeleton: #1c2740;
+}
+
+/* ==========================================================================
+   Tailwind theme bridge.
+
+   `@theme inline` emits the utility referring to `var(--token)` instead of
+   copying the value, so `bg-surface` follows the active theme. Anything that
+   does NOT change per theme (radius, motion, type scale) uses plain `@theme`.
+   ========================================================================== */
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-text-subtle: var(--text-subtle);
+
+  --color-nav-bg: var(--nav-bg);
+  --color-nav-fg: var(--nav-fg);
+  --color-nav-fg-active: var(--nav-fg-active);
+  --color-nav-active-bg: var(--nav-active-bg);
+
+  --color-primary: var(--primary);
+  --color-primary-fg: var(--primary-fg);
+  --color-primary-hover: var(--primary-hover);
+  --color-positive: var(--positive);
+  --color-positive-soft: var(--positive-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-focus: var(--focus);
+  --color-overlay: var(--overlay);
+  --color-skeleton: var(--skeleton);
+
+  --color-chart-attendee: var(--chart-attendee);
+  --color-chart-control: var(--chart-control);
+  --color-chart-grid: var(--chart-grid);
+  --color-chart-axis: var(--chart-axis);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, 'SFMono-Regular', 'Consolas', monospace;
+}
+
+@theme {
+  /* 8px rhythm. Tailwind's 0.25rem step is kept because every engineer already
+     reads `p-4` as 16px; the rhythm is expressed by using even steps
+     (2 / 4 / 6 / 8 = 8 / 16 / 24 / 32px) rather than by redefining the unit. */
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Dense-but-legible: enterprise tables need a step below Tailwind's `text-xs`
+     for column meta, and a display size the default scale does not provide. */
+  --text-2xs: 0.6875rem; /* 11px */
+  --text-2xs--line-height: 1rem;
+  --text-display: 1.75rem; /* 28px */
+  --text-display--line-height: 2.125rem;
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Tailwind v4 has no built-in dark variant for a data attribute. Registering it
+   here means `dark:` works for the handful of cases a token cannot express
+   (e.g. suppressing a shadow entirely rather than dimming it). */
+@custom-variant dark {
+  &:where([data-theme='dark'], [data-theme='dark'] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme='light']) *, :root:not([data-theme='light'])) {
+      @slot;
+    }
+  }
+}
+
+/* ==========================================================================
+   Base layer
+   ========================================================================== */
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scrollbar-color: var(--border-strong) transparent;
+  }
+
+  body {
+    background-color: var(--canvas);
+    color: var(--text);
+    font-family: var(--font-sans);
+    /* Tabular figures everywhere: a column of NRx estimates that jitters as
+       digits change width is unreadable, and this product is mostly numbers. */
+    font-variant-numeric: tabular-nums;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* One focus treatment for the entire product. Components must not override
+     it; if a ring is invisible somewhere, the surface is wrong, not the ring. */
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--primary) 24%, transparent);
+  }
+
+  /* Respect the OS setting rather than shipping a separate "reduce motion"
+     toggle nobody finds. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Skip link — the first tab stop of every page. */
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 100;
+  }
+  .skip-link:focus {
+    left: 0.5rem;
+    top: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--surface-raised);
+    color: var(--text);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Scrollbars: visible enough to grab, quiet enough not to compete with data. */
+  .scroll-thin::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  .scroll-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scroll-thin::-webkit-scrollbar-thumb {
+    background-color: var(--border-strong);
+    border: 3px solid transparent;
+    background-clip: content-box;
+    border-radius: 9999px;
+  }
+
+  /* Login-panel backdrop. An abstract cohort/counterfactual motif — two
+     diverging fields — rather than stock imagery. Pure CSS so it costs no
+     bytes and works offline. */
+  .auth-visual {
+    background-color: var(--nav-bg);
+    background-image:
+      radial-gradient(ellipse 80% 60% at 15% 0%, color-mix(in srgb, var(--primary) 42%, transparent), transparent 60%),
+      radial-gradient(ellipse 70% 55% at 95% 100%, color-mix(in srgb, var(--positive) 30%, transparent), transparent 62%),
+      linear-gradient(180deg, color-mix(in srgb, var(--nav-bg) 88%, black), var(--nav-bg));
+  }
+  .auth-grid {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, black, transparent 78%);
+  }
+}
+
+@layer utilities {
+  /* Shimmer for skeletons. Kept here so every skeleton animates identically. */
+  @keyframes sr-shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  .animate-shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--surface) 60%, transparent),
+      transparent
+    );
+    animation: sr-shimmer 1.6s infinite;
+  }
+
+  @keyframes sr-indeterminate {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(300%);
+    }
+  }
+  .animate-indeterminate {
+    animation: sr-indeterminate 1.4s var(--ease-out-quint) infinite;
+  }
+
+  /* Print: the compliance reviewer prints evidence pages. Drop the chrome. */
+  @media print {
+    .print\:hidden {
+      display: none !important;
+    }
+  }
+}
