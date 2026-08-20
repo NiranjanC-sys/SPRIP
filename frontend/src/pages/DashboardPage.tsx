@@ -9,18 +9,17 @@ import { AreaChart, Area, ResponsiveContainer } from "recharts";
 
 export function DashboardPage() {
   const { user } = useAuth();
-  const brands = useApi(() => api.brands(), []);
-  const hcps = useApi(() => api.hcps(), []);
-  const campaigns = useApi(() => api.campaigns(), []);
+  const dashStats = useApi(() => api.dashboardStats(), []);
   const events = useApi(() => api.events(), []);
-  const dashStats = useApi(() => api.dashboardStats().catch(() => null), []);
+  const brands = useApi(() => api.brands(), []);
 
-  const brandCount = dashStats.data?.totalBrands ?? brands.data?.items.length ?? 0;
-  const hcpCount = dashStats.data?.totalHcps ?? hcps.data?.items.length ?? 0;
-  const campaignCount = dashStats.data?.totalCampaigns ?? campaigns.data?.items.length ?? 0;
-  const eventCount = dashStats.data?.totalEvents ?? events.data?.items.length ?? 0;
+  const brandCount = dashStats.data?.totalBrands ?? 0;
+  const hcpCount = dashStats.data?.totalHcps ?? 0;
+  const campaignCount = dashStats.data?.totalCampaigns ?? 0;
+  const eventCount = dashStats.data?.totalEvents ?? 0;
+  const totalSpend = dashStats.data?.totalSpend ?? 0;
+  const avgRoi = dashStats.data?.avgRoi;
 
-  // Build a simple sparkline from event dates (count per month)
   const sparklineData = useMemo(() => {
     const items = events.data?.items ?? [];
     if (items.length === 0) return [];
@@ -51,34 +50,24 @@ export function DashboardPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mb-4">
         <MetricCard label="Brands" value={brandCount} icon={Tag} />
         <MetricCard label="HCPs" value={hcpCount} icon={Users} />
-        <MetricCard
-          label="Campaigns"
-          value={campaignCount}
-          icon={Megaphone}
-        />
+        <MetricCard label="Campaigns" value={campaignCount} icon={Megaphone} />
         <MetricCard label="Events" value={eventCount} icon={CalendarDays} />
         <MetricCard
           label="Total Budget"
-          value={formatCurrency(
-            campaigns.data?.items.reduce(
-              (sum, c) => sum + (Number(c.plannedBudget) || 0),
-              0
-            ) ?? 0
-          )}
+          value={formatCurrency(totalSpend)}
           icon={DollarSign}
         />
         <MetricCard
           label="Avg ROI"
           value={
-            dashStats.data?.avgRoi != null && dashStats.data.avgRoi > 0
-              ? `${dashStats.data.avgRoi.toFixed(1)}x`
+            avgRoi != null && avgRoi > 0
+              ? `${avgRoi.toFixed(1)}x`
               : "N/A"
           }
           icon={TrendingUp}
         />
       </div>
 
-      {/* Sparkline */}
       {sparklineData.length > 1 && (
         <div
           className="rounded-xl border p-4 mb-6"

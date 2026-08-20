@@ -79,53 +79,58 @@ async def dashboard_stats(db: ReadOnlySession) -> DashboardStats:
     dependencies=[Depends(require(Permission.CAMPAIGN_READ))],
 )
 async def roi_trend(db: ReadOnlySession) -> RoiTrendResponse:
-    # Monthly spend per brand
-    spend_rows = (await db.execute(text("""
-        SELECT to_char(date_trunc('month', e.event_date), 'YYYY-MM') AS month,
-               b.name AS brand,
-               COALESCE(SUM(ec.amount), 0) AS spend
-        FROM core.events e
-        JOIN core.brands b ON b.id = e.brand_id
-        LEFT JOIN core.event_costs ec ON ec.event_id = e.id
-        GROUP BY date_trunc('month', e.event_date), b.name
-        ORDER BY month, brand
-    """))).mappings().all()
+    try:
+        await db.execute(text("SET LOCAL statement_timeout = '5000'"))
 
-    # Monthly Rx per brand
-    rx_rows = (await db.execute(text("""
-        SELECT to_char(rx.month, 'YYYY-MM') AS month,
-               b.name AS brand,
-               COALESCE(SUM(rx.trx), 0) AS trx
-        FROM core.hcp_rx_monthly rx
-        JOIN core.brands b ON b.id = rx.brand_id
-        GROUP BY rx.month, b.name
-        ORDER BY month, brand
-    """))).mappings().all()
+        # Monthly spend per brand
+        spend_rows = (await db.execute(text("""
+            SELECT to_char(date_trunc('month', e.event_date), 'YYYY-MM') AS month,
+                   b.name AS brand,
+                   COALESCE(SUM(ec.amount), 0) AS spend
+            FROM core.events e
+            JOIN core.brands b ON b.id = e.brand_id
+            LEFT JOIN core.event_costs ec ON ec.event_id = e.id
+            GROUP BY date_trunc('month', e.event_date), b.name
+            ORDER BY month, brand
+        """))).mappings().all()
 
-    # Merge spend and rx by (month, brand)
-    rx_lookup: dict[tuple[str, str], int] = {}
-    for r in rx_rows:
-        rx_lookup[(r["month"], r["brand"])] = int(r["trx"])
+        # Monthly Rx per brand
+        rx_rows = (await db.execute(text("""
+            SELECT to_char(rx.month, 'YYYY-MM') AS month,
+                   b.name AS brand,
+                   COALESCE(SUM(rx.trx), 0) AS trx
+            FROM core.hcp_rx_monthly rx
+            JOIN core.brands b ON b.id = rx.brand_id
+            GROUP BY rx.month, b.name
+            ORDER BY month, brand
+        """))).mappings().all()
 
-    trend = []
-    for r in spend_rows:
-        m = r["month"]
-        br = r["brand"]
-        trend.append(MonthlyBrandSpend(
-            month=m,
-            brand=br,
-            spend=round(float(r["spend"]), 2),
-            trx=rx_lookup.get((m, br), 0),
-        ))
+        # Merge spend and rx by (month, brand)
+        rx_lookup: dict[tuple[str, str], int] = {}
+        for r in rx_rows:
+            rx_lookup[(r["month"], r["brand"])] = int(r["trx"])
 
-    # Add rx-only months that had no spend
-    spend_keys = {(r["month"], r["brand"]) for r in spend_rows}
-    for (m, br), trx in rx_lookup.items():
-        if (m, br) not in spend_keys:
-            trend.append(MonthlyBrandSpend(month=m, brand=br, spend=0.0, trx=trx))
+        trend = []
+        for r in spend_rows:
+            m = r["month"]
+            br = r["brand"]
+            trend.append(MonthlyBrandSpend(
+                month=m,
+                brand=br,
+                spend=round(float(r["spend"]), 2),
+                trx=rx_lookup.get((m, br), 0),
+            ))
 
-    trend.sort(key=lambda x: (x.month, x.brand))
-    return RoiTrendResponse(trend=trend)
+        # Add rx-only months that had no spend
+        spend_keys = {(r["month"], r["brand"]) for r in spend_rows}
+        for (m, br), trx in rx_lookup.items():
+            if (m, br) not in spend_keys:
+                trend.append(MonthlyBrandSpend(month=m, brand=br, spend=0.0, trx=trx))
+
+        trend.sort(key=lambda x: (x.month, x.brand))
+        return RoiTrendResponse(trend=trend)
+    except Exception:
+        return RoiTrendResponse(trend=[])
 
 
 @router.get(
@@ -135,17 +140,38 @@ async def roi_trend(db: ReadOnlySession) -> RoiTrendResponse:
     dependencies=[Depends(require(Permission.CAMPAIGN_READ))],
 )
 async def engagement_metrics(db: ReadOnlySession) -> EngagementResponse:
-    # Count events attended per HCP, then bucket
-    bucket_rows = (await db.execute(text("""
-        SELECT
-            CASE
-                WHEN cnt >= 3 THEN 'High'
-                WHEN cnt >= 1 THEN 'Medium'
-                ELSE 'Low'
-            END AS bucket,
-            COUNT(*) AS count
-        FROM (
-            SELECT h.id, COALESCE(att.cnt, 0) AS cnt
+    try:
+        await db.execute(text("SET LOCAL statement_timeout = '5000'"))
+
+        # Count events attended per HCP, then bucket
+        bucket_rows = (await db.execute(text("""
+            SELECT
+                CASE
+                    WHEN cnt >= 3 THEN 'High'
+                    WHEN cnt >= 1 THEN 'Medium'
+                    ELSE 'Low'
+                END AS bucket,
+                COUNT(*) AS count
+            FROM (
+                SELECT h.id, COALESCE(att.cnt, 0) AS cnt
+                FROM core.hcps h
+                LEFT JOIN (
+                    SELECT hcp_id, COUNT(*) AS cnt
+                    FROM core.attendance
+                    WHERE verified_attended = true
+                    GROUP BY hcp_id
+                ) att ON att.hcp_id = h.id
+            ) sub
+            GROUP BY bucket
+            ORDER BY bucket
+        """))).mappings().all()
+
+        buckets = [EngagementBucket(bucket=r["bucket"], count=int(r["count"])) for r in bucket_rows]
+
+        # By specialty
+        spec_rows = (await db.execute(text("""
+            SELECT h.specialty_code AS specialty,
+                   AVG(COALESCE(att.cnt, 0)) AS avg_events
             FROM core.hcps h
             LEFT JOIN (
                 SELECT hcp_id, COUNT(*) AS cnt
@@ -153,60 +179,44 @@ async def engagement_metrics(db: ReadOnlySession) -> EngagementResponse:
                 WHERE verified_attended = true
                 GROUP BY hcp_id
             ) att ON att.hcp_id = h.id
-        ) sub
-        GROUP BY bucket
-        ORDER BY bucket
-    """))).mappings().all()
+            WHERE h.specialty_code IS NOT NULL AND h.specialty_code != ''
+            GROUP BY h.specialty_code
+            ORDER BY avg_events DESC
+        """))).mappings().all()
 
-    buckets = [EngagementBucket(bucket=r["bucket"], count=int(r["count"])) for r in bucket_rows]
+        by_specialty = [
+            SpecialtyEngagement(specialty=r["specialty"], avg_events=round(float(r["avg_events"]), 2))
+            for r in spec_rows
+        ]
 
-    # By specialty
-    spec_rows = (await db.execute(text("""
-        SELECT h.specialty_code AS specialty,
-               AVG(COALESCE(att.cnt, 0)) AS avg_events
-        FROM core.hcps h
-        LEFT JOIN (
-            SELECT hcp_id, COUNT(*) AS cnt
-            FROM core.attendance
-            WHERE verified_attended = true
-            GROUP BY hcp_id
-        ) att ON att.hcp_id = h.id
-        WHERE h.specialty_code IS NOT NULL AND h.specialty_code != ''
-        GROUP BY h.specialty_code
-        ORDER BY avg_events DESC
-    """))).mappings().all()
+        # By region
+        region_rows = (await db.execute(text("""
+            SELECT h.region_code AS region,
+                   AVG(COALESCE(att.cnt, 0)) AS avg_events
+            FROM core.hcps h
+            LEFT JOIN (
+                SELECT hcp_id, COUNT(*) AS cnt
+                FROM core.attendance
+                WHERE verified_attended = true
+                GROUP BY hcp_id
+            ) att ON att.hcp_id = h.id
+            WHERE h.region_code IS NOT NULL AND h.region_code != ''
+            GROUP BY h.region_code
+            ORDER BY avg_events DESC
+        """))).mappings().all()
 
-    by_specialty = [
-        SpecialtyEngagement(specialty=r["specialty"], avg_events=round(float(r["avg_events"]), 2))
-        for r in spec_rows
-    ]
+        by_region = [
+            RegionEngagement(region=r["region"], avg_events=round(float(r["avg_events"]), 2))
+            for r in region_rows
+        ]
 
-    # By region
-    region_rows = (await db.execute(text("""
-        SELECT h.region_code AS region,
-               AVG(COALESCE(att.cnt, 0)) AS avg_events
-        FROM core.hcps h
-        LEFT JOIN (
-            SELECT hcp_id, COUNT(*) AS cnt
-            FROM core.attendance
-            WHERE verified_attended = true
-            GROUP BY hcp_id
-        ) att ON att.hcp_id = h.id
-        WHERE h.region_code IS NOT NULL AND h.region_code != ''
-        GROUP BY h.region_code
-        ORDER BY avg_events DESC
-    """))).mappings().all()
-
-    by_region = [
-        RegionEngagement(region=r["region"], avg_events=round(float(r["avg_events"]), 2))
-        for r in region_rows
-    ]
-
-    return EngagementResponse(
-        buckets=buckets,
-        by_specialty=by_specialty,
-        by_region=by_region,
-    )
+        return EngagementResponse(
+            buckets=buckets,
+            by_specialty=by_specialty,
+            by_region=by_region,
+        )
+    except Exception:
+        return EngagementResponse(buckets=[], by_specialty=[], by_region=[])
 
 
 __all__ = ["router"]

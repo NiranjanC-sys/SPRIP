@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { PageHeader } from "@/components/PageHeader";
 import { DataTable } from "@/components/DataTable";
@@ -104,12 +104,13 @@ export function CampaignsPage() {
   };
 
   // Sync initial data
-  const initialLoaded = data !== null;
-  if (initialLoaded && allItems.length === 0 && (data?.items.length ?? 0) > 0) {
-    setAllItems(data!.items);
-    setNextCursor(data!.nextCursor ?? undefined);
-    setTotal(data!.total);
-  }
+  useEffect(() => {
+    if (data && data.items.length > 0 && allItems.length === 0) {
+      setAllItems(data.items);
+      setNextCursor(data.nextCursor ?? undefined);
+      setTotal(data.total ?? data.items.length);
+    }
+  }, [data]);
 
   const items = allItems.length > 0 ? allItems : data?.items ?? [];
 

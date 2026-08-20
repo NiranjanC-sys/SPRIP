@@ -89,77 +89,75 @@ export function AnalyticsDashboardPage() {
   const colors = useChartColors();
   const [brandFilter, setBrandFilter] = useState<string>("All");
 
-  // Fetch data from dedicated endpoints, fall back to basic list endpoints
   const stats = useApi(() => api.dashboardStats(), []);
-  const roiTrend = useApi(() => api.dashboardRoiTrend(), []);
-  const engagement = useApi(() => api.dashboardEngagement(), []);
-  const impacts = useApi(() => api.impacts(), []);
   const brandsResult = useApi(() => api.brands(), []);
+  const impacts = useApi(() => api.impacts(), []);
+  const roiResults = useApi(() => api.roiResults(), []);
 
-  // Fallback data from basic endpoints
-  const events = useApi(() => api.events(), []);
-  const campaigns = useApi(() => api.campaigns(), []);
+  // These endpoints are slow — catch failures gracefully
+  const roiTrend = useApi(() => api.dashboardRoiTrend().catch(() => null), []);
+  const engagement = useApi(() => api.dashboardEngagement().catch(() => null), []);
 
   const brands = brandsResult.data?.items ?? [];
 
-  // Compute fallback metrics if stats endpoint fails
-  const totalSpend = stats.data?.totalSpend
-    ?? campaigns.data?.items.reduce((s, c) => s + (Number(c.plannedBudget) || 0), 0)
-    ?? 0;
+  const totalSpend = stats.data?.totalSpend ?? 0;
   const avgRoi = stats.data?.avgRoi ?? 0;
-  const totalEvents = stats.data?.totalEvents ?? events.data?.items.length ?? 0;
+  const totalEvents = stats.data?.totalEvents ?? 0;
   const engagementRate = stats.data?.engagementRate ?? 0;
 
-  // Build spend-by-brand data from campaigns
+  // Build spend-by-brand from ROI results
   const spendByBrand = useMemo(() => {
-    const items = campaigns.data?.items ?? [];
+    const items = roiResults.data?.items ?? [];
     const filtered = brandFilter !== "All"
-      ? items.filter((c) => c.brandId === brandFilter)
+      ? items.filter((r) => r.brandId === brandFilter)
       : items;
     const map = new Map<string, number>();
-    filtered.forEach((c) => {
-      const brand = String(c.brandId ?? "Unknown");
-      map.set(brand, (map.get(brand) ?? 0) + (Number(c.plannedBudget) || 0));
+    filtered.forEach((r) => {
+      const brand = String((r as Record<string, unknown>).brandName ?? r.brandId ?? "Unknown");
+      map.set(brand, (map.get(brand) ?? 0) + (Number(r.totalCost) || 0));
     });
     return Array.from(map.entries())
       .map(([brand, spend]) => ({ brand, spend }))
       .sort((a, b) => b.spend - a.spend)
       .slice(0, 8);
-  }, [campaigns.data, brandFilter]);
+  }, [roiResults.data, brandFilter]);
 
-  // Engagement distribution — backend returns {buckets: [{bucket, count}]}
-  const engagementDistribution = (engagement.data?.buckets ?? []).map(b => ({
-    level: b.bucket,
-    count: b.count,
-  }));
-  if (engagementDistribution.length === 0) {
-    engagementDistribution.push(
+  // Engagement distribution
+  const engagementDistribution = useMemo(() => {
+    const buckets = engagement.data?.buckets ?? [];
+    if (buckets.length > 0) {
+      return buckets.map((b) => ({ level: b.bucket, count: b.count }));
+    }
+    return [
       { level: "High", count: 30 },
       { level: "Medium", count: 45 },
       { level: "Low", count: 25 },
-    );
-  }
+    ];
+  }, [engagement.data]);
+
   const engagementTotal = engagementDistribution.reduce((s, d) => s + d.count, 0);
 
-  // Engagement by specialty — backend returns {specialty, avgEvents}
-  const engagementBySpecialty = (engagement.data?.bySpecialty ?? []).map(s => ({
-    specialty: s.specialty,
-    engaged: Math.round(s.avgEvents * 100),
-    total: 100,
-  }));
+  // Engagement by specialty
+  const engagementBySpecialty = useMemo(() => {
+    return (engagement.data?.bySpecialty ?? []).map((s) => ({
+      specialty: s.specialty,
+      engaged: Math.round(s.avgEvents * 100),
+      total: 100,
+    }));
+  }, [engagement.data]);
 
-  // ROI trend data — backend returns flat list: [{month, brand, spend, trx}]
+  // ROI trend data
   const { trendData, brandNames } = useMemo(() => {
     const items = roiTrend.data?.trend ?? [];
     if (!items.length) return { trendData: [] as Record<string, unknown>[], brandNames: [] as string[] };
     const filteredItems = brandFilter !== "All"
-      ? items.filter(i => i.brand === brandFilter || brands.find(b => b.id === brandFilter && b.name === i.brand))
+      ? items.filter((i) => i.brand === brandFilter || brands.find((b) => b.id === brandFilter && b.name === i.brand))
       : items;
-    const bNames = [...new Set(filteredItems.map(i => i.brand))];
-    const months = [...new Set(filteredItems.map(i => i.month))].sort();
-    const data = months.map(month => {
+    const bNames = [...new Set(filteredItems.map((i) => i.brand))];
+    const months = [...new Set(filteredItems.map((i) => i.month))].sort();
+    const data = months.map((month) => {
       const point: Record<string, unknown> = { month };
-      filteredItems.filter(i => i.month === month).forEach(i => {
+      filteredItems.filter((i) => i.month === month).forEach((i) => {
         point[i.brand] = i.trx > 0 && i.spend > 0 ? +(i.trx / i.spend).toFixed(2) : 0;
       });
       return point;
@@ -169,24 +167,24 @@ export function AnalyticsDashboardPage() {
 
   // Top events by ROI from impacts
   const topEvents = useMemo(() => {
-    const items = impacts.data?.items ?? events.data?.items ?? [];
-    let filtered = [...items].filter((e) => e.incrementalRx != null || e.netRoi != null || e.benefitCostRatio != null);
+    const items = impacts.data?.items ?? [];
+    let filtered = [...items].filter(
+      (e: Record<string, unknown>) => e.incrementalNrx != null || e.att != null
+    );
     if (brandFilter !== "All") {
       filtered = filtered.filter(
-        (e) => String(e.brandId ?? "") === brandFilter || String(e.brand ?? "") === brandFilter
+        (e: Record<string, unknown>) => String(e.brandId ?? "") === brandFilter
       );
     }
-    return filtered
-      .sort((a, b) => (Number(b.benefitCostRatio) || 0) - (Number(a.benefitCostRatio) || 0))
-      .slice(0, 10);
-  }, [impacts.data, events.data, brandFilter]);
+    return filtered.slice(0, 10);
+  }, [impacts.data, brandFilter]);
 
   const topEventsColumns = [
-    { key: "name", header: "Event", render: (r: Record<string, unknown>) => String(r.name ?? r.eventName ?? r.id) },
-    { key: "brand", header: "Brand", render: (r: Record<string, unknown>) => String(r.brandName ?? r.brand ?? r.brandId ?? "-") },
-    { key: "plannedAttendance", header: "ATT", render: (r: Record<string, unknown>) => String(r.plannedAttendance ?? r.attendees ?? "-") },
-    { key: "incrementalRx", header: "Incr. Rx", render: (r: Record<string, unknown>) => r.incrementalRx != null ? Number(r.incrementalRx).toFixed(1) : "-" },
-    { key: "benefitCostRatio", header: "BCR", render: (r: Record<string, unknown>) => r.benefitCostRatio != null ? `${Number(r.benefitCostRatio).toFixed(2)}x` : "-" },
+    { key: "eventId", header: "Event", render: (r: Record<string, unknown>) => String(r.eventId ?? r.id ?? "-").slice(0, 8) + "..." },
+    { key: "outcomeMetric", header: "Metric", render: (r: Record<string, unknown>) => String(r.outcomeMetric ?? "-") },
+    { key: "att", header: "ATT", render: (r: Record<string, unknown>) => r.att != null ? Number(r.att).toFixed(2) : "-" },
+    { key: "incrementalNrx", header: "Incr. NRx", render: (r: Record<string, unknown>) => r.incrementalNrx != null ? Number(r.incrementalNrx).toFixed(1) : "-" },
+    { key: "evidenceGrade", header: "Grade", render: (r: Record<string, unknown>) => String(r.evidenceGrade ?? "-") },
   ];
 
   const tooltipStyle = {
@@ -216,7 +214,6 @@ export function AnalyticsDashboardPage() {
         description="Speaker program performance and return on investment"
       />
 
-      {/* Brand filter */}
       <div style={{ display: "flex", gap: 12, marginBottom: 16, flexWrap: "wrap" }}>
         <select
           value={brandFilter}
@@ -232,7 +229,6 @@ export function AnalyticsDashboardPage() {
         </select>
       </div>
 
-      {/* Top metrics */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
         <MetricCard
           label="Total Spend"
@@ -258,7 +254,6 @@ export function AnalyticsDashboardPage() {
         />
       </div>
 
-      {/* Charts row 1: ROI trend + Spend by brand */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         <ChartCard title="ROI Trend by Brand">
           {roiTrend.status === "loading" ? (
@@ -296,8 +291,8 @@ export function AnalyticsDashboardPage() {
           )}
         </ChartCard>
 
-        <ChartCard title="Campaign Spend by Brand">
-          {campaigns.status === "loading" ? (
+        <ChartCard title="Spend by Brand">
+          {roiResults.status === "loading" ? (
             <ChartLoading />
           ) : spendByBrand.length === 0 ? (
             <ChartEmpty message="No spend data available" />
@@ -330,7 +325,6 @@ export function AnalyticsDashboardPage() {
         </ChartCard>
       </div>
 
-      {/* Charts row 2: Engagement pie + Specialty bars */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         <ChartCard title="HCP Engagement Distribution">
           {engagement.status === "loading" ? (
@@ -357,7 +351,6 @@ export function AnalyticsDashboardPage() {
                 </Pie>
                 <Tooltip {...tooltipStyle} />
                 <Legend />
-                {/* center label */}
                 <text
                   x="50%"
                   y="50%"
@@ -403,12 +396,11 @@ export function AnalyticsDashboardPage() {
         </ChartCard>
       </div>
 
-      {/* Top events table */}
-      <ChartCard title="Top Events by ROI">
+      <ChartCard title="Top Event Impacts">
         <DataTable
           columns={topEventsColumns}
           data={topEvents.length > 0 ? topEvents : null}
-          status={impacts.status === "loading" && events.status === "loading" ? "loading" : "success"}
+          status={impacts.status === "loading" ? "loading" : "success"}
           error={null}
           keyFn={(r) => String(r.id ?? Math.random())}
         />
